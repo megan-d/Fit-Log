@@ -1,2 +1,2 @@
-# Fit-Tracker
+# Fit-Log
 Fitness tracking application
