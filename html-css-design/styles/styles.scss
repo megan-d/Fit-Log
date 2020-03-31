@@ -1,18 +1,52 @@
 @import './header';
 @import './variables';
 
-* { 
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    background: linear-gradient(to right, #203A43, #316F81);
-    font-family: 'Poppins', sans-serif;
-    color: #F5F3F3;
+  background: linear-gradient(to right, #203a43, #316f81);
+  font-family: 'Poppins', sans-serif;
+  color: $primaryText;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+#logo-image {
+  width: 80px;
+  padding: 1rem;
+  margin-left: 4rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: space-around;
+  font-size: 0.85rem;
+}
+
+.nav-link a {
+  text-decoration: none;
+  padding: 2rem;
+  color: $primaryText;
+}
+
+.nav-link a:hover {
+  color: $primaryBtn;
 }
