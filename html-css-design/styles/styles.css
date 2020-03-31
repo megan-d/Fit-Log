@@ -10,9 +10,57 @@ html {
 }
 
 body {
-  background: -webkit-gradient(linear, left top, right top, from(#203A43), to(#316F81));
-  background: linear-gradient(to right, #203A43, #316F81);
+  background: -webkit-gradient(linear, left top, right top, from(#203a43), to(#316f81));
+  background: linear-gradient(to right, #203a43, #316f81);
   font-family: 'Poppins', sans-serif;
-  color: #F5F3F3;
+  color: #f5f3f3;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.logo-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#logo-image {
+  width: 80px;
+  padding: 1rem;
+  margin-left: 4rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: space-around;
+      -ms-flex-align: space-around;
+          align-items: space-around;
+  font-size: 0.85rem;
+}
+
+.nav-link a {
+  text-decoration: none;
+  padding: 2rem;
+  color: #f5f3f3;
+}
+
+.nav-link a:hover {
+  color: #ffc93c;
 }
 /*# sourceMappingURL=styles.css.map */
