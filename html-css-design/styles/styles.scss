@@ -16,39 +16,3 @@ body {
   font-family: 'Poppins', sans-serif;
   color: $primaryText;
 }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-
-#logo-image {
-  width: 80px;
-  padding: 1rem;
-  margin-left: 4rem;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: space-around;
-  font-size: 0.85rem;
-}
-
-.nav-link a {
-  text-decoration: none;
-  padding: 2rem;
-  color: $primaryText;
-}
-
-.nav-link a:hover {
-  color: $primaryBtn;
-}
-
-//MEDIA QUERIES
