@@ -7,12 +7,12 @@ header {
 .logo-container {
   display: flex;
   align-items: center;
+  margin-left: 80px;
 }
 
 #logo-image {
   width: 80px;
-  padding: 1rem;
-  margin-left: 4rem;
+  padding: 1rem 1rem 1rem 0;
 }
 
 .nav-links {
@@ -20,11 +20,12 @@ header {
   display: flex;
   align-items: space-around;
   font-size: 0.85rem;
+  margin-right: 80px;
 }
 
 .nav-link a {
   text-decoration: none;
-  padding: 2rem;
+  padding-left: 2rem;
   color: $primaryText;
 }
 
