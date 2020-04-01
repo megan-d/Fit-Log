@@ -39,7 +39,7 @@ header {
 
 .nav-link a {
   text-decoration: none;
-  padding-left: 2rem;
+  padding-left: 4rem;
   color: #f5f3f3;
 }
 
@@ -51,43 +51,42 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  padding: 0 80px;
+  padding: 0 0 0 80px;
 }
 
 .title-landing {
   color: #ff9a3c;
   font-weight: normal;
   font-size: 1.7rem;
+  padding-bottom: 2rem;
 }
 
 .subtitle-landing {
   font-weight: normal;
   font-size: 1.2rem;
+  padding-bottom: 2rem;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .button {
-  display: inline-block;
   background-color: #ffc93c;
   color: #f5f3f3;
   text-decoration: none;
   font-weight: bold;
   border-radius: 3px;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 1.4rem;
   font-size: 1.3rem;
-  width: 30%;
   max-width: 150px;
   text-align: center;
 }
@@ -109,25 +108,12 @@ header {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  max-width: 60vw;
 }
 
-.image-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+.image-running {
+  max-height: 80vh;
+  margin-right: 10vw;
 }
 
 * {
