@@ -1,33 +1,33 @@
 .landing-section {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-between;
   flex-grow: 1;
-  padding: 0 80px;
+  padding: 0 0 0 80px;
 }
 
 .title-landing {
   color: #ff9a3c;
   font-weight: normal;
   font-size: 1.7rem;
+  padding-bottom: 2rem;
 }
 
 .subtitle-landing {
   font-weight: normal;
   font-size: 1.2rem;
+  padding-bottom: 2rem;
+  flex-grow: 1;
 }
 
 .button {
-  display: inline-block;
   background-color: $primaryBtn;
   color: $primaryText;
   text-decoration: none;
   font-weight: bold;
   border-radius: 3px;
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 1.4rem;
   font-size: 1.3rem;
-  width: 30%;
   max-width: 150px;
   text-align: center;
 }
@@ -41,12 +41,10 @@
   flex-direction: column;
   align-self: center;
   align-items: flex-start;
+  max-width: 60vw;
 }
 
-.image-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  align-items: stretch;
-  justify-content: flex-end;
+.image-running {
+  max-height: 80vh;
+  margin-right: 10vw;
 }
