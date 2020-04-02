@@ -2,12 +2,13 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  margin-left: 80px;
 }
 
 #logo-image {
@@ -18,19 +19,25 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
-  align-items: space-around;
   font-size: 0.85rem;
-  margin-right: 80px;
 }
 
 .nav-link a {
   text-decoration: none;
-  padding-left: 4rem;
   color: $primaryText;
+  padding-left: 3rem;
 }
 
 .nav-link a:hover {
   color: $primaryBtn;
 }
 
-//MEDIA QUERIES
+//MEDIA QUERIES - Need to add hamburger menu
+@media only screen and (max-width: 620px) {
+  header {
+    width: 90%;
+  }
+  .nav-link a {
+    padding-left: 0.5rem;
+  }
+}
