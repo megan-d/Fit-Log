@@ -8,6 +8,8 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 .logo-container {
@@ -17,7 +19,6 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-left: 80px;
 }
 
 #logo-image {
@@ -30,21 +31,26 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: space-around;
-      -ms-flex-align: space-around;
-          align-items: space-around;
   font-size: 0.85rem;
-  margin-right: 80px;
 }
 
 .nav-link a {
   text-decoration: none;
-  padding-left: 4rem;
   color: #f5f3f3;
+  padding-left: 3rem;
 }
 
 .nav-link a:hover {
   color: #ffc93c;
+}
+
+@media only screen and (max-width: 620px) {
+  header {
+    width: 90%;
+  }
+  .nav-link a {
+    padding-left: 0.5rem;
+  }
 }
 
 .landing-section {
@@ -54,13 +60,9 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  padding: 0 0 0 80px;
+  min-height: 80vh;
+  width: 80%;
+  margin: auto;
 }
 
 .left-wrapper {
@@ -71,11 +73,13 @@ header {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  max-width: 60vw;
-  margin-top: 2rem;
+      -ms-flex: 1;
+          flex: 1;
+  width: 80%;
 }
 
 .left-wrapper .title-landing {
@@ -83,15 +87,11 @@ header {
   font-weight: normal;
   font-size: 2rem;
   padding-bottom: 2rem;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
 }
 
 .left-wrapper .subtitle-landing {
   font-weight: normal;
   font-size: 1.2rem;
-  padding-bottom: 2rem;
 }
 
 .left-wrapper .button {
@@ -104,18 +104,37 @@ header {
   font-size: 1.3rem;
   max-width: 150px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2rem;
 }
 
 .left-wrapper .image-line {
   width: 20rem;
   margin-top: 2rem;
-  margin-right: 100px;
 }
 
-.image-running {
-  width: 40%;
+.image-container img {
+  width: 40vw;
   max-height: 80vh;
-  margin-right: 10vw;
+}
+
+@media only screen and (max-width: 768px) {
+  .image-container {
+    display: none;
+  }
+  .left-wrapper {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    text-align: center;
+  }
+  .button,
+  .image-line {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    margin-right: 0px;
+  }
 }
 
 * {
