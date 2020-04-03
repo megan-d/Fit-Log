@@ -1,8 +1,8 @@
 @import './variables';
 @import './header';
+@import './footer';
 @import './landing';
 @import './about';
-@import './footer';
 
 * {
   margin: 0px;
@@ -11,14 +11,13 @@
 }
 
 html {
-  height: 100%;
-  width: 100%;
+  background-color: yellow;
 }
 
 body {
   background: linear-gradient(to right, #203a43, #316f81);
   font-family: 'Poppins', sans-serif;
   color: $primaryText;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
 }
