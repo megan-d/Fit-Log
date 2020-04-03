@@ -1,19 +1,20 @@
-.page-container {
-  min-height: 100vh;
+.body-grow {
   display: flex;
   flex-direction: column;
-  background: yellow;
 }
 
-.content-wrap {
-  flex: 1 0 auto;
+.my-container {
+  flex-grow: 1;
 }
 
 .main-about-content {
   width: 80%;
   margin: 0 auto;
   flex: 1 0 auto;
-  background: red;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  align-items: stretch;
 }
 
 .about-description {
