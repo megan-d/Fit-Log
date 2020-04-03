@@ -1,23 +1,5 @@
-.body-grow {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 .main-about-content {
   flex: 1 0 auto;
   width: 80%;
   margin: 0 auto;
-}
-
-.about-description {
-  h1 {
-    color: $highlightText;
-    font-weight: normal;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-  p {
-    font-size: 14px;
-  }
 }
