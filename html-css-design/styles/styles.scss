@@ -4,6 +4,8 @@
 @import './footer';
 @import './landing';
 @import './about';
+@import './contact';
+@import './login';
 
 * {
   margin: 0px;
@@ -28,6 +30,20 @@ body {
   height: 100%;
 }
 
+.button {
+  background-color: $primaryBtn;
+  color: $primaryText;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 0.3rem 1.4rem;
+  font-size: 1.3rem;
+  max-width: 150px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2rem;
+}
+
 .page-description {
   h1 {
     color: $highlightText;
@@ -37,5 +53,84 @@ body {
   }
   p {
     font-size: 14px;
+  }
+}
+
+.title-white {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.title-orange {
+  color: $highlightText;
+}
+
+.main-content {
+  @include flex-column;
+  justify-content: center;
+  flex: 1 0 auto;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-page-container {
+  @include flex-column;
+  align-items: center;
+}
+
+.form {
+  margin: 0 auto;
+  min-width: 400px;
+  @include flex-column;
+  align-items: center;
+}
+
+.form-container {
+  background-color: $darkText;
+  width: 100%;
+  height: 20vh;
+  border: 1px solid $primaryText;
+  border-radius: 5px;
+  color: $primaryText;
+  @include flex-column;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  width: 100%;
+  @include flex-column;
+
+  label {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  input {
+    font-family: 'Poppins', sans-serif;
+    background-color: #3d6874;
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 90%;
+  }
+}
+
+.form-button {
+  border: none;
+  padding: 0.3rem 2.3rem;
+}
+
+//MEDIA QUERIES
+@media only screen and (max-width: 768px) {
+  .button {
+    align-self: center;
+    margin-right: 0px;
+  }
+
+  .form {
+    min-width: 300px;
   }
 }
