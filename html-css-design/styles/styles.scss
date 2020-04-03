@@ -12,11 +12,13 @@
 
 html {
   height: 100%;
+  width: 100%;
 }
 
 body {
   background: linear-gradient(to right, #203a43, #316f81);
   font-family: 'Poppins', sans-serif;
   color: $primaryText;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
