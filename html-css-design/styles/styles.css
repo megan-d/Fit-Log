@@ -42,7 +42,7 @@ header {
 }
 
 .nav-link a:hover {
-  color: #ffc93c;
+  color: rgba(255, 201, 60, 0.9);
 }
 
 @media only screen and (max-width: 620px) {
@@ -95,7 +95,7 @@ header {
 }
 
 .footer-link:hover {
-  color: #ffc93c;
+  color: rgba(255, 201, 60, 0.9);
 }
 
 @media screen and (max-width: 620px) {
@@ -112,8 +112,26 @@ header {
       -ms-flex-align: center;
           align-items: center;
   min-height: 80vh;
-  width: 80%;
+  width: 100%;
   margin: auto;
+}
+
+.landing-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .left-wrapper {
@@ -145,20 +163,6 @@ header {
   font-size: 1.2rem;
 }
 
-.left-wrapper .button {
-  background-color: #ffc93c;
-  color: #f5f3f3;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 3px;
-  padding: 0.3rem 1.4rem;
-  font-size: 1.3rem;
-  max-width: 150px;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  margin-top: 2rem;
-}
-
 .left-wrapper .image-line {
   width: 20rem;
   margin-top: 2rem;
@@ -179,7 +183,6 @@ header {
             align-items: center;
     text-align: center;
   }
-  .button,
   .image-line {
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
@@ -227,6 +230,20 @@ body {
   height: 100%;
 }
 
+.button {
+  background-color: rgba(255, 201, 60, 0.9);
+  color: #f5f3f3;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 0.3rem 1.4rem;
+  font-size: 1.3rem;
+  max-width: 150px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 2rem;
+}
+
 .page-description h1 {
   color: #ff9a3c;
   font-weight: normal;
@@ -236,5 +253,124 @@ body {
 
 .page-description p {
   font-size: 14px;
+}
+
+.title-white {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.title-orange {
+  color: #ff9a3c;
+}
+
+.main-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-page-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form {
+  margin: 0 auto;
+  min-width: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form-container {
+  background-color: rgba(32, 58, 67, 0.65);
+  width: 100%;
+  height: 20vh;
+  border: 1px solid #f5f3f3;
+  border-radius: 5px;
+  color: #f5f3f3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.form-group label {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.form-group input {
+  font-family: 'Poppins', sans-serif;
+  background-color: #3d6874;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.form-button {
+  border: none;
+  padding: 0.3rem 2.3rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .button {
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    margin-right: 0px;
+  }
+  .form {
+    min-width: 300px;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

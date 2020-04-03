@@ -1,8 +1,16 @@
 .landing-section {
   @include flex-alignItems-center;
   min-height: 80vh;
-  width: 80%;
+  width: 100%;
   margin: auto;
+}
+
+.landing-content {
+  @include flex-column;
+  justify-content: center;
+  flex: 1 0 auto;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .left-wrapper {
@@ -21,20 +29,6 @@
   .subtitle-landing {
     font-weight: normal;
     font-size: 1.2rem;
-  }
-
-  .button {
-    background-color: $primaryBtn;
-    color: $primaryText;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 3px;
-    padding: 0.3rem 1.4rem;
-    font-size: 1.3rem;
-    max-width: 150px;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    margin-top: 2rem;
   }
 
   .image-line {
@@ -59,7 +53,6 @@
     text-align: center;
   }
 
-  .button,
   .image-line {
     align-self: center;
     margin-right: 0px;
