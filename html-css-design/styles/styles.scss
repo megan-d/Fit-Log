@@ -1,4 +1,5 @@
 @import './variables';
+@import './mixins';
 @import './header';
 @import './footer';
 @import './landing';
@@ -20,4 +21,21 @@ body {
   color: $primaryText;
   height: 100%;
   width: 100%;
+}
+
+.body-grow {
+  @include flex-column;
+  height: 100%;
+}
+
+.page-description {
+  h1 {
+    color: $highlightText;
+    font-weight: normal;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  p {
+    font-size: 14px;
+  }
 }

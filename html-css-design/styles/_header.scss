@@ -1,15 +1,13 @@
 header {
-  display: flex;
+  @include flex-alignItems-center;
   justify-content: space-between;
-  align-items: center;
   width: 80%;
   margin: auto;
   height: 10vh;
 }
 
 .logo-container {
-  display: flex;
-  align-items: center;
+  @include flex-alignItems-center;
 }
 
 #logo-image {
