@@ -89,12 +89,14 @@ body {
 .form-container {
   background-color: $darkText;
   width: 100%;
-  height: 20vh;
+  min-height: 150px;
   border: 1px solid $primaryText;
   border-radius: 5px;
   color: $primaryText;
   @include flex-column;
   justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .form-group {
@@ -113,7 +115,7 @@ body {
     border: none;
     height: 30px;
     border-radius: 5px;
-    margin: 0 auto;
+    margin: 1rem auto;
     width: 90%;
   }
 }
@@ -121,6 +123,10 @@ body {
 .form-button {
   border: none;
   padding: 0.3rem 2.3rem;
+}
+
+.email {
+  padding-top: 0.8rem;
 }
 
 //MEDIA QUERIES

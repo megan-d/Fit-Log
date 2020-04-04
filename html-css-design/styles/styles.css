@@ -314,7 +314,7 @@ body {
 .form-container {
   background-color: rgba(32, 58, 67, 0.65);
   width: 100%;
-  height: 20vh;
+  min-height: 150px;
   border: 1px solid #f5f3f3;
   border-radius: 5px;
   color: #f5f3f3;
@@ -328,6 +328,10 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 2rem;
 }
 
 .form-group {
@@ -353,13 +357,17 @@ body {
   border: none;
   height: 30px;
   border-radius: 5px;
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 90%;
 }
 
 .form-button {
   border: none;
   padding: 0.3rem 2.3rem;
+}
+
+.email {
+  padding-top: 0.8rem;
 }
 
 @media only screen and (max-width: 768px) {
