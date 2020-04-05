@@ -45,21 +45,23 @@ body {
 }
 
 .page-description {
-  h1 {
-    color: $highlightText;
-    font-weight: normal;
-    font-size: 1.5rem;
-    text-align: center;
-  }
   p {
     font-size: 14px;
   }
 }
 
 .title-white {
+  font-weight: normal;
+  font-size: 1.8rem;
+  text-align: center;
+  color: $primaryText;
+}
+
+.title-white-bold {
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
+  color: $primaryText;
 }
 
 .title-orange {
@@ -97,12 +99,14 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  padding: 0.7rem 0;
 }
 
 .form-group {
   display: flex;
   width: 100%;
   @include flex-column;
+  padding: 0.8rem 0;
 
   label {
     width: 90%;
@@ -115,18 +119,34 @@ body {
     border: none;
     height: 30px;
     border-radius: 5px;
-    margin: 1rem auto;
+    margin: 0 auto;
     width: 90%;
+    color: $primaryText;
+    font-size: 14px;
+  }
+
+  input:focus,
+  textarea:focus {
+    border: 1px solid $primaryText;
+    outline: $primaryText;
+  }
+
+  textarea {
+    resize: none;
+    font-family: 'Poppins', sans-serif;
+    background-color: #3d6874;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 90%;
+    color: $primaryText;
+    font-size: 14px;
   }
 }
 
 .form-button {
   border: none;
   padding: 0.3rem 2.3rem;
-}
-
-.email {
-  padding-top: 0.8rem;
 }
 
 //MEDIA QUERIES
