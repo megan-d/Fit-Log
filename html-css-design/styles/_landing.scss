@@ -1,40 +1,18 @@
-.landing-section {
-  @include flex-alignItems-center;
-  min-height: 80vh;
-  width: 100%;
-  margin: auto;
+.left-wrapper .title-landing {
+  color: $highlightText;
+  font-weight: normal;
+  font-size: 1.9rem;
+  padding-bottom: 2rem;
 }
 
-.landing-content {
-  @include flex-column;
-  justify-content: center;
-  flex: 1 0 auto;
-  width: 80%;
-  margin: 0 auto;
+.left-wrapper .subtitle-landing {
+  font-weight: normal;
+  font-size: 1.2rem;
 }
 
-.left-wrapper {
-  @include flex-column;
-  justify-content: center;
-  flex: 1;
-  width: 80%;
-
-  .title-landing {
-    color: $highlightText;
-    font-weight: normal;
-    font-size: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .subtitle-landing {
-    font-weight: normal;
-    font-size: 1.2rem;
-  }
-
-  .image-line {
-    width: 20rem;
-    margin-top: 2rem;
-  }
+.left-wrapper .image-line {
+  width: 20rem;
+  margin-top: 2rem;
 }
 
 .image-container img {
