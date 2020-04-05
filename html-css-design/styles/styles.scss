@@ -42,11 +42,15 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   margin-top: 2rem;
+  cursor: pointer;
 }
 
 .page-description {
+  margin-bottom: 3rem;
   p {
     font-size: 14px;
+    padding: 0.8rem;
+    line-height: 25px;
   }
 }
 

@@ -22,9 +22,14 @@ header {
           align-items: center;
 }
 
-#logo-image {
+.logo-container img {
   width: 80px;
   padding: 1rem 1rem 1rem 0;
+}
+
+.logo-container h1 a {
+  text-decoration: none;
+  color: #f5f3f3;
 }
 
 .nav-links {
@@ -238,10 +243,17 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   margin-top: 2rem;
+  cursor: pointer;
+}
+
+.page-description {
+  margin-bottom: 3rem;
 }
 
 .page-description p {
   font-size: 14px;
+  padding: 0.8rem;
+  line-height: 25px;
 }
 
 .title-white {
@@ -309,7 +321,7 @@ body {
 }
 
 .form-container {
-  background-color: rgba(32, 58, 67, 0.65);
+  background-color: #203a43;
   width: 100%;
   min-height: 150px;
   border: 1px solid #f5f3f3;
