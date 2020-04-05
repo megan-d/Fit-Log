@@ -1,0 +1,39 @@
+.form-right {
+  margin: 0;
+  min-width: 400px;
+  @include flex-column;
+  align-items: center;
+}
+
+.main-section-signup {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 80vh;
+  width: 100%;
+  margin: auto;
+}
+
+.form-container-signup {
+  background-color: $darkText;
+  width: 100%;
+  min-height: 150px;
+  border: 1px solid $primaryText;
+  border-radius: 5px;
+  color: $primaryText;
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.7rem 0;
+}
+
+//MEDIA QUERIES
+@media only screen and (max-width: 935px) {
+  .form {
+    min-width: 300px;
+  }
+
+  .main-section-signup {
+    flex-direction: column;
+  }
+}
