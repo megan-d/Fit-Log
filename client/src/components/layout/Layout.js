@@ -4,11 +4,11 @@ import Footer from './Footer';
 
 const Layout = (props) => {
   return (
-    <Fragment>
+    <div className="body-grow">
       <Navbar />
-      {/* {this.props.children} */}
+      {props.children}
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 
