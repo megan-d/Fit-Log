@@ -6,7 +6,9 @@ import './App.css';
 function App() {
   return (
     <Router>
-      < Navbar />
+      <Fragment >
+        < Navbar />
+      </Fragment>
     </Router>
   );
 }
