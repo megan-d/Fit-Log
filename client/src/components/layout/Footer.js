@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const Footer = (props) => {
   return (
-    <footer class='footer'>
-      <nav class='footer-nav'>
+    <footer className='footer'>
+      <nav className='footer-nav'>
         <ul>
           <li className='footer-item'>
             <Link className='footer-link' to='/about'>
@@ -17,14 +17,14 @@ const Footer = (props) => {
             </Link>
           </li>
           <li className='footer-item'>
-            <Link className='footer-link' to='https://www.twitter.com'>
+            <a className='footer-link' href='https://www.twitter.com'>
               Twitter
-            </Link>
+            </a>
           </li>
           <li className='footer-item'>
-            <Link className='footer-link' to='https://www.instagram.com'>
+            <a className='footer-link' href='https://www.instagram.com'>
               Instagram
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>

@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/Logo.svg';
 
-const Navbar = (props) => {
+const Navbar = () => {
     //Update so that you can use isSignedIn and based on that value update the navigation
     return(
         <header>
       <div className="logo-container">
         <img src={Logo} alt="logo" id="logo-image"/>
-        <h1><a href="#">Fit Ally</a></h1>
+        <h1><Link to="/">Fit Ally</Link></h1>
       </div>
 
       <nav>
