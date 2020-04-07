@@ -3,7 +3,6 @@
 @import './header';
 @import './footer';
 @import './landing';
-@import './about';
 @import './contact';
 @import './login';
 @import './signup';
@@ -48,6 +47,8 @@ body {
 
 .page-description {
   margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
   p {
     font-size: 14px;
     padding: 0.8rem;
@@ -60,6 +61,7 @@ body {
   font-size: 1.8rem;
   text-align: center;
   color: $primaryText;
+  justify-content: flex-start;
 }
 
 .title-white-bold {
@@ -98,6 +100,7 @@ body {
 .form-page-container {
   @include flex-column;
   align-items: center;
+  margin-top: 3rem;
 }
 
 .form {

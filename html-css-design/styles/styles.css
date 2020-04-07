@@ -40,13 +40,13 @@ header {
   font-size: 0.85rem;
 }
 
-.nav-link a {
+.nav-link {
   text-decoration: none;
   color: #f5f3f3;
   padding-left: 3rem;
 }
 
-.nav-link a:hover {
+.nav-link:hover {
   color: rgba(255, 201, 60, 0.9);
 }
 
@@ -151,6 +151,19 @@ header {
 
 .contact-form {
   width: 70%;
+}
+
+.no-account {
+  text-align: center;
+}
+
+.no-account p {
+  margin-top: 2rem;
+}
+
+.no-account a {
+  text-decoration: underline;
+  color: #f5f3f3;
 }
 
 .form-right {
@@ -265,6 +278,13 @@ body {
 
 .page-description {
   margin-bottom: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .page-description p {
@@ -278,6 +298,9 @@ body {
   font-size: 1.8rem;
   text-align: center;
   color: #f5f3f3;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .title-white-bold {
@@ -349,6 +372,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-top: 3rem;
 }
 
 .form {
