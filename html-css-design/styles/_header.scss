@@ -25,13 +25,13 @@ header {
   font-size: 0.85rem;
 }
 
-.nav-link a {
+.nav-link {
   text-decoration: none;
   color: $primaryText;
   padding-left: 3rem;
 }
 
-.nav-link a:hover {
+.nav-link:hover {
   color: $primaryBtn;
 }
 
