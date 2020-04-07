@@ -153,7 +153,8 @@ header {
   width: 70%;
 }
 
-.no-account {
+.no-account,
+.have-account {
   text-align: center;
 }
 
@@ -161,7 +162,8 @@ header {
   margin-top: 2rem;
 }
 
-.no-account a {
+.no-account a,
+.have-account a {
   text-decoration: underline;
   color: #f5f3f3;
 }
@@ -190,9 +192,9 @@ header {
   align-items: center;
   -ms-flex-pack: distribute;
   justify-content: space-around;
-  min-height: 80vh;
+  min-height: 70vh;
   width: 100%;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .form-container-signup {
@@ -464,9 +466,13 @@ body {
   border: none;
   border-radius: 5px;
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
   color: #f5f3f3;
   font-size: 14px;
+}
+
+.form-message {
+  display: block;
 }
 
 .form-button {
