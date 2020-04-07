@@ -54,7 +54,7 @@ header {
   header {
     width: 90%;
   }
-  .nav-link a {
+  .nav-link {
     padding-left: 0.5rem;
   }
 }
@@ -448,6 +448,7 @@ body {
   width: 90%;
   color: #f5f3f3;
   font-size: 14px;
+  width: 100%;
 }
 
 .form-group input:focus,
