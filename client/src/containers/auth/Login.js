@@ -9,25 +9,27 @@ const Login = () => {
       <div className='body-grow'>
         <Navbar />
         <div className='main-content'>
-      <div class="form-page-container">
-        <h1 class="title-white-bold">
-          Achieve Your <span class="title-orange">GOALS.</span>
+      <div className="form-page-container">
+        <h1 className="title-white-bold">
+          Achieve Your <span className="title-orange">GOALS.</span>
         </h1>
-        <form class="form" action="">
-          <div class="form-container">
-            <div class="form-group">
-              <label for="email">Email:</label>
+        <form className="form" action="">
+          <div className="form-container">
+            <div className="form-group">
+              <label>Email:
               <input type="email" name="email" placeholder="" required />
+              </label>
             </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
+            <div className="form-group">
+              <label>Password:
               <input type="password" name="password" placeholder="" required />
+              </label>
             </div>
           </div>
-          <input type="submit" value="Login" class="button form-button" />
+          <input type="submit" value="Login" className="button form-button" />
         </form>
       </div>
-      <div class="no-account">
+      <div className="no-account">
         <p>Don't have an account?</p>
         <Link to='/register'>
               Sign Up
