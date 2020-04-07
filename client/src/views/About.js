@@ -4,9 +4,6 @@ import Footer from '../components/layout/Footer';
 
 const About = () => {
   return (
-    <Fragment>
-      <div className='body-grow'>
-        <Navbar />
         <div className='main-content'>
           <div className='page-description'>
             <h1 className='title-white'>About Us</h1>
@@ -58,9 +55,6 @@ const About = () => {
             </p>
           </div>
         </div>
-        <Footer />
-      </div>
-    </Fragment>
   );
 };
 

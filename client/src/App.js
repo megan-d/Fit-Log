@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/layout/Layout';
 import About from './views/About';
+import Contact from './containers/Contact';
 import Landing from './views/Landing';
 import Login from './containers/auth/Login';
+import Register from './containers/auth/Register';
 import Error from './views/Error';
 
 import './App.css';
@@ -10,12 +13,17 @@ import './App.css';
 function App() {
   return (
     <Router >
-          <Switch >
+      <Layout >
+      <Switch >
             <Route path="/" component={Landing} exact />
             <Route path="/about" component={About} exact />
+            <Route path="/contact" component={Contact} exact />
             <Route path="/login" component={Login} exact />
+            <Route path="/register" component={Register} exact />
             <Route path="" component={Error} />
           </Switch>
+      </Layout>
+          
     </Router>
   );
 }

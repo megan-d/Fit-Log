@@ -6,9 +6,6 @@ import Line from '../assets/images/Line.svg';
 const Landing = () => {
   //Need to figure out how to not display footer on landing page
   return (
-    <Fragment>
-      
-      < Navbar />
       <div className='main-content'>
       <section className='main-section'>
         <div className='left-wrapper'>
@@ -28,7 +25,6 @@ const Landing = () => {
         </div>
       </section>
     </div>
-    </Fragment>
     
   );
 };
