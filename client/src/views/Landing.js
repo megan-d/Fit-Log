@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import Navbar from '../components/layout/Navbar';
+import React from 'react';
 import Runner from '../assets/images/lady-running-cover.svg';
 import Line from '../assets/images/Line.svg';
 
