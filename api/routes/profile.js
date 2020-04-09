@@ -26,15 +26,16 @@ const Profile = require('../models/Profile');
 
 
 
-//ROUTE: POST api/profile/activity
-//DESCRIPTION: Create or update activity
+//ROUTE: PUT api/profile/activity
+//DESCRIPTION: Add activity
 //ACCESS LEVEL: Private
 
 
 
-//ROUTE: POST api/profile/goals
-//DESCRIPTION: Create or update goals
+//ROUTE: DELETE api/profile/activity/:activity_id
+//DESCRIPTION: Delete activity
 //ACCESS LEVEL: Private
+
 
 
 
