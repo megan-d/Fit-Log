@@ -54,7 +54,7 @@ const profileSchema = new Schema({
   calories: [
       {
           consumed: {
-              type: Number
+              type: Number,
           }
       }
   ]
