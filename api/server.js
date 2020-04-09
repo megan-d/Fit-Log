@@ -3,9 +3,16 @@ const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+//Import routes
+const auth = require('./routes/auth');
+const users = require('./routes/users');
+const profile = require('./routes/profile');
 
 dotenv.config();
 const app = express();
+
+
+
 
 //Connect to Database. Dotenv npm package gives access to .env
 const connectDatabase = async () => {
@@ -30,9 +37,10 @@ app.get('/', async (req, res) => {
 });
 
 //Route middlewares
-app.use('/api/users', require('./routes/auth'));
-// app.use('/api/profile', require('./routes/profile'));
-// app.use('/api/register', require('./routes/register'));
+app.use('/api/auth', auth);
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+
 
 
 //Listen on port
