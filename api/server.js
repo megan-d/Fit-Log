@@ -42,6 +42,5 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 
 
-
 //Listen on port
 app.listen(port, () => console.log(`App is listening on port ${port}`));
