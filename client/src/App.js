@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import About from './views/About';
-import Contact from './containers/Contact';
+import Contact from './components/Contact';
 import Landing from './views/Landing';
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
+import CreateProfile from './components/CreateProfile';
 import Error from './views/Error';
 
 import './App.css';
@@ -20,6 +21,7 @@ function App() {
             <Route path="/contact" component={Contact} exact />
             <Route path="/login" component={Login} exact />
             <Route path="/register" component={Register} exact />
+            <Route path="/profile" component={CreateProfile} exact />
             <Route path="" component={Error} />
           </Switch>
       </Layout>
