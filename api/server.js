@@ -3,13 +3,6 @@ const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-//this is the develop branch - updated
-//This branch is updated
-//Now i'm updating develop so I need to pull
-
-
-
-//Testing the git merge
 
 dotenv.config();
 const app = express();
@@ -37,8 +30,9 @@ app.get('/', async (req, res) => {
 });
 
 //Route middlewares
-app.use('/api/user', require('./routes/auth'));
-app.use('/api/posts', require('./routes/posts'));
+app.use('/api/users', require('./routes/auth'));
+// app.use('/api/profile', require('./routes/profile'));
+// app.use('/api/register', require('./routes/register'));
 
 
 //Listen on port
