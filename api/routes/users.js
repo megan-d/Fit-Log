@@ -55,11 +55,14 @@ router.post(
         const savedUser = await user.save();
   
         //Return Jsonwebtoken so have access upon registration
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-        //Set in header
-        res.header('X-auth-token', token).send(token);
+        jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
+          if(err) throw err;
+          res.json({token});
+        });
+        // //Set in header
+        // res.header('X-auth-token', token).send(token);
       } catch (err) {
-        res.status(400).send(err);
+        res.status(500).send('Server error');
       }
     },
   );
