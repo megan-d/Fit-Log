@@ -11,6 +11,9 @@ const Profile = require('../models/Profile');
 //ROUTE: GET api/profile/me
 //DESCRIPTION: Get current user's profile
 //ACCESS LEVEL: Private
+router.get('/me', verify, async(req, res) => {
+    res.send('Here is your profile...')
+});
 
 
 

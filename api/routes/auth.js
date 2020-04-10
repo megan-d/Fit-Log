@@ -14,11 +14,11 @@ router.get('/', (req, res) => {
   res.send('This is the auth route');
 });
 
-//ROUTE: POST api/user/login
+//ROUTE: POST api/auth
 //DESCRIPTION: Authenticate user and get token (login existing user)
 //ACCESS LEVEL: Public (make request so can get access to private routes)
 router.post(
-  '/login',
+  '/',
   [
     //Use express-validator to validate the inputs
     check('email', 'Please provide a valid email').isEmail(),

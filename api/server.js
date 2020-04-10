@@ -37,9 +37,12 @@ app.get('/', async (req, res) => {
 });
 
 //Route middlewares
-app.use('/api/auth', auth);
-app.use('/api/users', users);
-app.use('/api/profile', profile);
+    //Authenticate user and get token
+    app.use('/api/auth', auth);
+    //Register new user 
+    app.use('/api/users', users);
+    //Create, update, and delete profile. Add activity to profile.
+    app.use('/api/profile', profile);
 
 
 //Listen on port
