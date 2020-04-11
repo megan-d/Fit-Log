@@ -50,9 +50,10 @@ router.post(
       }
 
       //If user exists in database and password matches email, create and assign a jsonwebtoken
-      const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-      //Set in header
-      res.header('X-auth-token', token).send(token);
+      jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
+        if(err) throw err;
+        res.json({token});
+      });
     } catch (err) {
       res.status(400).send(err);
     }
