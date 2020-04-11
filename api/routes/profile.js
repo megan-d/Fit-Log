@@ -12,7 +12,22 @@ const Profile = require('../models/Profile');
 //DESCRIPTION: Get current user's profile
 //ACCESS LEVEL: Private
 router.get('/me', verify, async(req, res) => {
-    res.send('Here is your profile...')
+    
+    try {
+        //Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
+        const profile = await (await Profile.findOne({ user: req.user._id })).populate('User', 'name');
+        console.log(req.user._id);
+        //If there is no profile, return an error
+        if(!profile) {
+            return res.status(400).json({ msg: "There is no profile available for this user." })
+        }
+        //If there is a profile, send that profile
+        res.json(profile);
+
+    } catch(err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
 });
 
 
