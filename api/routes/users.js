@@ -15,7 +15,7 @@ router.post(
     '/',
     [
       //Use express-validator to validate the inputs
-      check('name', 'Please provide name').notEmpty(),
+      check('name', 'Please provide name').not().isEmpty(),
       check('email', 'Please provide a valid email').isEmail(),
       check(
         'password',
@@ -52,10 +52,17 @@ router.post(
         });
   
         //Save user to database
-        const savedUser = await user.save();
+        await user.save();
+
+        //Add user ID to payload so it comes in with token
+        const payload = {
+          user: {
+            id: user.id
+          }
+        }
   
         //Return Jsonwebtoken so have access upon registration
-        jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
+        jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
           if(err) throw err;
           res.json({token});
         });
