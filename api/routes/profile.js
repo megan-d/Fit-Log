@@ -15,8 +15,8 @@ router.get('/me', verify, async(req, res) => {
     
     try {
         //Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
-        const profile = await (await Profile.findOne({ user: req.user._id })).populate('User', 'name');
-        console.log(req.user._id);
+        const profile = await (await Profile.findOne({ user: req.user.id })).populate('User', 'name');
+        console.log(req.user.id);
         //If there is no profile, return an error
         if(!profile) {
             return res.status(400).json({ msg: "There is no profile available for this user." })
@@ -35,7 +35,28 @@ router.get('/me', verify, async(req, res) => {
 //ROUTE: POST api/profile
 //DESCRIPTION: Create or update a user profile
 //ACCESS LEVEL: Private
+router.post('/', [ verify, [ 
+    //User express validator to validate required inputs
+    check('weight', 'Please provide a numeric weight in pounds.').isNumeric().not().isEmpty(),
+    check('height', 'Please provide a numeric height in inches.').isNumeric().not().isEmpty(),
+    check('goalWeight', 'Goal weight must be a number.').isNumeric(),
+    check('goalDailyCalories', 'Goal calories must be a number.').isNumeric(),
+    check('goalDays', 'Goal days must be a number.').isNumeric(),
+    ]
+], async (req, res) => {
+    //Add in logic for express validator error check
 
+    //Pull all of the fields out into variables from req.body
+    
+    //Once all fields are prepared, update and populate the data
+    try {
+
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+)
 
 
 //ROUTE: DELETE api/profile

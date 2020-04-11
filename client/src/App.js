@@ -21,7 +21,7 @@ function App() {
           <Route path="/contact" component={Contact} exact />
           <Route path="/login" component={Login} exact />
           <Route path="/register" component={Register} exact />
-          <Route path="/profile" component={CreateProfile} exact />
+          <Route path="/createprofile" component={CreateProfile} exact />
           <Route path="" component={Error} />
         </Switch>
       </Layout>

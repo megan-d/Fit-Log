@@ -21,12 +21,12 @@ const profileSchema = new Schema({
   goalWeight: {
     type: Number,
   },
-  goalDays: {
-    type: Number,
-  },
   goalDailyCalories: {
     type: Number,
     default: 2000
+  },
+  goalDays: {
+    type: Number,
   },
   caloriesConsumedToday: {
     //This will need to reset every day
