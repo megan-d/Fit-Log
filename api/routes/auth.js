@@ -50,7 +50,15 @@ router.post(
       }
 
       //If user exists in database and password matches email, create and assign a jsonwebtoken
-      jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
+
+      //Add user ID to payload so it comes in with token
+      const payload = {
+        user: {
+          id: user.id
+        }
+      }
+      
+      jwt.sign(payload, process.env.TOKEN_SECRET, { expiresIn:  '1h'}, (err, token) => {
         if(err) throw err;
         res.json({token});
       });

@@ -45,11 +45,65 @@ router.post('/', [ verify, [
     ]
 ], async (req, res) => {
     //Add in logic for express validator error check
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
-    //Pull all of the fields out into variables from req.body
+    //Pull all of the fields out into variables from req.body. Don't include activities.
+    const {
+        weight,
+        height,
+        goalWeight,
+        goalDailyCalories,
+        goalDays,
+        caloriesConsumedToday,
+        caloriesRemainingToday
+    } = req.body;
+
+    //Build the profileItems object. If the value is there, add it to the profileItems object.
+    const profileItems = {};
+    profileItems.user = req.user.id;
+    if(weight) {
+        profileItems.weight = weight;
+    }
+    if(height) {
+        profileItems.weight = weight;
+    }
+    if(weight) {
+        //need to see how to make this work when updating
+        profileItems.bmi = (weight / (height * height)) * 703;
+    }
+    if(goalWeight) {
+        profileItems.goalWeight = goalWeight;
+    }
+    if(goalDailyCalories) {
+        profileItems.goalDailyCalories = goalDailyCalories;
+    }
+    if(goalDays) {
+        profileItems.goalDays = goalDays;
+    }
+    //Might need to move these somewhere else - unsure yet
+    if(caloriesConsumedToday > 0) {
+        profileItems.caloriesConsumedToday = caloriesConsumedToday;
+    }
+    if(goalDailyCalories && caloriesConsumedToday) {
+        profileItems.caloriesRemainingToday = caloriesRemainingToday;
+    }
     
     //Once all fields are prepared, update and populate the data
     try {
+        //Use findOne to find profile
+        let profile = await Profile.findOne({ user: req.user.id });
+
+        //If profile is found, update the new fields
+        if(profile) {
+            profile = await Profile.findOneAndUpdate(
+                {user: req.user.id},
+            )
+        }
+
+        //If profile isn't found, create a new one
 
     } catch(err) {
         console.error(err);
