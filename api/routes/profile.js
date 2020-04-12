@@ -120,7 +120,21 @@ router.post('/', [ verify, [
 //ROUTE: DELETE api/profile
 //DESCRIPTION: Delete profile and user
 //ACCESS LEVEL: Private
+router.delete('/', verify, async(req, res) => {
+    try{
+        //Find profile that corresponds to user id found in token and delete
+        await Profile.findOneAndRemove({ user: req.user.id });
 
+        //Find user that corresponds to user id found in token and delete
+        await User.findOneAndRemove({ _id: req.user.id });
+
+        res.json({ msg: 'This user and corresponding profile has been deleted.' });
+
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+})
 
 
 //ROUTE: PUT api/profile/activity
@@ -132,8 +146,6 @@ router.post('/', [ verify, [
 //ROUTE: DELETE api/profile/activity/:activity_id
 //DESCRIPTION: Delete activity
 //ACCESS LEVEL: Private
-
-
 
 
 
