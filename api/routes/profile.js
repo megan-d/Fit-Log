@@ -42,11 +42,9 @@ router.post(
     [
       //User express validator to validate required inputs
       check('weight', 'Please provide a numeric weight in pounds.')
-        .not()
-        .isEmpty(),
+        .isNumeric(),
       check('height', 'Please provide a numeric height in inches.')
-        .not()
-        .isEmpty()
+        .isNumeric()
     ]
   ],
   async (req, res) => {
@@ -146,30 +144,56 @@ router.delete('/', verify, async (req, res) => {
 //ROUTE: PUT api/profile/activity
 //DESCRIPTION: Add activity
 //ACCESS LEVEL: Private
-router.put('/activity', [verify, [
-    //User express validator to validate required inputs
-    check('duration', 'Please provide a duration in minutes.')
-    .not()
-    .isEmpty(),
-  check('category', 'Please select a category.')
-    .not()
-    .isEmpty()
-]], async (req, res) => {
-  //Add in logic for express validator error check
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-  //Pull all of the fields out into variables from req.body. 
-  const {
-    date,
-    duration,
-    category,
-    calories,
-    comments
-  } = req.body;
+router.put(
+  '/activity',
+  [
+    verify,
+    [
+      //User express validator to validate required inputs
+      check('duration', 'Please provide a numeric duration in minutes.')
+        .isNumeric(),
+      check('category', 'Please select a category.')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    //Add in logic for express validator error check
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    //Pull all of the fields out into variables from req.body.
+    const { date, duration, category, calories, comments } = req.body;
 
-});
+    //Create object for new activity
+    const newActivity = {
+      date,
+      duration,
+      category,
+      calories,
+      comments
+    };
+
+    try {
+      //Find profile of user that comes in with token
+      const profile = await Profile.findOne({ user: req.user.id });
+      //Need to perform calculation to calculate calories based on weight, category, and duration (need to research formula). Will need to check that inputs are numeric or will get error.
+        newActivity.calories = profile.weight * 2;
+
+      //Add into activities array for profile. Add to beginning so most recent activity is shown first.
+        profile.activities.unshift(newActivity);
+
+      //Save to database and send profile to front end
+      await profile.save();
+      res.json(profile);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
 
 //ROUTE: DELETE api/profile/activity/:activity_id
 //DESCRIPTION: Delete activity
