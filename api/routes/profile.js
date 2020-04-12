@@ -37,11 +37,8 @@ router.get('/me', verify, async(req, res) => {
 //ACCESS LEVEL: Private
 router.post('/', [ verify, [ 
     //User express validator to validate required inputs
-    check('weight', 'Please provide a numeric weight in pounds.').isNumeric().not().isEmpty(),
-    check('height', 'Please provide a numeric height in inches.').isNumeric().not().isEmpty(),
-    check('goalWeight', 'Goal weight must be a number.').isNumeric(),
-    check('goalDailyCalories', 'Goal calories must be a number.').isNumeric(),
-    check('goalDays', 'Goal days must be a number.').isNumeric(),
+    check('weight', 'Please provide a numeric weight in pounds.').not().isEmpty(),
+    check('height', 'Please provide a numeric height in inches.').not().isEmpty(),
     ]
 ], async (req, res) => {
     //Add in logic for express validator error check
@@ -68,11 +65,11 @@ router.post('/', [ verify, [
         profileItems.weight = weight;
     }
     if(height) {
-        profileItems.weight = weight;
+        profileItems.height = height;
     }
     if(weight) {
         //need to see how to make this work when updating
-        profileItems.bmi = (weight / (height * height)) * 703;
+        profileItems.bmi = ((weight / (height * height)) * 703).toFixed(1);
     }
     if(goalWeight) {
         profileItems.goalWeight = goalWeight;
@@ -100,11 +97,18 @@ router.post('/', [ verify, [
         if(profile) {
             profile = await Profile.findOneAndUpdate(
                 {user: req.user.id},
+                { $set: profileItems },
+                { new: true },
             )
+            //send back profile
+            return res.json(profile);
         }
-
         //If profile isn't found, create a new one
-
+        if(!profile) {
+            profile = await new Profile(profileItems);
+            await profile.save();
+            res.json(profile);
+;        }
     } catch(err) {
         console.error(err);
         res.status(500).send('Server Error');

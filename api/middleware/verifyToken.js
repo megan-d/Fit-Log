@@ -8,11 +8,10 @@ module.exports = function (req, res, next) {
     if(!token) {
         return res.status(401).json({ msg: 'Access denied' });
     }
-
     try {
         //If there is a token, verify the token
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = decoded;
+        req.user = decoded.user;
         next();
     } catch(err) {
         //If there is a token but it isn't valid, send error
