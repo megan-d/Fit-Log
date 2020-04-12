@@ -178,8 +178,22 @@ router.put(
     try {
       //Find profile of user that comes in with token
       const profile = await Profile.findOne({ user: req.user.id });
-      //Need to perform calculation to calculate calories based on weight, category, and duration (need to research formula). Will need to check that inputs are numeric or will get error.
-        newActivity.calories = profile.weight * 2;
+      //Need to perform calculation to calculate calories based on weight, category, and duration. Mets derived from acsm.org.
+      //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration; 
+        const mets = {
+            bicyclingLeisure: 6,
+            bicyclingVigorous: 10,
+            runningSlow: 8,
+            runningFast: 11.5,
+            swimming: 8,
+            walkingLeisure: 3,
+            walkingBrisk: 5,
+            hiking: 7,
+            nordicSkiing: 8,
+            tennis: 8,
+        }
+        const category = newActivity.category;
+        newActivity.calories = Math.round(mets[category] * 3.5 * (profile.weight / 2.2046) / 200 * newActivity.duration);
 
       //Add into activities array for profile. Add to beginning so most recent activity is shown first.
         profile.activities.unshift(newActivity);
@@ -196,7 +210,7 @@ router.put(
 );
 
 //ROUTE: DELETE api/profile/activity/:activity_id
-//DESCRIPTION: Delete activity
+//DESCRIPTION: Delete activity by id
 //ACCESS LEVEL: Private
 
 module.exports = router;
