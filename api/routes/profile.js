@@ -61,8 +61,7 @@ router.post(
       goalWeight,
       goalDailyCalories,
       goalDays,
-      caloriesConsumedToday,
-      caloriesRemainingToday
+      caloriesConsumedToday
     } = req.body;
 
     //Build the profileItems object. If the value is there, add it to the profileItems object.
@@ -90,10 +89,16 @@ router.post(
     //Might need to move these somewhere else - unsure yet
     if (caloriesConsumedToday > 0) {
       profileItems.caloriesConsumedToday = caloriesConsumedToday;
+      caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
+    profileItems.caloriesRemainingToday = caloriesRemainingToday;
     }
     if (goalDailyCalories && caloriesConsumedToday) {
-      profileItems.caloriesRemainingToday = caloriesRemainingToday;
+        caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
+        
+    } else {
+        caloriesRemainingToday = 2000 - caloriesConsumedToday;
     }
+    profileItems.caloriesRemainingToday = caloriesRemainingToday;
 
     //Once all fields are prepared, update and populate the data
     try {
