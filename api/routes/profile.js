@@ -210,7 +210,36 @@ router.put(
 );
 
 //ROUTE: DELETE api/profile/activity/:activity_id
-//DESCRIPTION: Delete activity by id
+//DESCRIPTION: Delete activity from profile by activity's id
 //ACCESS LEVEL: Private
+router.delete('/activity/:activity_id', verify, async (req, res) => {
+    try {
+        //Find profile based on the user id that comes in through the token
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //If profile is found, find the activity that matches the activity id from req.params and delete it
+    if(profile) {
+        //Remove the activity from the activities array where the index is equal to req.params.activity_id
+        const activities = profile.activities;
+        const activity = req.params.activity_id;
+        const activityIds = activities.map(el => el._id);
+        const index = activityIds.indexOf(activity);
+        if(index > -1) {
+            activities.splice(index, 1);
+    
+            //Update the profile record and save to database
+            profile.activities = activities;
+            await profile.save();
+            res.json(profile);
+        } else {
+            return res.status(500).send('There was an error processing this request.')
+        }
+        
+    }
+    } catch(err) {
+        console.error(err);
+        res.status(500).send('There was an error processing your request.');
+    }
+})
 
 module.exports = router;
