@@ -14,10 +14,8 @@ const Profile = require('../models/Profile');
 router.get('/me', verify, async (req, res) => {
   try {
     //Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
-    const profile = await (
-      await Profile.findOne({ user: req.user.id })
-    ).populate('User', 'name');
-    console.log(req.user.id);
+    const profile = await Profile.findOne({ user: req.user.id }).populate('User', 'name');
+    
     //If there is no profile, return an error
     if (!profile) {
       return res
@@ -35,17 +33,17 @@ router.get('/me', verify, async (req, res) => {
 //ROUTE: POST api/profile
 //DESCRIPTION: Create or update a user profile
 //ACCESS LEVEL: Private
+
+//*****WILL EITHER NEED TO UPDATE VALIDATION OR AUTO POPULATE WEIGHT AND HEIGHT INTO FORM WHEN UPDATING BECAUSE OTHERWISE GET AN ERROR IF DON'T PROVIDE WEIGHT AND HEIGHT WHEN UPDATING TOO
 router.post(
   '/',
   [
     verify,
     [
       //User express validator to validate required inputs
-      check('weight', 'Please provide a numeric weight in pounds.')
-        .isNumeric(),
-      check('height', 'Please provide a numeric height in inches.')
-        .isNumeric()
-    ]
+      check('weight', 'Please provide a numeric weight in pounds.').isNumeric(),
+      check('height', 'Please provide a numeric height in inches.').isNumeric(),
+    ],
   ],
   async (req, res) => {
     //Add in logic for express validator error check
@@ -61,7 +59,7 @@ router.post(
       goalWeight,
       goalDailyCalories,
       goalDays,
-      caloriesConsumedToday
+      caloriesConsumedToday,
     } = req.body;
 
     //Build the profileItems object. If the value is there, add it to the profileItems object.
@@ -87,30 +85,30 @@ router.post(
       profileItems.goalDays = goalDays;
     }
     //Might need to move these somewhere else - unsure yet
-    if (caloriesConsumedToday > 0) {
+    if (caloriesConsumedToday || caloriesConsumedToday === 0) {
       profileItems.caloriesConsumedToday = caloriesConsumedToday;
-      caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
-    profileItems.caloriesRemainingToday = caloriesRemainingToday;
     }
     if (goalDailyCalories && caloriesConsumedToday) {
-        caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
-        
-    } else {
-        caloriesRemainingToday = 2000 - caloriesConsumedToday;
-    }
-    profileItems.caloriesRemainingToday = caloriesRemainingToday;
+      profileItems.caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
+    } 
 
     //Once all fields are prepared, update and populate the data
     try {
       //Use findOne to find profile
       let profile = await Profile.findOne({ user: req.user.id });
 
+      //Set calories remaining once look up what's in profile (since have default value or user inputed value)
+      if(!profileItems.caloriesConsumedToday && profile.caloriesConsumedToday) {
+        profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
+      }
+      
+
       //If profile is found, update the new fields
       if (profile) {
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileItems },
-          { new: true }
+          { new: true },
         );
         //send back profile
         return res.json(profile);
@@ -125,7 +123,7 @@ router.post(
       console.error(err);
       res.status(500).send('Server Error');
     }
-  }
+  },
 );
 
 //ROUTE: DELETE api/profile
@@ -155,12 +153,14 @@ router.put(
     verify,
     [
       //User express validator to validate required inputs
-      check('duration', 'Please provide a numeric duration in minutes.')
-        .isNumeric(),
+      check(
+        'duration',
+        'Please provide a numeric duration in minutes.',
+      ).isNumeric(),
       check('category', 'Please select a category.')
         .not()
-        .isEmpty()
-    ]
+        .isEmpty(),
+    ],
   ],
   async (req, res) => {
     //Add in logic for express validator error check
@@ -177,74 +177,77 @@ router.put(
       duration,
       category,
       calories,
-      comments
+      comments,
     };
 
     try {
       //Find profile of user that comes in with token
       const profile = await Profile.findOne({ user: req.user.id });
       //Need to perform calculation to calculate calories based on weight, category, and duration. Mets derived from acsm.org.
-      //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration; 
-        const mets = {
-            bicyclingLeisure: 6,
-            bicyclingVigorous: 10,
-            runningSlow: 8,
-            runningFast: 11.5,
-            swimming: 8,
-            walkingLeisure: 3,
-            walkingBrisk: 5,
-            hiking: 7,
-            nordicSkiing: 8,
-            tennis: 8,
-        }
-        const category = newActivity.category;
-        newActivity.calories = Math.round(mets[category] * 3.5 * (profile.weight / 2.2046) / 200 * newActivity.duration);
+      //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration;
+      const mets = {
+        bicyclingLeisure: 6,
+        bicyclingVigorous: 10,
+        runningSlow: 8,
+        runningFast: 11.5,
+        swimming: 8,
+        walkingLeisure: 3,
+        walkingBrisk: 5,
+        hiking: 7,
+        nordicSkiing: 8,
+        tennis: 8,
+      };
+      const category = newActivity.category;
+      newActivity.calories = Math.round(
+        ((mets[category] * 3.5 * (profile.weight / 2.2046)) / 200) *
+          newActivity.duration,
+      );
 
       //Add into activities array for profile. Add to beginning so most recent activity is shown first.
-        profile.activities.unshift(newActivity);
+      profile.activities.unshift(newActivity);
 
       //Save to database and send profile to front end
       await profile.save();
       res.json(profile);
-
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-  }
+  },
 );
 
 //ROUTE: DELETE api/profile/activity/:activity_id
 //DESCRIPTION: Delete activity from profile by activity's id
 //ACCESS LEVEL: Private
 router.delete('/activity/:activity_id', verify, async (req, res) => {
-    try {
-        //Find profile based on the user id that comes in through the token
+  try {
+    //Find profile based on the user id that comes in through the token
     const profile = await Profile.findOne({ user: req.user.id });
 
     //If profile is found, find the activity that matches the activity id from req.params and delete it
-    if(profile) {
-        //Remove the activity from the activities array where the index is equal to req.params.activity_id
-        const activities = profile.activities;
-        const activity = req.params.activity_id;
-        const activityIds = activities.map(el => el._id);
-        const index = activityIds.indexOf(activity);
-        if(index > -1) {
-            activities.splice(index, 1);
-    
-            //Update the profile record and save to database
-            profile.activities = activities;
-            await profile.save();
-            res.json(profile);
-        } else {
-            return res.status(500).send('There was an error processing this request.')
-        }
-        
+    if (profile) {
+      //Remove the activity from the activities array where the index is equal to req.params.activity_id
+      const activities = profile.activities;
+      const activity = req.params.activity_id;
+      const activityIds = activities.map((el) => el._id);
+      const index = activityIds.indexOf(activity);
+      if (index > -1) {
+        activities.splice(index, 1);
+
+        //Update the profile record and save to database
+        profile.activities = activities;
+        await profile.save();
+        res.json(profile);
+      } else {
+        return res
+          .status(500)
+          .send('There was an error processing this request.');
+      }
     }
-    } catch(err) {
-        console.error(err);
-        res.status(500).send('There was an error processing your request.');
-    }
-})
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('There was an error processing your request.');
+  }
+});
 
 module.exports = router;
