@@ -14,8 +14,11 @@ const Profile = require('../models/Profile');
 router.get('/me', verify, async (req, res) => {
   try {
     //Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
-    const profile = await Profile.findOne({ user: req.user.id }).populate('User', 'name');
-    
+    const profile = await Profile.findOne({ user: req.user.id }).populate(
+      'User',
+      'name',
+    );
+
     //If there is no profile, return an error
     if (!profile) {
       return res
@@ -43,6 +46,7 @@ router.post(
       //User express validator to validate required inputs
       check('weight', 'Please provide a numeric weight in pounds.').isNumeric(),
       check('height', 'Please provide a numeric height in inches.').isNumeric(),
+      // check('goalDays', 'Please provide a number between 0 and 7').optional({ checkFalsy: true }).isInt({ min: 0, max: 7 })
     ],
   ],
   async (req, res) => {
@@ -52,14 +56,13 @@ router.post(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    //Pull all of the fields out into variables from req.body. Don't include activities.
+    //Pull all of the fields out into variables from req.body. Don't include activities or calories consumed today (user can update later).
     const {
       weight,
       height,
       goalWeight,
       goalDailyCalories,
       goalDays,
-      caloriesConsumedToday,
     } = req.body;
 
     //Build the profileItems object. If the value is there, add it to the profileItems object.
@@ -71,7 +74,7 @@ router.post(
     if (height) {
       profileItems.height = height;
     }
-    if (weight) {
+    if (weight && height) {
       //need to see how to make this work when updating
       profileItems.bmi = ((weight / (height * height)) * 703).toFixed(1);
     }
@@ -81,37 +84,21 @@ router.post(
     if (goalDailyCalories) {
       profileItems.goalDailyCalories = goalDailyCalories;
     }
-    if (goalDays) {
+    if (goalDays || goalDays === 0) {
       profileItems.goalDays = goalDays;
     }
-    //Might need to move these somewhere else - unsure yet
-    if (caloriesConsumedToday || caloriesConsumedToday === 0) {
-      profileItems.caloriesConsumedToday = caloriesConsumedToday;
-    }
-    if (goalDailyCalories && caloriesConsumedToday) {
-      profileItems.caloriesRemainingToday = goalDailyCalories - caloriesConsumedToday;
-    } 
 
     //Once all fields are prepared, update and populate the data
     try {
       //Use findOne to find profile
       let profile = await Profile.findOne({ user: req.user.id });
 
-      //Set calories remaining once look up what's in profile (since have default value or user inputed value)
-      if(!profileItems.caloriesConsumedToday && profile.caloriesConsumedToday) {
-        profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
-      }
-      
-
-      //If profile is found, update the new fields
+      //If profile is found, give error and suggest user updates profile
       if (profile) {
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileItems },
-          { new: true },
-        );
-        //send back profile
-        return res.json(profile);
+        return res.json({
+          msg:
+            'A profile already exists for this user. Please select edit profile from your dashboard to update your profile.',
+        });
       }
       //If profile isn't found, create a new one
       if (!profile) {
@@ -125,6 +112,93 @@ router.post(
     }
   },
 );
+
+//ROUTE: PUT api/profile
+//DESCRIPTION: Update a user profile
+//ACCESS LEVEL: Private
+
+router.put('/', verify, async (req, res) => {
+  //Pull all of the fields out into variables from req.body. Don't include activities.
+  const {
+    weight,
+    height,
+    goalWeight,
+    goalDailyCalories,
+    goalDays,
+    caloriesConsumedToday,
+  } = req.body;
+
+  //Build the profileItems object. If the value is there, add it to the profileItems object.
+  const profileItems = {};
+  profileItems.user = req.user.id;
+  if (weight) {
+    profileItems.weight = weight;
+  }
+  if (height) {
+    profileItems.height = height;
+  }
+  if (goalWeight) {
+    profileItems.goalWeight = goalWeight;
+  }
+  if (goalDailyCalories) {
+    profileItems.goalDailyCalories = goalDailyCalories;
+  }
+  if (goalDays) {
+    profileItems.goalDays = goalDays;
+  }
+  if (caloriesConsumedToday) {
+    profileItems.caloriesConsumedToday = caloriesConsumedToday;
+  }
+  if (goalDailyCalories && caloriesConsumedToday) {
+    profileItems.caloriesRemainingToday =
+      goalDailyCalories - caloriesConsumedToday;
+  }
+
+  //Once all fields are prepared, update and populate the data
+  try {
+    //Use findOne to find profile
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    //If profile isn't found, give error (this shouldn't happen though because they should be required to create one when they sign up.)
+    if (!profile) {
+      res.json({ msg: 'There is no profile available for this user.' });
+    }
+
+    //If there is a profile, set calories remaining once look up what's in profile (since have default value or user inputed value)
+    if (!profileItems.caloriesConsumedToday && profile.caloriesConsumedToday) {
+      profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
+    } 
+    if(!profileItems.goalDailyCalories && profile.goalDailyCalories) {
+      profileItems.goalDailyCalories = profile.goalDailyCalories;
+    } 
+    //Calculate calories remaining once have data from either profileItems or profile (or both)
+    profileItems.caloriesRemainingToday = profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
+    
+    //If there is a profile, set bmi remaining once look up what's in profile (since have default value or user inputed value)
+    if(!profileItems.weight) {
+      profileItems.weight = profile.weight;
+    }
+    if(!profileItems.height) {
+      profileItems.height = profile.height;
+    }
+    profileItems.bmi = ((profileItems.weight / (profileItems.height * profileItems.height)) * 703).toFixed(1);
+
+    //Update the new fields with data from profileItems
+    if (profile) {
+      profile = await Profile.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: profileItems },
+        { new: true },
+      );
+      //send back profile
+      return res.json(profile);
+    }
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
 
 //ROUTE: DELETE api/profile
 //DESCRIPTION: Delete profile and user
