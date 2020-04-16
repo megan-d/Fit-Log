@@ -13,16 +13,16 @@ import './styles/App.css';
 
 function App() {
   return (
-    <Router >
-      <Layout >
-        <Switch >
-          <Route path="/" component={Landing} exact />
-          <Route path="/about" component={About} exact />
-          <Route path="/contact" component={Contact} exact />
-          <Route path="/login" component={Login} exact />
-          <Route path="/register" component={Register} exact />
-          <Route path="/createprofile" component={CreateProfile} exact />
-          <Route path="" component={Error} />
+    <Router>
+      <Layout>
+        <Switch>
+          <Route path='/' component={Landing} exact />
+          <Route path='/about' component={About} exact />
+          <Route path='/contact' component={Contact} exact />
+          <Route path='/login' component={Login} exact />
+          <Route path='/register' component={Register} exact />
+          <Route path='/createprofile' component={CreateProfile} exact />
+          <Route path='' component={Error} />
         </Switch>
       </Layout>
     </Router>

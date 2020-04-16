@@ -2,38 +2,45 @@ import React from 'react';
 
 const Contact = () => {
   return (
-        <div className='main-content'>
-          <div className="form-page-container">
-            <h1 className="title-white">Contact Us</h1>
-        <form className="form contact-form" action="">
-          <div className="form-container">
-            <div className="form-group">
-              <label>Name:
-              <input type="text" name="name" placeholder="" required />
+    <div className='main-content'>
+      <div className='form-page-container'>
+        <h1 className='title-white'>Contact Us</h1>
+        <form className='form contact-form' action=''>
+          <div className='form-container'>
+            <div className='form-group'>
+              <label>
+                Name:
+                <input type='text' name='name' placeholder='' required />
               </label>
             </div>
-            <div className="form-group">
-              <label>Email:
-              <input type="email" name="email" placeholder="" required />
+            <div className='form-group'>
+              <label>
+                Email:
+                <input type='email' name='email' placeholder='' required />
               </label>
             </div>
-            <div className="form-group">
-              <label>Message:
-              <textarea
-                name="message"
-                rows="10"
-                cols="33"
-                className="form-message"
-                placeholder=""
-                required
-              />
+            <div className='form-group'>
+              <label>
+                Message:
+                <textarea
+                  name='message'
+                  rows='10'
+                  cols='33'
+                  className='form-message'
+                  placeholder=''
+                  required
+                />
               </label>
             </div>
           </div>
-          <input type="submit" value="Submit" className="button form-button" />
+          <input
+            type='submit'
+            value='Submit'
+            className='button form-button button-column'
+          />
         </form>
       </div>
-        </div>
+    </div>
   );
 };
 

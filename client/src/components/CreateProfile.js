@@ -44,7 +44,11 @@ const CreateProfile = () => {
               </label>
             </div>
           </div>
-          <input type='submit' value='Submit' className='button form-button' />
+          <input
+            type='submit'
+            value='Submit'
+            className='button form-button button-column'
+          />
         </form>
       </div>
     </div>
