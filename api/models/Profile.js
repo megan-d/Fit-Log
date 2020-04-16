@@ -27,6 +27,7 @@ const profileSchema = new Schema({
   },
   goalDays: {
     type: Number,
+    default: 4
   },
   caloriesConsumedToday: {
     //This will need to reset every day
