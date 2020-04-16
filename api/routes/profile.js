@@ -94,8 +94,10 @@ router.post(
     try {
       //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
       let user = await User.findOne({ _id: req.user.id });
-      if(!user) {
-        return res.json({ msg: 'You must be a currently registered user to create a profile.' })
+      if (!user) {
+        return res.json({
+          msg: 'You must be a currently registered user to create a profile.',
+        });
       }
 
       //Use findOne to find profile
@@ -143,13 +145,12 @@ router.put(
     ],
   ],
   async (req, res) => {
-    
     //Add in logic for express validator error check
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    
+
     try {
       //Use findOne to find profile
       let profile = await Profile.findOne({ user: req.user.id });
