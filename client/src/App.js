@@ -9,7 +9,7 @@ import Register from './containers/auth/Register';
 import CreateProfile from './components/CreateProfile';
 import Error from './views/Error';
 
-import './App.css';
+import './styles/App.css';
 
 function App() {
   return (
