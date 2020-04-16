@@ -46,7 +46,9 @@ router.post(
       //User express validator to validate required inputs
       check('weight', 'Please provide a numeric weight in pounds.').isNumeric(),
       check('height', 'Please provide a numeric height in inches.').isNumeric(),
-      // check('goalDays', 'Please provide a number between 0 and 7').optional({ checkFalsy: true }).isInt({ min: 0, max: 7 })
+      check('goalDays', 'Please provide a number between 0 and 7')
+        .optional({ checkFalsy: true })
+        .isInt({ min: 0, max: 7 }),
     ],
   ],
   async (req, res) => {
@@ -90,6 +92,12 @@ router.post(
 
     //Once all fields are prepared, update and populate the data
     try {
+      //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
+      let user = await User.findOne({ _id: req.user.id });
+      if(!user) {
+        return res.json({ msg: 'You must be a currently registered user to create a profile.' })
+      }
+
       //Use findOne to find profile
       let profile = await Profile.findOne({ user: req.user.id });
 
@@ -117,88 +125,107 @@ router.post(
 //DESCRIPTION: Update a user profile
 //ACCESS LEVEL: Private
 
-router.put('/', verify, async (req, res) => {
-  //Pull all of the fields out into variables from req.body. Don't include activities.
-  const {
-    weight,
-    height,
-    goalWeight,
-    goalDailyCalories,
-    goalDays,
-    caloriesConsumedToday,
-  } = req.body;
-
-  //Build the profileItems object. If the value is there, add it to the profileItems object.
-  const profileItems = {};
-  profileItems.user = req.user.id;
-  if (weight) {
-    profileItems.weight = weight;
-  }
-  if (height) {
-    profileItems.height = height;
-  }
-  if (goalWeight) {
-    profileItems.goalWeight = goalWeight;
-  }
-  if (goalDailyCalories) {
-    profileItems.goalDailyCalories = goalDailyCalories;
-  }
-  if (goalDays) {
-    profileItems.goalDays = goalDays;
-  }
-  if (caloriesConsumedToday) {
-    profileItems.caloriesConsumedToday = caloriesConsumedToday;
-  }
-  if (goalDailyCalories && caloriesConsumedToday) {
-    profileItems.caloriesRemainingToday =
-      goalDailyCalories - caloriesConsumedToday;
-  }
-
-  //Once all fields are prepared, update and populate the data
-  try {
-    //Use findOne to find profile
-    let profile = await Profile.findOne({ user: req.user.id });
-
-    //If profile isn't found, give error (this shouldn't happen though because they should be required to create one when they sign up.)
-    if (!profile) {
-      res.json({ msg: 'There is no profile available for this user.' });
-    }
-
-    //If there is a profile, set calories remaining once look up what's in profile (since have default value or user inputed value)
-    if (!profileItems.caloriesConsumedToday && profile.caloriesConsumedToday) {
-      profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
-    } 
-    if(!profileItems.goalDailyCalories && profile.goalDailyCalories) {
-      profileItems.goalDailyCalories = profile.goalDailyCalories;
-    } 
-    //Calculate calories remaining once have data from either profileItems or profile (or both)
-    profileItems.caloriesRemainingToday = profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
+router.put(
+  '/',
+  [
+    verify,
+    [
+      //User express validator to validate required inputs
+      check('weight', 'Please provide a numeric weight in pounds.')
+        .optional({ checkFalsy: true })
+        .isInt(),
+      check('height', 'Please provide a numeric height in inches.')
+        .optional({ checkFalsy: true })
+        .isInt(),
+      check('goalDays', 'Please provide a number between 0 and 7')
+        .optional({ checkFalsy: true })
+        .isInt({ min: 0, max: 7 }),
+    ],
+  ],
+  async (req, res) => {
     
-    //If there is a profile, set bmi remaining once look up what's in profile (since have default value or user inputed value)
-    if(!profileItems.weight) {
-      profileItems.weight = profile.weight;
-    }
-    if(!profileItems.height) {
-      profileItems.height = profile.height;
-    }
-    profileItems.bmi = ((profileItems.weight / (profileItems.height * profileItems.height)) * 703).toFixed(1);
-
-    //Update the new fields with data from profileItems
-    if (profile) {
-      profile = await Profile.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: profileItems },
-        { new: true },
-      );
-      //send back profile
-      return res.json(profile);
+    //Add in logic for express validator error check
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
     
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
-  }
-});
+    try {
+      //Use findOne to find profile
+      let profile = await Profile.findOne({ user: req.user.id });
+
+      //If profile isn't found, give error (this shouldn't happen though because they should be required to create one when they sign up.)
+      if (!profile) {
+        res.json({ msg: 'There is no profile available for this user.' });
+      }
+
+      //If there is a profile, update it based on data provided.
+      //Pull all of the fields out into variables from req.body. Don't include activities.
+      const {
+        weight,
+        height,
+        goalWeight,
+        goalDailyCalories,
+        goalDays,
+        caloriesConsumedToday,
+      } = req.body;
+
+      //Build the profileItems object. If the value is there, add it to the profileItems object.
+      const profileItems = {};
+      profileItems.user = req.user.id;
+      if (weight) {
+        profileItems.weight = weight;
+      } else {
+        profileItems.weight = profile.weight;
+      }
+      if (height) {
+        profileItems.height = height;
+      } else {
+        profileItems.height = profile.height;
+      }
+      if (goalWeight) {
+        profileItems.goalWeight = goalWeight;
+      }
+      if (goalDays || goalDays === 0) {
+        profileItems.goalDays = goalDays;
+      }
+      if (goalDailyCalories) {
+        profileItems.goalDailyCalories = goalDailyCalories;
+      } else {
+        profileItems.goalDailyCalories = profile.goalDailyCalories;
+      }
+      if (caloriesConsumedToday) {
+        profileItems.caloriesConsumedToday = caloriesConsumedToday;
+      } else {
+        profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
+      }
+
+      //Calculate calories remaining once have data from either profileItems or profile (or both)
+      profileItems.caloriesRemainingToday =
+        profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
+
+      //Set bmi remaining once look up what's in profile (since have default value or user inputed value)
+      profileItems.bmi = (
+        (profileItems.weight / (profileItems.height * profileItems.height)) *
+        703
+      ).toFixed(1);
+
+      //Update the new fields with data from profileItems
+      if (profile) {
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileItems },
+          { new: true },
+        );
+        //send back profile
+        return res.json(profile);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server Error');
+    }
+  },
+);
 
 //ROUTE: DELETE api/profile
 //DESCRIPTION: Delete profile and user
