@@ -148,11 +148,11 @@ router.put(
       //User express validator to validate required inputs
       check('weight', 'Please provide a numeric weight in pounds.')
         .optional({ checkFalsy: true })
-        .isInt()
+        .isNumeric()
         .trim(),
       check('height', 'Please provide a numeric height in inches.')
         .optional({ checkFalsy: true })
-        .isInt()
+        .isNumeric()
         .trim(),
       check('goalDays', 'Please provide a number between 0 and 7')
         .optional({ checkFalsy: true })
