@@ -22,7 +22,7 @@ router.post(
   [
     //Use express-validator to validate the inputs
     check('email', 'Please provide a valid email').isEmail().normalizeEmail(),
-    check('password', 'Password is required').exists(),
+    check('password', 'Password is required').not().isEmpty(),
   ],
   async (req, res) => {
     //If doesn't pass the above validation, respond witih error
