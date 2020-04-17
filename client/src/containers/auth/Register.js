@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
+  const [formData, updateFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  //Pull out variables from formData
+  const { name, email, password, confirmPassword } = formData;
+
+  //Function to update state on change and put into updateFormData variable
+  const onChange = (e) =>
+    updateFormData({ ...formData, [e.target.name]: e.target.value });
+
   return (
     <div className='main-content'>
       <div className='main-section-signup'>
@@ -14,13 +28,27 @@ const Register = () => {
             <div className='form-group'>
               <label>
                 Name:
-                <input type='text' name='name' placeholder='' required />
+                <input
+                  type='text'
+                  name='name'
+                  placeholder=''
+                  value={name}
+                  onChange={(e) => onChange(e)}
+                  required
+                />
               </label>
             </div>
             <div className='form-group'>
               <label>
                 Email:
-                <input type='email' name='email' placeholder='' required />
+                <input
+                  type='email'
+                  name='email'
+                  placeholder=''
+                  value={email}
+                  onChange={(e) => onChange(e)}
+                  required
+                />
               </label>
             </div>
             <div className='form-group'>
@@ -30,6 +58,8 @@ const Register = () => {
                   type='password'
                   name='password'
                   placeholder=''
+                  value={password}
+                  onChange={(e) => onChange(e)}
                   required
                 />
               </label>
@@ -37,7 +67,14 @@ const Register = () => {
             <div className='form-group'>
               <label>
                 Confirm Password:
-                <input type='password' name='confirm' placeholder='' required />
+                <input
+                  type='password'
+                  name='confirmPassword'
+                  placeholder=''
+                  value={confirmPassword}
+                  onChange={(e) => onChange(e)}
+                  required
+                />
               </label>
             </div>
           </div>
