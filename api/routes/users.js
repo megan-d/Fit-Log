@@ -15,8 +15,8 @@ router.post(
     '/',
     [
       //Use express-validator to validate the inputs
-      check('name', 'Please provide name').not().isEmpty(),
-      check('email', 'Please provide a valid email').isEmail(),
+      check('name', 'Please provide name').not().isEmpty().trim(),
+      check('email', 'Please provide a valid email').isEmail().normalizeEmail(),
       check(
         'password',
         'Please provide a password with 8 or more characters',
