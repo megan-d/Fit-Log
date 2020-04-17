@@ -4,7 +4,7 @@ const CreateProfile = () => {
   return (
     <div className='main-content'>
       <div className='form-page-container'>
-        <h1 className='title-white'>Create Your Fitness Profile</h1>
+        <h1 className='title-white-bold'>Create Your Fitness Profile</h1>
         <form className='form contact-form' action=''>
           <div className='form-container'>
             <div className='form-group'>
@@ -39,7 +39,7 @@ const CreateProfile = () => {
             </div>
             <div className='form-group'>
               <label>
-                How many days per week is your exercise goal?
+                How many days per week is your exercise goal (0-7)?
                 <input type='number' name='days' placeholder='' required />
               </label>
             </div>

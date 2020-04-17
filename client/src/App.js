@@ -8,6 +8,8 @@ import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
 import CreateProfile from './components/CreateProfile';
 import UpdateStats from './components/UpdateStats';
+import UpdateGoals from './components/UpdateGoals';
+import AddActivity from './components/AddActivity';
 import Error from './views/Error';
 
 import './styles/App.css';
@@ -24,6 +26,8 @@ function App() {
           <Route path='/register' component={Register} exact />
           <Route path='/createprofile' component={CreateProfile} exact />
           <Route path='/stats' component={UpdateStats} exact />
+          <Route path='/goals' component={UpdateGoals} exact />
+          <Route path='/activity' component={AddActivity} exact />
           <Route path='' component={Error} />
         </Switch>
       </Layout>

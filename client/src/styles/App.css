@@ -384,7 +384,8 @@ body {
 
 .form {
   margin: 0 auto;
-  min-width: 400px;
+  min-width: 450px;
+  max-width: 550px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -439,7 +440,8 @@ body {
   margin: 0 auto;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
   font-family: 'Poppins', sans-serif;
   background-color: #3d6874;
   border: none;
@@ -450,10 +452,12 @@ body {
   color: #f5f3f3;
   font-size: 14px;
   width: 100%;
+  padding-left: 3px;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   border: 1px solid #f5f3f3;
   outline: #f5f3f3;
 }

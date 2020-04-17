@@ -1,18 +1,18 @@
 import React from 'react';
 
-const UpdateStats = () => {
+const UpdateGoals = () => {
   return (
     <div className='main-content'>
       <div className='form-page-container'>
-        <h1 className='title-white-bold'>Update Your Stats</h1>
+        <h1 className='title-white-bold'>Update Your Goals</h1>
         <form className='form contact-form' action=''>
           <div className='form-container'>
             <div className='form-group'>
               <label>
-                What is your current weight in pounds?
+                What is your goal weight in pounds?
                 <input
                   type='number'
-                  name='weight'
+                  name='goal-weight'
                   placeholder='150'
                   value=''
                 />
@@ -20,11 +20,22 @@ const UpdateStats = () => {
             </div>
             <div className='form-group'>
               <label>
-                What is your height in inches?
+                What is your daily calorie goal? If unsure, 2000 is a starting point.
                 <input
                   type='number'
-                  name='height'
-                  placeholder='65'
+                  name='goal-calories'
+                  placeholder='2000'
+                  value=''
+                />
+              </label>
+            </div>
+            <div className='form-group'>
+              <label>
+                How many days per week is your exercise goal (0-7)?
+                <input
+                  type='number'
+                  name='goal-days'
+                  placeholder='4'
                   value=''
                 />
               </label>
@@ -41,4 +52,4 @@ const UpdateStats = () => {
   );
 };
 
-export default UpdateStats;
+export default UpdateGoals;
