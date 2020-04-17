@@ -10,7 +10,7 @@ import CreateProfile from './components/CreateProfile';
 import UpdateStats from './components/UpdateStats';
 import UpdateGoals from './components/UpdateGoals';
 import AddActivity from './components/AddActivity';
-import Error from './views/Error';
+import Error from './components/views/Error';
 
 import './styles/App.css';
 
