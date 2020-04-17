@@ -44,11 +44,24 @@ router.post(
     verify,
     [
       //User express validator to validate required inputs
-      check('weight', 'Please provide a numeric weight in pounds.').isNumeric(),
-      check('height', 'Please provide a numeric height in inches.').isNumeric(),
+      check('weight', 'Please provide a numeric weight in pounds.')
+        .isNumeric()
+        .trim(),
+      check('height', 'Please provide a numeric height in inches.')
+        .isNumeric()
+        .trim(),
       check('goalDays', 'Please provide a number between 0 and 7')
         .optional({ checkFalsy: true })
-        .isInt({ min: 0, max: 7 }),
+        .isInt({ min: 0, max: 7 })
+        .trim(),
+      check('goalWeight', 'Please provide a number')
+        .optional({ checkFalsy: true })
+        .isInt()
+        .trim(),
+      check('goalDailyCalories', 'Please provide a number')
+        .optional({ checkFalsy: true })
+        .isInt()
+        .trim(),
     ],
   ],
   async (req, res) => {
@@ -135,13 +148,28 @@ router.put(
       //User express validator to validate required inputs
       check('weight', 'Please provide a numeric weight in pounds.')
         .optional({ checkFalsy: true })
-        .isInt(),
+        .isInt()
+        .trim(),
       check('height', 'Please provide a numeric height in inches.')
         .optional({ checkFalsy: true })
-        .isInt(),
+        .isInt()
+        .trim(),
       check('goalDays', 'Please provide a number between 0 and 7')
         .optional({ checkFalsy: true })
-        .isInt({ min: 0, max: 7 }),
+        .isInt({ min: 0, max: 7 })
+        .trim(),
+        check('goalWeight', 'Please provide a number')
+        .optional({ checkFalsy: true })
+        .isInt()
+        .trim(),
+      check('goalDailyCalories', 'Please provide a number')
+        .optional({ checkFalsy: true })
+        .isInt()
+        .trim(),
+        check('caloriesConsumedToday', 'Please provide a number')
+        .optional({ checkFalsy: true })
+        .isInt()
+        .trim(),
     ],
   ],
   async (req, res) => {
@@ -255,10 +283,9 @@ router.put(
     verify,
     [
       //User express validator to validate required inputs
-      check(
-        'duration',
-        'Please provide a numeric duration in minutes.',
-      ).isNumeric(),
+      check('duration', 'Please provide a numeric duration in minutes.')
+        .isNumeric()
+        .trim(),
       check('category', 'Please select a category.')
         .not()
         .isEmpty(),
@@ -301,7 +328,7 @@ router.put(
         weightTraining: 4,
         yoga: 2.5,
         basketball: 6.5,
-        aerobics: 5
+        aerobics: 5,
       };
       const category = newActivity.category;
       newActivity.calories = Math.round(
