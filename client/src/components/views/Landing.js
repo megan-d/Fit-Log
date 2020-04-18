@@ -1,6 +1,6 @@
 import React from 'react';
-import Runner from '../assets/images/lady-running-cover.svg';
-import Line from '../assets/images/Line.svg';
+import Runner from '../../assets/images/lady-running-cover.svg';
+import Line from '../../assets/images/Line.svg';
 
 const Landing = () => {
   //Need to figure out how to not display footer on landing page

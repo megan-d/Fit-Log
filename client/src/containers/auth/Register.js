@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Register = () => {
@@ -16,6 +17,38 @@ const Register = () => {
   const onChange = (e) =>
     updateFormData({ ...formData, [e.target.name]: e.target.value });
 
+  //Function to send data that's in formData to database endpoint when submit is clicked
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      console.log('Passwords do not match');
+    } else {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      try {
+        //Create config with headers
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        //Create body and stringify user object
+        const body = JSON.stringify(user);
+
+        //Axios will return promise with response in route to add new user (should return a token)
+        const res = await axios.post('/api/users', body, config);
+        console.log(res.data);
+        //Set the token
+      } catch (err) {
+        console.error(err.response.data);
+      }
+    }
+  };
+
   return (
     <div className='main-content'>
       <div className='main-section-signup'>
@@ -23,7 +56,7 @@ const Register = () => {
           Get <span className='title-orange'>FIT</span> with us.
         </h1>
 
-        <form className='form-right' action=''>
+        <form className='form-right' action='' onSubmit={(e) => onSubmit(e)}>
           <div className='form-container-signup'>
             <div className='form-group'>
               <label>

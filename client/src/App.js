@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import About from './views/About';
+import About from './components/views/About';
 import Contact from './components/Contact';
-import Landing from './views/Landing';
+import Landing from './components/views/Landing';
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
 import CreateProfile from './components/CreateProfile';
