@@ -41,8 +41,9 @@ const Register = () => {
 
         //Axios will return promise with response in route to add new user (should return a token)
         const res = await axios.post('/api/users', body, config);
-        console.log(res.data);
+        
         //Set the token
+        const token = 
       } catch (err) {
         console.error(err.response.data);
       }
