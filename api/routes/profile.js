@@ -34,7 +34,7 @@ router.get('/me', verify, async (req, res) => {
 });
 
 //ROUTE: POST api/profile
-//DESCRIPTION: Create or update a user profile
+//DESCRIPTION: Create a user profile
 //ACCESS LEVEL: Private
 
 //*****WILL EITHER NEED TO UPDATE VALIDATION OR AUTO POPULATE WEIGHT AND HEIGHT INTO FORM WHEN UPDATING BECAUSE OTHERWISE GET AN ERROR IF DON'T PROVIDE WEIGHT AND HEIGHT WHEN UPDATING TOO
