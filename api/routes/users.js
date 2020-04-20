@@ -67,7 +67,7 @@ router.post(
           res.json({token});
         });
         // //Set in header
-        // res.header('x-acces-token', token).send(token);
+        // res.header('x-access-token', token).send(token);
       } catch (err) {
         res.status(500).send('Server error');
       }
