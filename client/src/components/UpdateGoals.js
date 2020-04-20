@@ -16,12 +16,46 @@ const UpdateGoals = () => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    //Pull out the formData into variable to send as payload
+    const goals = {
+      goalWeight: goalWeight,
+      goalDailyCalories: goalDailyCalories,
+      goalDays: goalDays,
+    };
+
+    try {
+      //stringify stats object
+      const body = JSON.stringify(goals);
+
+      //Set the headers in config
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.token,
+        },
+      };
+
+      //Make PUT request to api/profile
+      await axios.put('/api/profile', body, config);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   //Could change placeholder to display what's currently in database for this user
   return (
     <div className='main-content'>
       <div className='form-page-container'>
         <h1 className='title-white-bold'>Update Your Goals</h1>
-        <form className='form contact-form' action=''>
+        <form
+          className='form contact-form'
+          action=''
+          onSubmit={(e) => onSubmit(e)}
+        >
           <div className='form-container'>
             <div className='form-group'>
               <label>
