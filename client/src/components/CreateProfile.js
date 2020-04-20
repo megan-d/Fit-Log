@@ -30,7 +30,7 @@ const CreateProfile = () => {
       goalDays: goalDays,
     };
     try {
-      //Create config with headers. Shouldn't have to send token in header because set as global header when token was granted for registration (not yet working for login).
+      //Create config with headers. Get token from localStorage and put in req header.
       const config = {
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,6 @@ const CreateProfile = () => {
                   placeholder=''
                   value={goalWeight}
                   onChange={(e) => onChange(e)}
-                  required
                 />
               </label>
             </div>
@@ -108,7 +107,6 @@ const CreateProfile = () => {
                   placeholder=''
                   value={goalDailyCalories}
                   onChange={(e) => onChange(e)}
-                  required
                 />
               </label>
             </div>
@@ -121,7 +119,6 @@ const CreateProfile = () => {
                   placeholder=''
                   value={goalDays}
                   onChange={(e) => onChange(e)}
-                  required
                 />
               </label>
             </div>
