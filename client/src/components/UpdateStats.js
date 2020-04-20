@@ -1,11 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const UpdateStats = () => {
+  const [formData, updateFormData] = useState({
+    weight: '',
+    height: '',
+  });
+
+  const { weight, height } = formData;
+
+  //Update state on input change using updateFormData
+  const onChange = (e) => {
+    updateFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    //Creat variable for user data based on formData
+    const user = {
+      weight: weight,
+      height: height,
+    };
+
+    try {
+      //Stringify this for the body
+      const body = JSON.stringify(user);
+
+      //Create config with headers. Get token from localStorage and put in req header.
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.token
+        }
+      }
+
+      //Make PUT request to api/profile
+      await axios.put('api/profile', body, config);
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className='main-content'>
       <div className='form-page-container'>
         <h1 className='title-white-bold'>Update Your Stats</h1>
-        <form className='form contact-form' action=''>
+        <form
+          className='form contact-form'
+          action=''
+          onSubmit={(e) => onSubmit(e)}
+        >
           <div className='form-container'>
             <div className='form-group'>
               <label>
@@ -13,8 +59,8 @@ const UpdateStats = () => {
                 <input
                   type='number'
                   name='weight'
-                  placeholder='150'
-                  value=''
+                  value={weight}
+                  onChange={(e) => onChange(e)}
                 />
               </label>
             </div>
@@ -24,8 +70,8 @@ const UpdateStats = () => {
                 <input
                   type='number'
                   name='height'
-                  placeholder='65'
-                  value=''
+                  value={height}
+                  onChange={(e) => onChange(e)}
                 />
               </label>
             </div>
