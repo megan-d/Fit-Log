@@ -41,9 +41,18 @@ const Register = () => {
 
         //Axios will return promise with response in route to add new user (should return a token)
         const res = await axios.post('/api/users', body, config);
+        const token = res.data.token;
+        console.log(token);
+        //Set the token in localstorage and global header
+        if(token) {
+          localStorage.setItem('token', token);
+          axios.defaults.headers.common['x-access-token'] = token;
+        } else {
+          localStorage.removeItem('token');
+          delete axios.defaults.headers.common['x-access-token'];
+        }
         
-        //Set the token
-        const token = 
+
       } catch (err) {
         console.error(err.response.data);
       }
