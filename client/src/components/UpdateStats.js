@@ -18,14 +18,14 @@ const UpdateStats = () => {
     e.preventDefault();
 
     //Creat variable for user data based on formData
-    const user = {
+    const stats = {
       weight: weight,
       height: height,
     };
 
     try {
       //Stringify this for the body
-      const body = JSON.stringify(user);
+      const body = JSON.stringify(stats);
 
       //Create config with headers. Get token from localStorage and put in req header.
       const config = {
