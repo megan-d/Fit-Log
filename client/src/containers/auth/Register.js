@@ -13,7 +13,7 @@ const Register = () => {
   //Pull out variables from formData
   const { name, email, password, confirmPassword } = formData;
 
-  //Function to update state on change and put into updateFormData variable
+  //Function to update state on change using updateFormData
   const onChange = (e) =>
     updateFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -21,6 +21,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
+      //NEED TO CHANGE THIS TO ERROR THAT USER CAN VIEW
       console.log('Passwords do not match');
     } else {
       const user = {
@@ -42,17 +43,18 @@ const Register = () => {
         //Axios will return promise with response in route to add new user (should return a token)
         const res = await axios.post('/api/users', body, config);
         const token = res.data.token;
-        console.log(token);
-        //Set the token in localstorage and global header
+        //Set the token in localstorage
         if(token) {
           localStorage.setItem('token', token);
-          axios.defaults.headers.common['x-access-token'] = token;
+          //set the default header which will be sent with every request made
+          // axios.defaults.headers.common['x-access-token'] = token;
+          
+          //NEED TO REDIRECT TO CREATE PROFILE PAGE
+
         } else {
           localStorage.removeItem('token');
           delete axios.defaults.headers.common['x-access-token'];
         }
-        
-
       } catch (err) {
         console.error(err.response.data);
       }
