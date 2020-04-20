@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const UpdateGoals = () => {
+  const [formData, updateFormData] = useState({
+    goalWeight: '',
+    goalDailyCalories: '',
+    goalDays: '',
+  });
+
+  //Create variables for formData
+  const { goalWeight, goalDailyCalories, goalDays } = formData;
+
+  //Create onChange handler to update the state upon input change
+  const onChange = (e) => {
+    updateFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  //Could change placeholder to display what's currently in database for this user
   return (
     <div className='main-content'>
       <div className='form-page-container'>
@@ -12,20 +28,21 @@ const UpdateGoals = () => {
                 What is your goal weight in pounds?
                 <input
                   type='number'
-                  name='goal-weight'
-                  placeholder='150'
-                  value=''
+                  name='goalWeight'
+                  value={goalWeight}
+                  onChange={(e) => onChange(e)}
                 />
               </label>
             </div>
             <div className='form-group'>
               <label>
-                What is your daily calorie goal? If unsure, 2000 is a starting point.
+                What is your daily calorie goal? If unsure, 2000 is a starting
+                point.
                 <input
                   type='number'
-                  name='goal-calories'
-                  placeholder='2000'
-                  value=''
+                  name='goalDailyCalories'
+                  value={goalDailyCalories}
+                  onChange={(e) => onChange(e)}
                 />
               </label>
             </div>
@@ -34,9 +51,9 @@ const UpdateGoals = () => {
                 How many days per week is your exercise goal (0-7)?
                 <input
                   type='number'
-                  name='goal-days'
-                  placeholder='4'
-                  value=''
+                  name='goalDays'
+                  value={goalDays}
+                  onChange={(e) => onChange(e)}
                 />
               </label>
             </div>
