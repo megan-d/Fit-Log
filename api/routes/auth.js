@@ -50,7 +50,6 @@ router.post(
       }
 
       //If user exists in database and password matches email, create and assign a jsonwebtoken
-
       //Add user ID to payload so it comes in with token
       const payload = {
         user: {

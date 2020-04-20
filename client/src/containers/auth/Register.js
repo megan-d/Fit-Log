@@ -48,7 +48,7 @@ const Register = () => {
           localStorage.setItem('token', token);
           //set the default header which will be sent with every request made
           // axios.defaults.headers.common['x-access-token'] = token;
-          
+
           //NEED TO REDIRECT TO CREATE PROFILE PAGE
 
         } else {
@@ -56,6 +56,7 @@ const Register = () => {
           delete axios.defaults.headers.common['x-access-token'];
         }
       } catch (err) {
+        //NEED TO UPDATE ERROR HANDLING
         console.error(err.response.data);
       }
     }
