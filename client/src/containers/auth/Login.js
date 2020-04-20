@@ -18,8 +18,35 @@ const Login = () => {
   //Function to send data that's in formData to database endpoint when submit is clicked
   const onSubmit = async (e) => {
     e.preventDefault();
-      console.log('Success');
-    } 
+    //Create variable for user's email and password entered
+    const user = {
+      email: email,
+      password: password
+    }
+    try {
+      //Set header in config
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+
+      //Set body by stringifying data
+      const body = JSON.stringify(user);
+
+      //Post request to api/auth
+      const res = await axios.post('/api/auth', body, config);
+
+      //Get token in response and save to localStorage
+      const token = res.data.token;
+      if(token) {
+        localStorage.setItem('token', token);
+      }
+    } catch (err) {
+      //NEED TO UPDATE ERROR HANDLING
+      console.error(err.response.data);
+    }
+  };
 
   return (
     <div className='main-content'>
