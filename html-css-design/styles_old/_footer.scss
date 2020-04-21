@@ -1,0 +1,37 @@
+.footer {
+  width: 100%;
+  background-color: $primaryText;
+  @include flex-alignItems-center;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.footer-nav {
+  margin: 0 auto;
+}
+
+.footer-nav ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: $darkText;
+  font-size: 0.85rem;
+  padding: 0 1.5rem;
+  align-items: center;
+}
+
+.footer-link:hover {
+  color: $primaryBtn;
+}
+
+@media screen and (max-width: 620px) {
+  .footer-link {
+    padding: 0 1rem;
+  }
+}

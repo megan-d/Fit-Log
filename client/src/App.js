@@ -11,8 +11,8 @@ import UpdateStats from './components/UpdateStats';
 import UpdateGoals from './components/UpdateGoals';
 import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
-
 import './styles/App.css';
+import DashboardContainer from './containers/dashboard/DashboardContainer';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
           <Route path='/login' component={Login} exact />
           <Route path='/register' component={Register} exact />
           <Route path='/createprofile' component={CreateProfile} exact />
+          <Route path='/dashboard' component={DashboardContainer} exact />
           <Route path='/stats' component={UpdateStats} exact />
           <Route path='/goals' component={UpdateGoals} exact />
           <Route path='/activity' component={AddActivity} exact />

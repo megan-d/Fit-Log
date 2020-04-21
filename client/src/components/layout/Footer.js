@@ -17,12 +17,12 @@ const Footer = (props) => {
             </Link>
           </li>
           <li className='footer-item'>
-            <a className='footer-link' href='https://www.twitter.com' target='_blank'>
+            <a className='footer-link' href='https://www.twitter.com' target='_blank' rel="noopener noreferrer">
               Twitter
             </a>
           </li>
           <li className='footer-item'>
-            <a className='footer-link' href='https://www.instagram.com' target='_blank'>
+            <a className='footer-link' href='https://www.instagram.com' target='_blank' rel="noopener noreferrer">
               Instagram
             </a>
           </li>
