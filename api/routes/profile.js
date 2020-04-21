@@ -297,7 +297,7 @@ router.put(
       return res.status(422).json({ errors: errors.array() });
     }
     //Pull all of the fields out into variables from req.body.
-    const { date, duration, category, calories, comments } = req.body;
+    const { date, duration, category, calories } = req.body;
 
     //Create object for new activity
     const newActivity = {
@@ -305,7 +305,6 @@ router.put(
       duration,
       category,
       calories,
-      comments,
     };
 
     try {
