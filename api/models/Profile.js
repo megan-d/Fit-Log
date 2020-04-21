@@ -54,9 +54,6 @@ const profileSchema = new Schema({
       calories: {
         type: Number,
       },
-      comments: {
-        type: String,
-      },
     },
   ]
 });
