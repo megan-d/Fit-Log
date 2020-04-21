@@ -1,3 +1,12 @@
+@import './variables';
+@import './mixins';
+@import './header';
+@import './footer';
+@import './landing';
+@import './contact';
+@import './login';
+@import './signup';
+@import './dashboard';
 @import-normalize;
 
 header {
@@ -393,6 +402,19 @@ body {
   margin-top: 3rem;
 }
 
+.dashboard-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
 .form {
   margin: 0 auto;
   min-width: 450px;
@@ -465,17 +487,6 @@ body {
   width: 100%;
   padding-left: 3px;
 }
-
-//**Remove increment arrows from number inputs
-// input[type='number']::-webkit-inner-spin-button,
-// input[type='number']::-webkit-outer-spin-button {
-//   -webkit-appearance: none;
-//   margin: 0;
-// }
-
-// input[type='number'] {
-//   -moz-appearance: textfield;
-// }
 
 .form-group input:focus,
 .form-group textarea:focus,
