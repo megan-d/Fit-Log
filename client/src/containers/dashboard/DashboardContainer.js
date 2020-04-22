@@ -12,17 +12,36 @@ export default class DashboardContainer extends Component {
         <div className='dashboard-container'>
           <h1 className='title-white-bold'>Your Dashboard</h1>
           <div className='cards'>
-            <div className='card'>Stats</div>
-            <div className='card'>Goals</div>
-            <div className='card'>Daily Calorie Tracker</div>
+            <div className='card'>
+              <h2 className='card-title'>Stats</h2>
+              <div className='card-stats'>
+                <div className='card-item'>
+                  <p className='card-label'>Weight</p>
+                  <p className='card-value'>110 lbs</p>
+                </div>
+                <div className='card-item'>
+                  <p className='card-label'>Height</p>
+                  <p className='card-value'>64 in</p>
+                </div>
+                <div className='card-item'>
+                  <p className='card-label'>BMI</p>
+                  <p className='card-value'>18.9</p>
+                </div>
+              </div>
+              <button className='card-button'>Update</button>
+            </div>
+            <div className='card'>
+              <h2 className='card-title'>Goals</h2>
+            </div>
+            <div className='card'>
+              <h2 className='card-title'>Daily Calorie Tracker</h2>
+            </div>
           </div>
-          
         </div>
       </div>
     );
   }
 }
-
 
 // {/* <div className='charts'>
 //             <div className='chart'>Chart 1</div>
