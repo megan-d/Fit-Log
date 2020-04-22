@@ -7,6 +7,7 @@ export default class DashboardContainer extends Component {
       isLoading: true,
       isAuthenticated: null,
       user: null,
+      profile: null,
       // weight: '',
       // height: '',
       // bmi: '',
@@ -20,9 +21,9 @@ export default class DashboardContainer extends Component {
   }
 
   componentDidMount() {
-    //Fet the user data here and set the state with the user data
+    //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
     this.setState({
-      color: 'red',
+      //profile: res.data.profile?
     });
   }
 
