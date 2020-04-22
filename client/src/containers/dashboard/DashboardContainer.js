@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import axios from 'axios';
 
 export default class DashboardContainer extends Component {
   constructor(props) {
@@ -6,93 +7,187 @@ export default class DashboardContainer extends Component {
     this.state = {
       isLoading: true,
       isAuthenticated: null,
-      user: null,
-      profile: null,
-      // weight: '',
-      // height: '',
-      // bmi: '',
-      // goalWeight: '',
-      // goalDailyCalories: '',
-      // goalDays: '',
-      // caloriesConsumedToday: '',
-      // caloriesRemainingToday: '',
-      // activities: [],
+      profile: {
+        user: '',
+        weight: null,
+        height: null,
+        bmi: null,
+        goalWeight: null,
+        goalDailyCalories: 0,
+        goalDays: 0,
+        caloriesConsumedToday: 0,
+        caloriesRemainingToday: 0,
+        activities: [],
+      },
+      weightInput: 0,
     };
   }
 
-  componentDidMount() {
-    //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
+  //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
+  async componentDidMount() {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.token,
+      },
+    };
+
+    const profile = await axios.get('/api/profile/me', config);
+
     this.setState({
-      //profile: res.data.profile?
+      isLoading: false,
+      isAuthenticated: true,
+      profile: {
+        user: profile.data.user,
+        weight: profile.data.weight,
+        height: profile.data.height,
+        bmi: profile.data.bmi,
+        goalWeight: profile.data.goalWeight,
+        goalDailyCalories: profile.data.goalDailyCalories,
+        goalDays: profile.data.goalDays,
+        caloriesConsumedToday: profile.data.caloriesConsumedToday,
+        caloriesRemainingToday: profile.data.caloriesRemainingToday,
+        activities: profile.data.activities,
+      },
     });
+    console.log(this.state);
   }
+
+  inputCalories = (e) => {
+    this.setState({
+      weightInput:
+        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value,
+    });
+  };
+
+  addCalories = () => {
+    //When button is clicked, get current value from state for weightInput and add to current value of state for caloriesConsumedToday. Update state for caloriesConsumedToday and caloriesRemaining today.
+    this.setState((prevState) => ({
+      profile: {
+        ...prevState.profile,
+        caloriesConsumedToday:
+          prevState.profile.caloriesConsumedToday + this.state.weightInput,
+        caloriesRemainingToday:
+          prevState.profile.caloriesRemainingToday - this.state.weightInput,
+      },
+    }));
+  };
+
+  sendToDatabase = async () => {
+    //Update the caloriesConsumedToday and caloriesRemainingToday in database - need to figure out how to do this to get updated state information sent
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.token,
+      },
+    };
+    const calories = {
+      caloriesConsumedToday: this.state.caloriesConsumedToday,
+      caloriesRemainingToday: this.state.caloriesRemainingToday,
+    };
+
+    const body = JSON.stringify(calories);
+
+    try {
+      await axios.put('/api/profile', body, config);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   render() {
     return (
-      <div className='main-content'>
-        <div className='dashboard-container'>
-          <h1 className='title-white-bold'>Your Dashboard</h1>
-          <div className='cards'>
-            <div className='card'>
-              <h2 className='card-title'>Stats</h2>
-              <div className='card-stats'>
-                <div className='card-item'>
-                  <p className='card-label'>Weight:</p>
-                  <p className='card-value'>110 lbs</p>
+      <Fragment>
+        <div className='main-content'>
+          <div className='dashboard-container'>
+            <h1 className='title-white-bold'>Your Dashboard</h1>
+            <div className='cards'>
+              <div className='card'>
+                <h2 className='card-title'>Stats</h2>
+                <div className='card-stats'>
+                  <div className='card-item'>
+                    <p className='card-label'>Weight:</p>
+                    <p className='card-value'>
+                      {this.state.profile.weight} lbs
+                    </p>
+                  </div>
+                  <div className='card-item'>
+                    <p className='card-label'>Height:</p>
+                    <p className='card-value'>{this.state.profile.height} in</p>
+                  </div>
+                  <div className='card-item'>
+                    <p className='card-label'>BMI:</p>
+                    <p className='card-value'>{this.state.profile.bmi}</p>
+                  </div>
                 </div>
-                <div className='card-item'>
-                  <p className='card-label'>Height:</p>
-                  <p className='card-value'>64 in</p>
-                </div>
-                <div className='card-item'>
-                  <p className='card-label'>BMI:</p>
-                  <p className='card-value'>18.9</p>
-                </div>
+                <button className='card-button'>Update</button>
               </div>
-              <button className='card-button'>Update</button>
-            </div>
-            <div className='card'>
-              <h2 className='card-title'>Goals</h2>
-              <div className='card-stats'>
-                <div className='card-item'>
-                  <p className='card-label'>Weight:</p>
-                  <p className='card-value'>100 lbs</p>
+              <div className='card'>
+                <h2 className='card-title'>Goals</h2>
+                <div className='card-stats'>
+                  <div className='card-item'>
+                    <p className='card-label'>Weight:</p>
+                    <p className='card-value'>
+                      {this.state.profile.goalWeight
+                        ? this.state.profile.goalWeight
+                        : '-'}{' '}
+                      lbs
+                    </p>
+                  </div>
+                  <div className='card-item'>
+                    <p className='card-label'>Daily Calories:</p>
+                    <p className='card-value'>
+                      {this.state.profile.goalDailyCalories}
+                    </p>
+                  </div>
+                  <div className='card-item'>
+                    <p className='card-label'>Days/Week Exercise:</p>
+                    <p className='card-value'>{this.state.profile.goalDays}</p>
+                  </div>
                 </div>
-                <div className='card-item'>
-                  <p className='card-label'>Daily Calories:</p>
-                  <p className='card-value'>2000</p>
-                </div>
-                <div className='card-item'>
-                  <p className='card-label'>Days/Week Exercise:</p>
-                  <p className='card-value'>4</p>
-                </div>
+                <button className='card-button'>Update</button>
               </div>
-              <button className='card-button'>Update</button>
-            </div>
-            <div className='card'>
-              <h2 className='card-title'>Daily Calories Tracker</h2>
-              <div className='card-stats'>
-                <div className='card-item'>
-                  <p className='card-label'>Calories Consumed:</p>
-                  <p className='card-value'>600</p>
+              <div className='card'>
+                <h2 className='card-title'>Daily Calories Tracker</h2>
+                <div className='card-stats'>
+                  <div className='card-item'>
+                    <p className='card-label'>Calories Consumed:</p>
+                    <p className='card-value'>
+                      {this.state.profile.caloriesConsumedToday}
+                    </p>
+                  </div>
+                  <div className='card-item'>
+                    <p className='card-label'>Calories Remaining:</p>
+                    <p className='card-value'>
+                      {this.state.profile.caloriesRemainingToday < 0
+                        ? 0
+                        : this.state.profile.caloriesRemainingToday}
+                    </p>
+                  </div>
                 </div>
-                <div className='card-item'>
-                  <p className='card-label'>Calories Remaining:</p>
-                  <p className='card-value'>1400</p>
+                <div className='card-item calories-input'>
+                  <input
+                    className='card-input'
+                    type='number'
+                    name='weightInput'
+                    value={this.state.weightInput}
+                    onChange={(e) => this.inputCalories(e)}
+                  ></input>
+                  <button
+                    className='card-button'
+                    onClick={() => {
+                      this.addCalories();
+                      this.sendToDatabase();
+                    }}
+                  >
+                    Add Calories
+                  </button>
                 </div>
-              </div>
-              <div className='card-item calories-input'>
-                <input
-                  className='card-input'
-                  type='number'
-                  name='add-calories'
-                ></input>
-                <button className='card-button'>Add Calories</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
