@@ -454,6 +454,65 @@ body {
   padding: 0.3rem 2.3rem;
 }
 
+.cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+}
+
+.card {
+  background: -webkit-gradient(linear, left top, right top, from(#ff9a3c), to(#ffc93c));
+  background: linear-gradient(to right, #ff9a3c, #ffc93c);
+  max-width: 500px;
+  -ms-flex-preferred-size: calc(33% - 3rem);
+      flex-basis: calc(33% - 3rem);
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  min-width: 150px;
+  max-width: 350px;
+  height: 200px;
+  margin: 2.5rem 0.5rem;
+  -webkit-box-shadow: 1px 1px 3px grey;
+          box-shadow: 1px 1px 3px grey;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card-title {
+  font-size: 20px;
+}
+
+.card-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.card-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;
