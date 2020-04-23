@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default class DashboardContainer extends Component {
   constructor(props) {
@@ -21,6 +22,8 @@ export default class DashboardContainer extends Component {
       },
       weightInput: 0,
     };
+    this.addCalories.bind(this);
+    this.sendToDatabase.bind(this);
   }
 
   //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
@@ -62,15 +65,26 @@ export default class DashboardContainer extends Component {
 
   addCalories = () => {
     //When button is clicked, get current value from state for weightInput and add to current value of state for caloriesConsumedToday. Update state for caloriesConsumedToday and caloriesRemaining today.
-    this.setState((prevState) => ({
-      profile: {
-        ...prevState.profile,
-        caloriesConsumedToday:
-          prevState.profile.caloriesConsumedToday + this.state.weightInput,
-        caloriesRemainingToday:
-          prevState.profile.caloriesRemainingToday - this.state.weightInput,
-      },
-    }));
+    if (this.state.profile.caloriesRemainingToday > 0) {
+      this.setState((prevState) => ({
+        profile: {
+          ...prevState.profile,
+          caloriesConsumedToday:
+            prevState.profile.caloriesConsumedToday + this.state.weightInput,
+          caloriesRemainingToday:
+            prevState.profile.caloriesRemainingToday - this.state.weightInput,
+        },
+      }));
+    } else {
+      this.setState((prevState) => ({
+        profile: {
+          ...prevState.profile,
+          caloriesConsumedToday:
+            prevState.profile.caloriesConsumedToday + this.state.weightInput,
+          caloriesRemainingToday: 0,
+        },
+      }));
+    }
   };
 
   sendToDatabase = async () => {
@@ -120,7 +134,9 @@ export default class DashboardContainer extends Component {
                     <p className='card-value'>{this.state.profile.bmi}</p>
                   </div>
                 </div>
-                <button className='card-button'>Update</button>
+                <Link className='card-button' to='/stats'>
+                  Update
+                </Link>
               </div>
               <div className='card'>
                 <h2 className='card-title'>Goals</h2>
@@ -145,7 +161,9 @@ export default class DashboardContainer extends Component {
                     <p className='card-value'>{this.state.profile.goalDays}</p>
                   </div>
                 </div>
-                <button className='card-button'>Update</button>
+                <Link className='card-button' to='/stats'>
+                  Update
+                </Link>
               </div>
               <div className='card'>
                 <h2 className='card-title'>Daily Calories Tracker</h2>
@@ -175,10 +193,7 @@ export default class DashboardContainer extends Component {
                   ></input>
                   <button
                     className='card-button'
-                    onClick={() => {
-                      this.addCalories();
-                      this.sendToDatabase();
-                    }}
+                    onClick={() => this.addCalories()}
                   >
                     Add Calories
                   </button>
