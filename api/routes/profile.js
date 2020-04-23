@@ -97,10 +97,14 @@ router.post(
     }
     if (goalDailyCalories) {
       profileItems.goalDailyCalories = goalDailyCalories;
+    } else {
+      profileItems.goalDailyCalories = 2000;
     }
     if (goalDays || goalDays === 0) {
       profileItems.goalDays = goalDays;
     }
+    profileItems.caloriesConsumedToday = 0;
+    profileItems.caloriesRemainingToday = profileItems.goalDailyCalories;
 
     //Once all fields are prepared, update and populate the data
     try {
