@@ -231,6 +231,9 @@ router.put(
       //Calculate calories remaining once have data from either profileItems or profile (or both)
       profileItems.caloriesRemainingToday =
         profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
+        if(profileItems.caloriesRemainingToday <= 0) {
+          profileItems.caloriesRemainingToday = 0;
+        }
 
       //Set bmi remaining once look up what's in profile (since have default value or user inputed value)
       profileItems.bmi = (
