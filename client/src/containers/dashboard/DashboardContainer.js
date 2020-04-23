@@ -18,6 +18,8 @@ export default class DashboardContainer extends Component {
         goalDailyCalories: 0,
         goalDays: 0,
         activities: [],
+        caloriesConsumedToday: 0,
+        caloriesRemainingToday: 0
       },
       weightInput: 0,
     };
@@ -46,6 +48,8 @@ export default class DashboardContainer extends Component {
         goalDailyCalories: profile.data.goalDailyCalories,
         goalDays: profile.data.goalDays,
         activities: profile.data.activities,
+        caloriesConsumedToday: profile.data.caloriesConsumedToday,
+        caloriesRemainingToday: profile.data.caloriesRemainingToday
       },
     });
   }
@@ -106,7 +110,7 @@ export default class DashboardContainer extends Component {
                   Update
                 </Link>
               </div>
-              <DailyCaloriesCard />
+              <DailyCaloriesCard consumedToday={this.state.profile.caloriesConsumedToday} remainingToday={this.state.profile.caloriesRemainingToday}/>
             </div>
           </div>
         </div>
