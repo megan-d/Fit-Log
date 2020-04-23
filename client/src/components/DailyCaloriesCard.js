@@ -34,7 +34,7 @@ class DailyCaloriesCard extends Component {
       caloriesConsumedToday: profile.data.caloriesConsumedToday,
       caloriesRemainingToday: profile.data.caloriesRemainingToday,
     });
-  }
+}
 
   inputCalories = (e) => {
     this.setState({
@@ -43,15 +43,15 @@ class DailyCaloriesCard extends Component {
     });
   };
 
-  addCalories = async () => {
+  addCalories = () => {
     //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today.
     if (this.state.caloriesRemainingToday > 0) {
       this.setState((prevState) => ({
-          ...prevState,
-          caloriesConsumedToday:
-            prevState.caloriesConsumedToday + this.state.weightInput,
-          caloriesRemainingToday:
-            prevState.caloriesRemainingToday - this.state.weightInput,
+        ...prevState,
+        caloriesConsumedToday:
+          prevState.caloriesConsumedToday + this.state.weightInput,
+        caloriesRemainingToday:
+          prevState.caloriesRemainingToday - this.state.weightInput,
       }));
     } else {
       this.setState((prevState) => ({
@@ -60,26 +60,35 @@ class DailyCaloriesCard extends Component {
           prevState.caloriesConsumedToday + this.state.weightInput,
         caloriesRemainingToday: 0,
       }));
-    }
-    //Update the caloriesConsumedToday and caloriesRemainingToday in database - need to figure out how to do this to get updated state information sent. Appears it is probably not sending corrently due to synchronous and how state updates. Research this more.
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.token,
-      },
-    };
-    const calories = {
-      caloriesConsumedToday: this.state.caloriesConsumedToday,
-      caloriesRemainingToday: this.state.caloriesRemainingToday,
-    };
+    }}
 
-    const body = JSON.stringify(calories);
-
-    try {
-      await axios.put('/api/profile', body, config);
-    } catch (err) {
-      console.error(err);
-    }
+    async componentDidUpdate() {
+        try {
+            //Update the caloriesConsumedToday and caloriesRemainingToday in database with new state
+            const config = {
+              headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.token,
+              },
+            };
+            if (this.state.caloriesRemainingToday >= 0) {
+                const calories = {
+                    caloriesConsumedToday: this.state.caloriesConsumedToday,
+                    caloriesRemainingToday: this.state.caloriesRemainingToday,
+                  };
+                  const body = JSON.stringify(calories);
+                  await axios.put('/api/profile', body, config);
+            } else {
+                const calories = {
+                    caloriesConsumedToday: this.state.caloriesConsumedToday,
+                    caloriesRemainingToday: 0,
+                }
+                const body = JSON.stringify(calories);
+                await axios.put('/api/profile', body, config);
+            }
+          } catch (err) {
+            console.error(err);
+          }
   };
 
   render() {
