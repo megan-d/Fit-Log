@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Cards from '../../components/Cards';
 
 export default class DashboardContainer extends Component {
@@ -53,11 +52,13 @@ export default class DashboardContainer extends Component {
     });
   }
 
-  //When user clicks submit button, update state and send caloriesConsumedToday + addedCalories to the database
+
+  //When user clicks submit button, update state with added calories
   addCalories = (addedCalories) => {
-    //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
+    //When button is clicked in DailyCaloriesCard, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
 
     const profile = { ...this.state.profile };
+
     profile.caloriesConsumedToday =
       profile.caloriesConsumedToday + addedCalories;
     profile.caloriesRemainingToday =
@@ -65,26 +66,6 @@ export default class DashboardContainer extends Component {
     this.setState({ profile });
   };
 
-  async componentDidUpdate() {
-    const calories = {
-      caloriesConsumedToday: this.state.profile.caloriesConsumedToday,
-    };
-
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token,
-        },
-      };
-
-      const body = JSON.stringify(calories);
-
-      await axios.put('/api/profile', body, config);
-    } catch (err) {
-      console.error(err);
-    }
-  }
 
   render() {
     return (
