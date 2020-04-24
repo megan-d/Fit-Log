@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import DailyCaloriesCard from '../../components/DailyCaloriesCard';
+import GoalsCard from '../../components/GoalsCard';
+import StatsCard from '../../components/StatsCard';
 
 export default class DashboardContainer extends Component {
   constructor(props) {
@@ -56,11 +58,13 @@ export default class DashboardContainer extends Component {
   //When user clicks submit button, update state and send caloriesConsumedToday + addedCalories to the database
   addCalories = (addedCalories) => {
     //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
-    
-    const profile = {...this.state.profile};
-    profile.caloriesConsumedToday = profile.caloriesConsumedToday + addedCalories;
-    profile.caloriesRemainingToday = profile.caloriesRemainingToday - addedCalories;
-    this.setState({profile});
+
+    const profile = { ...this.state.profile };
+    profile.caloriesConsumedToday =
+      profile.caloriesConsumedToday + addedCalories;
+    profile.caloriesRemainingToday =
+      profile.caloriesRemainingToday - addedCalories;
+    this.setState({ profile });
   };
 
   async componentDidUpdate() {
@@ -113,33 +117,11 @@ export default class DashboardContainer extends Component {
                   Update
                 </Link>
               </div>
-              <div className='card'>
-                <h2 className='card-title'>Goals</h2>
-                <div className='card-stats'>
-                  <div className='card-item'>
-                    <p className='card-label'>Weight:</p>
-                    <p className='card-value'>
-                      {this.state.profile.goalWeight
-                        ? this.state.profile.goalWeight
-                        : '-'}{' '}
-                      lbs
-                    </p>
-                  </div>
-                  <div className='card-item'>
-                    <p className='card-label'>Daily Calories:</p>
-                    <p className='card-value'>
-                      {this.state.profile.goalDailyCalories}
-                    </p>
-                  </div>
-                  <div className='card-item'>
-                    <p className='card-label'>Days/Week Exercise:</p>
-                    <p className='card-value'>{this.state.profile.goalDays}</p>
-                  </div>
-                </div>
-                <Link className='card-button' to='/stats'>
-                  Update
-                </Link>
-              </div>
+              <GoalsCard
+                goalWeight={this.state.profile.goalWeight}
+                goalDays={this.state.profile.goalDays}
+                goalDailyCalories={this.state.profile.goalDailyCalories}
+              />
               <DailyCaloriesCard
                 caloriesConsumedToday={this.state.profile.caloriesConsumedToday}
                 caloriesRemainingToday={
