@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import DailyCaloriesCard from '../../components/DailyCaloriesCard';
-import GoalsCard from '../../components/GoalsCard';
-import StatsCard from '../../components/StatsCard';
+import Cards from '../../components/Cards';
 
 export default class DashboardContainer extends Component {
   constructor(props) {
@@ -95,38 +93,8 @@ export default class DashboardContainer extends Component {
           <div className='dashboard-container'>
             <h1 className='title-white-bold'>Your Dashboard</h1>
             <div className='cards'>
-              <div className='card'>
-                <h2 className='card-title'>Stats</h2>
-                <div className='card-stats'>
-                  <div className='card-item'>
-                    <p className='card-label'>Weight:</p>
-                    <p className='card-value'>
-                      {this.state.profile.weight} lbs
-                    </p>
-                  </div>
-                  <div className='card-item'>
-                    <p className='card-label'>Height:</p>
-                    <p className='card-value'>{this.state.profile.height} in</p>
-                  </div>
-                  <div className='card-item'>
-                    <p className='card-label'>BMI:</p>
-                    <p className='card-value'>{this.state.profile.bmi}</p>
-                  </div>
-                </div>
-                <Link className='card-button' to='/stats'>
-                  Update
-                </Link>
-              </div>
-              <GoalsCard
-                goalWeight={this.state.profile.goalWeight}
-                goalDays={this.state.profile.goalDays}
-                goalDailyCalories={this.state.profile.goalDailyCalories}
-              />
-              <DailyCaloriesCard
-                caloriesConsumedToday={this.state.profile.caloriesConsumedToday}
-                caloriesRemainingToday={
-                  this.state.profile.caloriesRemainingToday
-                }
+              <Cards
+                profile={this.state.profile}
                 addCalories={this.addCalories}
               />
             </div>
