@@ -19,9 +19,8 @@ export default class DashboardContainer extends Component {
         goalDays: 0,
         activities: [],
         caloriesConsumedToday: 0,
-        caloriesRemainingToday: 0
+        caloriesRemainingToday: 0,
       },
-      weightInput: 0,
     };
   }
 
@@ -49,9 +48,40 @@ export default class DashboardContainer extends Component {
         goalDays: profile.data.goalDays,
         activities: profile.data.activities,
         caloriesConsumedToday: profile.data.caloriesConsumedToday,
-        caloriesRemainingToday: profile.data.caloriesRemainingToday
+        caloriesRemainingToday: profile.data.caloriesRemainingToday,
       },
     });
+  }
+
+  //When user clicks submit button, update state and send caloriesConsumedToday + addedCalories to the database
+  addCalories = (addedCalories) => {
+    //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today.
+    const profile = {...this.state.profile};
+    profile.caloriesConsumedToday = profile.caloriesConsumedToday + addedCalories;
+    profile.caloriesRemainingToday = profile.caloriesRemainingToday - addedCalories;
+
+    this.setState({profile});
+  };
+
+  async componentDidUpdate() {
+    const calories = {
+      caloriesConsumedToday: this.state.profile.caloriesConsumedToday,
+    };
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.token,
+        },
+      };
+
+      const body = JSON.stringify(calories);
+
+      await axios.put('/api/profile', body, config);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
@@ -110,7 +140,13 @@ export default class DashboardContainer extends Component {
                   Update
                 </Link>
               </div>
-              <DailyCaloriesCard consumedToday={this.state.profile.caloriesConsumedToday} remainingToday={this.state.profile.caloriesRemainingToday}/>
+              <DailyCaloriesCard
+                caloriesConsumedToday={this.state.profile.caloriesConsumedToday}
+                caloriesRemainingToday={
+                  this.state.profile.caloriesRemainingToday
+                }
+                addCalories={this.addCalories}
+              />
             </div>
           </div>
         </div>
@@ -118,9 +154,6 @@ export default class DashboardContainer extends Component {
     );
   }
 }
-
-
-
 
 // {/* <div className='charts'>
 //             <div className='chart'>Chart 1</div>
