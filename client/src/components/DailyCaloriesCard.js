@@ -22,9 +22,11 @@ const clearInput = () => {
 
 //Function to submit PUT request to database to update calories data (will be run when Add calories button is clicked)
 const submitCaloriesData = async () => {
+  
+  
   const calories = {
     caloriesConsumedToday: props.caloriesConsumedToday + addedCalories,
-    caloriesRemainingToday: props.caloriesRemainingToday - addedCalories
+    caloriesRemainingToday: (props.caloriesRemainingToday - addedCalories) <= 0 ? 0 : (props.caloriesRemainingToday - addedCalories)
 }
 
   try {
