@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Cards from '../../components/Cards';
+import Spinner from '../../components/Spinner';
 
 export default class DashboardContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      isAuthenticated: null,
+      isAuthenticated: false,
       profile: {
         user: '',
         weight: null,
@@ -52,7 +53,6 @@ export default class DashboardContainer extends Component {
     });
   }
 
-
   //When user clicks submit button, update state with added calories
   addCalories = (addedCalories) => {
     //When button is clicked in DailyCaloriesCard, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
@@ -61,11 +61,14 @@ export default class DashboardContainer extends Component {
 
     profile.caloriesConsumedToday =
       profile.caloriesConsumedToday + addedCalories;
+
     profile.caloriesRemainingToday =
-      profile.caloriesRemainingToday - addedCalories;
+      profile.caloriesRemainingToday - addedCalories <= 0
+        ? 0
+        : profile.caloriesRemainingToday - addedCalories;
+
     this.setState({ profile });
   };
-
 
   render() {
     return (
@@ -73,12 +76,16 @@ export default class DashboardContainer extends Component {
         <div className='main-content'>
           <div className='dashboard-container'>
             <h1 className='title-white-bold'>Your Dashboard</h1>
-            <div className='cards'>
-              <Cards
-                profile={this.state.profile}
-                addCalories={this.addCalories}
-              />
-            </div>
+            {this.state.isLoading ? (
+              <Spinner />
+            ) : (
+              <div className='cards'>
+                <Cards
+                  profile={this.state.profile}
+                  addCalories={this.addCalories}
+                />
+              </div>
+            )}
           </div>
         </div>
       </Fragment>
