@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const DailyCaloriesCard = (props) => {
   const [calorieData, updateCalorieData] = useState({
@@ -13,6 +13,11 @@ const DailyCaloriesCard = (props) => {
     updateCalorieData({...calorieData, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value }  )
   };
 
+
+//Clear addedCalories input upon submit
+const clearInput = (e) => {
+    updateCalorieData({...calorieData, addedCalories: 0});
+}
 
   return (
     <div className='card'>
@@ -35,7 +40,7 @@ const DailyCaloriesCard = (props) => {
           value={addedCalories}
           onChange={(e) => onInputChange(e)}
         ></input>
-        <button className='card-button' onClick={() => props.addCalories(addedCalories)}>
+        <button className='card-button' onClick={(e) => { props.addCalories(addedCalories); clearInput(e)}}>
           Add Calories
         </button>
       </div>
