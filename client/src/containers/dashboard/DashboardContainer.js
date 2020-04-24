@@ -55,11 +55,11 @@ export default class DashboardContainer extends Component {
 
   //When user clicks submit button, update state and send caloriesConsumedToday + addedCalories to the database
   addCalories = (addedCalories) => {
-    //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today.
+    //When button is clicked, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
+    
     const profile = {...this.state.profile};
     profile.caloriesConsumedToday = profile.caloriesConsumedToday + addedCalories;
     profile.caloriesRemainingToday = profile.caloriesRemainingToday - addedCalories;
-
     this.setState({profile});
   };
 
