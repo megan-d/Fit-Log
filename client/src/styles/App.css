@@ -602,6 +602,55 @@ body {
   margin-top: 1rem;
 }
 
+.charts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
+}
+
+.chart {
+  background-color: #f5f3f3;
+  -ms-flex-preferred-size: calc(33% - 3rem);
+      flex-basis: calc(33% - 3rem);
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #203a43;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  align-items: center;
+  height: 200px;
+  margin-top: 3rem;
+  padding: 1rem 0;
+  -webkit-box-shadow: 1px 1px 3px grey;
+          box-shadow: 1px 1px 3px grey;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.chart-1 {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  max-width: 60%;
+}
+
+.chart-2 {
+  min-width: 25%;
+  max-width: 25%;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;

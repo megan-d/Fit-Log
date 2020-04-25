@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import DailyCaloriesCard from './DailyCaloriesCard';
 import GoalsCard from './GoalsCard';
 import StatsCard from './StatsCard';
 
 const Cards = (props) => {
   return (
-    <Fragment>
+    <div className='cards'>
       <StatsCard
         weight={props.profile.weight}
         height={props.profile.height}
@@ -23,7 +23,7 @@ const Cards = (props) => {
         addCalories={props.addCalories}
         resetCalories={props.resetCalories}
       />
-    </Fragment>
+    </div>
   );
 };
 
