@@ -540,19 +540,13 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 5px;
-  padding: 0.3rem 1.4rem;
+  padding: 0.3rem;
   font-size: 14px;
+  width: 135px;
   max-width: 150px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-}
-
-.card-button {
-  font-family: 'Poppins', sans-serif;
-  border-radius: 5px;
-  padding: 0.3rem;
-  width: 130px;
 }
 
 .card-input {
@@ -560,11 +554,52 @@ body {
   border: 2px solid #203a43;
   border-radius: 5px;
   padding: 0.3rem;
-  width: 130px;
+  width: 55px;
+  margin-right: 10px;
 }
 
 .calories-input {
   width: 75%;
+}
+
+.reset-button {
+  margin-left: 10px;
+}
+
+.spinner {
+  border: 10px solid #f5f3f3;
+  border-top: 10px solid rgba(255, 201, 60, 0.9);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.loading {
+  margin-top: 1rem;
 }
 
 @media only screen and (max-width: 935px) {

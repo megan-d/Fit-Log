@@ -21,6 +21,7 @@ const Cards = (props) => {
         caloriesConsumedToday={props.profile.caloriesConsumedToday}
         caloriesRemainingToday={props.profile.caloriesRemainingToday}
         addCalories={props.addCalories}
+        resetCalories={props.resetCalories}
       />
     </Fragment>
   );

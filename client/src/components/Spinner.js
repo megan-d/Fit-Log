@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Spinner = () => {
   return (
-    <div>
-      <h1>LOADING...</h1>
-    </div>
+    <Fragment>
+      <div className='spinner'></div>
+      <div className='loading'>Loading...</div>
+    </Fragment>
   );
 };
 

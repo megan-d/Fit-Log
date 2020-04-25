@@ -391,19 +391,13 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 5px;
-  padding: 0.3rem 1.4rem;
+  padding: 0.3rem;
   font-size: 14px;
+  width: 135px;
   max-width: 150px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-}
-
-.card-button {
-  font-family: 'Poppins', sans-serif;
-  border-radius: 5px;
-  padding: 0.3rem;
-  width: 130px;
 }
 
 .card-input {
@@ -411,11 +405,38 @@ body {
   border: 2px solid $darkText;
   border-radius: 5px;
   padding: 0.3rem;
-  width: 130px;
+  width: 55px;
+  margin-right: 10px;
 }
 
 .calories-input {
   width: 75%;
+}
+
+.reset-button {
+  margin-left: 10px;
+}
+
+.spinner {
+  border: 10px solid $primaryText;
+  border-top: 10px solid $primaryBtn;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  margin-top: 1rem;
 }
 
 @media only screen and (max-width: 935px) {

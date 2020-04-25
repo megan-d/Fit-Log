@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const DailyCaloriesCard = (props) => {
   const [calorieData, updateCalorieData] = useState({
@@ -43,6 +42,9 @@ const clearInput = () => {
         ></input>
         <button className='card-button' onClick={() => { props.addCalories(addedCalories); clearInput() }}>
           Add Calories
+        </button>
+        <button className='card-button reset-button' onClick={() => props.resetCalories()}>
+          Reset Calories
         </button>
       </div>
     </div>
