@@ -53,7 +53,7 @@ export default class DashboardContainer extends Component {
     });
   }
 
-  //Decided to do it this way to ensure that database request isn't made before state is updated
+  //Need to ensure that database request isn't made before state is updated
   addCalories = async (addedCalories) => {
     //When button is clicked in DailyCaloriesCard, update database and state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
 
@@ -95,7 +95,6 @@ export default class DashboardContainer extends Component {
   };
 
   resetCalories = async () => {
-
     const profile = { ...this.state.profile };
 
     this.setState((prevState) => ({
@@ -137,13 +136,17 @@ export default class DashboardContainer extends Component {
             {this.state.isLoading ? (
               <Spinner />
             ) : (
-              <div className='cards'>
-                <Cards
-                  profile={this.state.profile}
-                  addCalories={this.addCalories}
-                  resetCalories={this.resetCalories}
-                />
-              </div>
+              <Fragment>
+                  <Cards
+                    profile={this.state.profile}
+                    addCalories={this.addCalories}
+                    resetCalories={this.resetCalories}
+                  />
+                <div className="charts">
+                    <div className="chart chart-1">Chart 1</div>
+                    <div className="chart chart-2">Chart 2</div>
+                </div>
+              </Fragment>
             )}
           </div>
         </div>

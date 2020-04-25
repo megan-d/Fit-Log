@@ -226,7 +226,7 @@ router.put(
       } else {
         profileItems.goalDailyCalories = profile.goalDailyCalories;
       }
-      if (caloriesConsumedToday) {
+      if (caloriesConsumedToday || caloriesConsumedToday === 0) {
         profileItems.caloriesConsumedToday = caloriesConsumedToday;
       } else {
         profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
