@@ -20,37 +20,6 @@ const clearInput = () => {
   updateCalorieData({...calorieData, addedCalories: 0});
 }
 
-//Function to submit PUT request to database to update calories data (will be run when Add calories button is clicked)
-const submitCaloriesData = async () => {
-  
-  
-  const calories = {
-    caloriesConsumedToday: props.caloriesConsumedToday + addedCalories,
-    caloriesRemainingToday: (props.caloriesRemainingToday - addedCalories) <= 0 ? 0 : (props.caloriesRemainingToday - addedCalories)
-}
-
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.token,
-      },
-    };
-
-    const body = JSON.stringify(calories);
-
-    await axios.put('/api/profile', body, config);
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-//When Add Calories button is clicked, run functions to post to database and clear input. The props.addCalories will also update the state in DashboardContainer and trigger a re-render so new calories information is displayed on dashboard.
-const submitData = () => {
-  submitCaloriesData();
-  clearInput();
-}
-
   return (
     <div className='card'>
       <h2 className='card-title'>Daily Calories Tracker</h2>
@@ -72,7 +41,7 @@ const submitData = () => {
           value={addedCalories}
           onChange={(e) => onInputChange(e)}
         ></input>
-        <button className='card-button' onClick={() => { props.addCalories(addedCalories); submitData() }}>
+        <button className='card-button' onClick={() => { props.addCalories(addedCalories); clearInput() }}>
           Add Calories
         </button>
       </div>
