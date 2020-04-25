@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-import Cards from '../../components/Cards';
+import Cards from '../../components/Cards/Cards';
+import Charts from '../../components/Charts/Charts';
 import Spinner from '../../components/Spinner';
 
 export default class DashboardContainer extends Component {
@@ -121,7 +122,6 @@ export default class DashboardContainer extends Component {
       const body = JSON.stringify(calories);
 
       const res = await axios.put('/api/profile', body, config);
-      console.log(res.data);
     } catch (err) {
       console.error(err);
     }
@@ -142,10 +142,8 @@ export default class DashboardContainer extends Component {
                     addCalories={this.addCalories}
                     resetCalories={this.resetCalories}
                   />
-                <div className="charts">
-                    <div className="chart chart-1">Chart 1</div>
-                    <div className="chart chart-2">Chart 2</div>
-                </div>
+                  <Charts />
+                
               </Fragment>
             )}
           </div>
