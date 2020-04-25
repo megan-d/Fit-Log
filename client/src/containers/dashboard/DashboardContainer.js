@@ -53,21 +53,43 @@ export default class DashboardContainer extends Component {
     });
   }
 
-  //When user clicks submit button, update state with added calories
-  addCalories = (addedCalories) => {
-    //When button is clicked in DailyCaloriesCard, update state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
+  //Decided to do it this way to ensure that database request isn't made before state is updated
+  addCalories = async (addedCalories) => {
+    //When button is clicked in DailyCaloriesCard, update database and state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
 
     const profile = { ...this.state.profile };
 
-    profile.caloriesConsumedToday =
-      profile.caloriesConsumedToday + addedCalories;
-
-    profile.caloriesRemainingToday =
-      profile.caloriesRemainingToday - addedCalories <= 0
-        ? 0
-        : profile.caloriesRemainingToday - addedCalories;
-
-    this.setState({ profile });
+    try {
+      //Add the addedCalories sent from DailyCaloriesCard component. Make sure caloriesRemainingToday never goes below 0.
+      const calories = {
+        caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
+        caloriesRemainingToday: profile.caloriesRemainingToday - addedCalories <= 0
+          ? 0
+          : profile.caloriesRemainingToday - addedCalories
+      }
+      
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.token,
+        },
+      };
+  
+      const body = JSON.stringify(calories);
+  
+      await axios.put('/api/profile', body, config);
+    } catch (err) {
+      console.error(err);
+    }
+    this.setState(prevState => ({
+      profile: {
+        ...prevState.profile,
+        caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
+        caloriesRemainingToday: profile.caloriesRemainingToday - addedCalories <= 0
+          ? 0
+          : profile.caloriesRemainingToday - addedCalories
+      }
+    }))
   };
 
   render() {
