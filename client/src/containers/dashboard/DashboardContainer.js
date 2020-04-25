@@ -63,33 +63,69 @@ export default class DashboardContainer extends Component {
       //Add the addedCalories sent from DailyCaloriesCard component. Make sure caloriesRemainingToday never goes below 0.
       const calories = {
         caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
-        caloriesRemainingToday: profile.caloriesRemainingToday - addedCalories <= 0
-          ? 0
-          : profile.caloriesRemainingToday - addedCalories
-      }
-      
+        caloriesRemainingToday:
+          profile.caloriesRemainingToday - addedCalories <= 0
+            ? 0
+            : profile.caloriesRemainingToday - addedCalories,
+      };
+
       const config = {
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': localStorage.token,
         },
       };
-  
+
       const body = JSON.stringify(calories);
-  
+
       await axios.put('/api/profile', body, config);
     } catch (err) {
       console.error(err);
     }
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       profile: {
         ...prevState.profile,
         caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
-        caloriesRemainingToday: profile.caloriesRemainingToday - addedCalories <= 0
-          ? 0
-          : profile.caloriesRemainingToday - addedCalories
-      }
-    }))
+        caloriesRemainingToday:
+          profile.caloriesRemainingToday - addedCalories <= 0
+            ? 0
+            : profile.caloriesRemainingToday - addedCalories,
+      },
+    }));
+  };
+
+  resetCalories = async () => {
+
+    const profile = { ...this.state.profile };
+
+    this.setState((prevState) => ({
+      profile: {
+        ...prevState.profile,
+        caloriesConsumedToday: 0,
+        caloriesRemainingToday: profile.goalDailyCalories,
+      },
+    }));
+
+    try {
+      const calories = {
+        caloriesConsumedToday: 0,
+        caloriesRemainingToday: profile.goalDailyCalories,
+      };
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.token,
+        },
+      };
+
+      const body = JSON.stringify(calories);
+
+      const res = await axios.put('/api/profile', body, config);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   render() {
@@ -105,6 +141,7 @@ export default class DashboardContainer extends Component {
                 <Cards
                   profile={this.state.profile}
                   addCalories={this.addCalories}
+                  resetCalories={this.resetCalories}
                 />
               </div>
             )}
