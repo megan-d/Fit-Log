@@ -24,7 +24,7 @@ const GoalsCard = (props) => {
           <p className='card-value'>{props.goalDays}</p>
         </div>
       </div>
-      <Link className='card-button' to='/stats'>
+      <Link className='card-button' to='/goals'>
         Update
       </Link>
     </div>

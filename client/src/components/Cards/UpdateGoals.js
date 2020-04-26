@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const UpdateGoals = () => {
+const UpdateGoals = (props) => {
   const [formData, updateFormData] = useState({
-    goalWeight: '',
-    goalDailyCalories: '',
-    goalDays: '',
+    goalWeight: null,
+    goalDailyCalories: null,
+    goalDays: null,
   });
 
   //Create variables for formData
   const { goalWeight, goalDailyCalories, goalDays } = formData;
 
   //Create onChange handler to update the state upon input change
-  const onChange = (e) => {
+  const onChangeHandler= (e) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -54,7 +54,7 @@ const UpdateGoals = () => {
         <form
           className='form contact-form'
           action=''
-          onSubmit={(e) => onSubmit(e)}
+          onSubmit={onSubmit}
         >
           <div className='form-container'>
             <div className='form-group'>
@@ -64,7 +64,7 @@ const UpdateGoals = () => {
                   type='number'
                   name='goalWeight'
                   value={goalWeight}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChangeHandler}
                 />
               </label>
             </div>
@@ -76,7 +76,7 @@ const UpdateGoals = () => {
                   type='number'
                   name='goalDailyCalories'
                   value={goalDailyCalories}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChangeHandler}
                 />
               </label>
             </div>
@@ -87,7 +87,7 @@ const UpdateGoals = () => {
                   type='number'
                   name='goalDays'
                   value={goalDays}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChangeHandler}
                 />
               </label>
             </div>

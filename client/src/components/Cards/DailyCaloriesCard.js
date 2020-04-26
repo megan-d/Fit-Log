@@ -15,7 +15,7 @@ const DailyCaloriesCard = (props) => {
 
 
   //Clear the addCalories input (will be run when Add Calories button is clicked)
-const clearInput = () => {
+const clearInputHandler = () => {
   updateCalorieData({...calorieData, addedCalories: 0});
 }
 
@@ -38,9 +38,9 @@ const clearInput = () => {
           type='number'
           name='addedCalories'
           value={addedCalories}
-          onChange={(e) => onInputChange(e)}
+          onChange={onInputChange}
         ></input>
-        <button className='card-button' onClick={() => { props.addCalories(addedCalories); clearInput() }}>
+        <button className='card-button' onClick={() => { props.addCalories(addedCalories); clearInputHandler() }}>
           Add Calories
         </button>
         <button className='card-button reset-button' onClick={() => props.resetCalories()}>

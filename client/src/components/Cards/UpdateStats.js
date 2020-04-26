@@ -10,7 +10,7 @@ const UpdateStats = () => {
   const { weight, height } = formData;
 
   //Update state on input change using updateFormData
-  const onChange = (e) => {
+  const onChangeHandler = (e) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -50,7 +50,7 @@ const UpdateStats = () => {
         <form
           className='form contact-form'
           action=''
-          onSubmit={(e) => onSubmit(e)}
+          onSubmit={onSubmit}
         >
           <div className='form-container'>
             <div className='form-group'>
@@ -60,7 +60,7 @@ const UpdateStats = () => {
                   type='number'
                   name='weight'
                   value={weight}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChangeHandler}
                 />
               </label>
             </div>
@@ -71,7 +71,7 @@ const UpdateStats = () => {
                   type='number'
                   name='height'
                   value={height}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChangeHandler}
                 />
               </label>
             </div>
