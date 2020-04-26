@@ -10,6 +10,7 @@ export default class DashboardContainer extends Component {
     this.state = {
       isLoading: true,
       isAuthenticated: false,
+      addedCalories: 0,
       profile: {
         user: '',
         weight: null,
@@ -51,13 +52,18 @@ export default class DashboardContainer extends Component {
         caloriesConsumedToday: profile.data.caloriesConsumedToday,
         caloriesRemainingToday: profile.data.caloriesRemainingToday,
       },
-      addedCalories: 0,
     });
   }
 
-  //Move input handler here. Need to figure out how to handle state update and database update - research this more
+  //Input change for input element in DailyCaloriesCard
+  inputChangeHandler = (e) => {
+    this.setState({
+      addedCalories:
+        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value,
+    });
+  };
 
-  //Need to ensure that database request isn't made before state is updated
+  //Pass addedCalories to DailyCalories card via props and listen for onClick to execute
   addCaloriesHandler = async (addedCalories) => {
     //When button is clicked in DailyCaloriesCard, update database and state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
 
@@ -67,10 +73,6 @@ export default class DashboardContainer extends Component {
       //Add the addedCalories sent from DailyCaloriesCard component. Make sure caloriesRemainingToday never goes below 0.
       const calories = {
         caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
-        caloriesRemainingToday:
-          profile.caloriesRemainingToday - addedCalories <= 0
-            ? 0
-            : profile.caloriesRemainingToday - addedCalories,
       };
 
       const config = {
@@ -95,9 +97,11 @@ export default class DashboardContainer extends Component {
             ? 0
             : profile.caloriesRemainingToday - addedCalories,
       },
+      addedCalories: 0,
     }));
   };
 
+  //Reset caloriesConsumedToday and caloriesRemaining today when onClick activated from DailyCaloriesCard
   resetCaloriesHandler = async () => {
     const profile = { ...this.state.profile };
 
@@ -112,7 +116,6 @@ export default class DashboardContainer extends Component {
     try {
       const calories = {
         caloriesConsumedToday: 0,
-        caloriesRemainingToday: profile.goalDailyCalories,
       };
 
       const config = {
@@ -124,7 +127,7 @@ export default class DashboardContainer extends Component {
 
       const body = JSON.stringify(calories);
 
-      const res = await axios.put('/api/profile', body, config);
+      await axios.put('/api/profile', body, config);
     } catch (err) {
       console.error(err);
     }
@@ -140,13 +143,14 @@ export default class DashboardContainer extends Component {
               <Spinner />
             ) : (
               <Fragment>
-                  <Cards
-                    profile={this.state.profile}
-                    addCalories={this.addCaloriesHandler}
-                    resetCalories={this.resetCaloriesHandler}
-                  />
-                  <Charts />
-                
+                <Cards
+                  profile={this.state.profile}
+                  inputChangeHandler={this.inputChangeHandler}
+                  addCaloriesHandler={this.addCaloriesHandler}
+                  addedCalories={this.state.addedCalories}
+                  resetCaloriesHandler={this.resetCaloriesHandler}
+                />
+                <Charts />
               </Fragment>
             )}
           </div>

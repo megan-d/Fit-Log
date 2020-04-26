@@ -20,8 +20,10 @@ const Cards = (props) => {
       <DailyCaloriesCard
         caloriesConsumedToday={props.profile.caloriesConsumedToday}
         caloriesRemainingToday={props.profile.caloriesRemainingToday}
-        addCalories={props.addCalories}
-        resetCalories={props.resetCalories}
+        inputChangeHandler={props.inputChangeHandler}
+        addCaloriesHandler={props.addCaloriesHandler}
+        addedCalories={props.addedCalories}
+        resetCaloriesHandler={props.resetCaloriesHandler}
       />
     </div>
   );

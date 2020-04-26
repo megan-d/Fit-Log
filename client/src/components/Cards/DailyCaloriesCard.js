@@ -1,23 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const DailyCaloriesCard = (props) => {
-  const [calorieData, updateCalorieData] = useState({
-      //Get the current value of caloriesConsumedToday and caloriesRemainingToday from database call done in DashboardContainer
-    addedCalories: 0,
-  });
-
-  const { addedCalories } = calorieData;
-
-  //When user enters input, capture that amount in the state in onChange
-  const onInputChange = (e) => {
-    updateCalorieData({...calorieData, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value }  )
-  };
-
-
-  //Clear the addCalories input (will be run when Add Calories button is clicked)
-const clearInputHandler = () => {
-  updateCalorieData({...calorieData, addedCalories: 0});
-}
 
   return (
     <div className='card'>
@@ -37,13 +20,13 @@ const clearInputHandler = () => {
           className='card-input'
           type='number'
           name='addedCalories'
-          value={addedCalories}
-          onChange={onInputChange}
+          value={props.addedCalories}
+          onChange={props.inputChangeHandler}
         ></input>
-        <button className='card-button' onClick={() => { props.addCalories(addedCalories); clearInputHandler() }}>
+        <button className='card-button' onClick={() => props.addCaloriesHandler(props.addedCalories)}>
           Add Calories
         </button>
-        <button className='card-button reset-button' onClick={() => props.resetCalories()}>
+        <button className='card-button reset-button' onClick={() => props.resetCaloriesHandler()}>
           Reset Calories
         </button>
       </div>
