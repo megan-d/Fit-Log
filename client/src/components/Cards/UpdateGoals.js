@@ -3,9 +3,9 @@ import axios from 'axios';
 
 const UpdateGoals = (props) => {
   const [formData, updateFormData] = useState({
-    goalWeight: null,
-    goalDailyCalories: null,
-    goalDays: null,
+    goalWeight: '',
+    goalDailyCalories: '',
+    goalDays: '',
   });
 
   //Create variables for formData
@@ -54,7 +54,7 @@ const UpdateGoals = (props) => {
         <form
           className='form contact-form'
           action=''
-          onSubmit={onSubmit}
+          onSubmit={(e) => onSubmit(e)}
         >
           <div className='form-container'>
             <div className='form-group'>
@@ -64,7 +64,7 @@ const UpdateGoals = (props) => {
                   type='number'
                   name='goalWeight'
                   value={goalWeight}
-                  onChange={onChangeHandler}
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </label>
             </div>
@@ -76,7 +76,7 @@ const UpdateGoals = (props) => {
                   type='number'
                   name='goalDailyCalories'
                   value={goalDailyCalories}
-                  onChange={onChangeHandler}
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </label>
             </div>
@@ -87,7 +87,7 @@ const UpdateGoals = (props) => {
                   type='number'
                   name='goalDays'
                   value={goalDays}
-                  onChange={onChangeHandler}
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </label>
             </div>
