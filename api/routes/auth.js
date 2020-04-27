@@ -7,7 +7,7 @@ const verify = require('../middleware/verifyToken');
 
 const User = require('../models/User');
 
-//ROUTE: GET api/user
+//ROUTE: GET api/auth
 //DESCRIPTION: Get user from database (test)
 //ACCESS LEVEL: Public
 router.get('/', (req, res) => {
