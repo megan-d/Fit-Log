@@ -50,7 +50,7 @@ const UpdateStats = () => {
         <form
           className='form contact-form'
           action=''
-          onSubmit={onSubmit}
+          onSubmit={(e) => onSubmit(e)}
         >
           <div className='form-container'>
             <div className='form-group'>
@@ -60,7 +60,7 @@ const UpdateStats = () => {
                   type='number'
                   name='weight'
                   value={weight}
-                  onChange={onChangeHandler}
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </label>
             </div>
@@ -71,7 +71,7 @@ const UpdateStats = () => {
                   type='number'
                   name='height'
                   value={height}
-                  onChange={onChangeHandler}
+                  onChange={(e) => onChangeHandler(e)}
                 />
               </label>
             </div>

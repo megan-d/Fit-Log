@@ -12,7 +12,7 @@ const UpdateGoals = (props) => {
   const { goalWeight, goalDailyCalories, goalDays } = formData;
 
   //Create onChange handler to update the state upon input change
-  const onChangeHandler= (e) => {
+  const onChangeHandler = (e) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -40,7 +40,6 @@ const UpdateGoals = (props) => {
 
       //Make PUT request to api/profile
       await axios.put('/api/profile', body, config);
-
     } catch (err) {
       console.error(err);
     }
