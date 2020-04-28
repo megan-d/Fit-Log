@@ -42,6 +42,8 @@ const Login = () => {
       if(token) {
         localStorage.setItem('token', token);
       }
+      //Redirect to dashboard if logged in
+      
     } catch (err) {
       //NEED TO UPDATE ERROR HANDLING
       console.error(err.response.data);

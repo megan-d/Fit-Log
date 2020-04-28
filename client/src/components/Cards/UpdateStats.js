@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const UpdateStats = () => {
+const UpdateStats = (props) => {
   const [formData, updateFormData] = useState({
     weight: '',
     height: '',
@@ -43,6 +43,7 @@ const UpdateStats = () => {
     }
   };
 
+  console.log(props);
   return (
     <div className='main-content'>
       <div className='form-page-container'>

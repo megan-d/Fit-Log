@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const StatsCard = (props) => {
+  console.log(props);
   return (
     <div className='card'>
       <h2 className='card-title'>Stats</h2>
