@@ -13,26 +13,31 @@ import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
 import DashboardContainer from './containers/dashboard/DashboardContainer';
+//Redux imports
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
   return (
-    <Router>
-      <Layout>
-        <Switch>
-          <Route path='/' component={Landing} exact />
-          <Route path='/about' component={About} exact />
-          <Route path='/contact' component={Contact} exact />
-          <Route path='/login' component={Login} exact />
-          <Route path='/register' component={Register} exact />
-          <Route path='/createprofile' component={CreateProfile} exact />
-          <Route path='/dashboard' component={DashboardContainer} exact />
-          <Route path='/stats' component={UpdateStats} exact />
-          <Route path='/goals' component={UpdateGoals} exact />
-          <Route path='/activity' component={AddActivity} exact />
-          <Route path='' component={Error} />
-        </Switch>
-      </Layout>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route path='/' component={Landing} exact />
+            <Route path='/about' component={About} exact />
+            <Route path='/contact' component={Contact} exact />
+            <Route path='/login' component={Login} exact />
+            <Route path='/register' component={Register} exact />
+            <Route path='/createprofile' component={CreateProfile} exact />
+            <Route path='/dashboard' component={DashboardContainer} exact />
+            <Route path='/stats' component={UpdateStats} exact />
+            <Route path='/goals' component={UpdateGoals} exact />
+            <Route path='/activity' component={AddActivity} exact />
+            <Route path='' component={Error} />
+          </Switch>
+        </Layout>
+      </Router>
+    </Provider>
   );
 }
 
