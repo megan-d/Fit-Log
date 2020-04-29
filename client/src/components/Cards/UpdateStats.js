@@ -51,7 +51,7 @@ const UpdateStats = (props) => {
         <form
           className='form contact-form'
           action=''
-          onSubmit={(e) => onSubmit(e)}
+          onSubmit={onSubmit}
         >
           <div className='form-container'>
             <div className='form-group'>
