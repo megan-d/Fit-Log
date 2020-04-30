@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
 const Register = (props) => {
   const [formData, updateFormData] = useState({
@@ -24,7 +24,7 @@ const Register = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      //Use Redux alert 
+      //Use Redux alert
       props.setAlert('Passwords do not match', 'warning');
     } else {
       const user = {
@@ -32,36 +32,7 @@ const Register = (props) => {
         email: email,
         password: password,
       };
-
-      try {
-        //Create config with headers
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        //Create body and stringify user object
-        const body = JSON.stringify(user);
-
-        //Axios will return promise with response in route to add new user (should return a token)
-        const res = await axios.post('/api/users', body, config);
-        const token = res.data.token;
-        //Set the token in localstorage
-        if(token) {
-          localStorage.setItem('token', token);
-          //set the default header which will be sent with every request made
-          // axios.defaults.headers.common['x-access-token'] = token;
-
-          //NEED TO REDIRECT TO CREATE PROFILE PAGE
-
-        } else {
-          localStorage.removeItem('token');
-          delete axios.defaults.headers.common['x-access-token'];
-        }
-      } catch (err) {
-        //NEED TO UPDATE ERROR HANDLING
-        console.error(err.response.data);
-      }
+      props.register(user);
     }
   };
 
@@ -141,7 +112,8 @@ const Register = (props) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-}
+  register: PropTypes.func.isRequired,
+};
 
 //Connect takes in two things: state the component needs from the store (what you want to map), and an object with any actions you want to use. Allows us to access props.setAlert.
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
