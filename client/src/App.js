@@ -6,6 +6,7 @@ import Contact from './components/Contact';
 import Landing from './components/views/Landing';
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
+import Alert from './components/layout/Alert';
 import CreateProfile from './components/CreateProfile';
 import UpdateStats from './components//Cards/UpdateStats';
 import UpdateGoals from './components/Cards/UpdateGoals';
@@ -22,6 +23,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Layout>
+          <Alert />
           <Switch>
             <Route path='/' component={Landing} exact />
             <Route path='/about' component={About} exact />
