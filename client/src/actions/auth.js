@@ -5,8 +5,7 @@ import { setAlert } from './alert';
 //****LOAD USER ACTION */
 
 //****REGISTER USER ACTION */
-//name is props.name, email is props.email, password is props.password
-export const register = ({name, email, password}) => async (dispatch) => {
+export const register = (user) => async (dispatch) => {
   //Create config with headers
   const config = {
     headers: {
@@ -14,8 +13,12 @@ export const register = ({name, email, password}) => async (dispatch) => {
     },
   };
   //Create body and stringify user object
-  const body = JSON.stringify({name, email, password});
-
+  const body = {
+      name: user.name, 
+      email: user.email, 
+      password: user.password,
+  }
+  JSON.stringify(body);
   try {
     //Axios will return promise with response in route to add new user (should return a token)
     const res = await axios.post('/api/users', body, config);

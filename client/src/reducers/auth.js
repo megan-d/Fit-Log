@@ -1,7 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAILURE } from '../actions/types';
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: null,
   isLoading: true,
   isAuthenticated: false,
   user: null,
@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
       };
     case REGISTER_FAILURE:
-      localStorage.removeItem('token', action.payload.token);
+      localStorage.removeItem('token');
       return {
           ...state,
           token: null,
@@ -28,16 +28,4 @@ export default function(state = initialState, action) {
     default:
       return state;
   }
-
-  // const token = action.payload.token;
-  //Set the token in localstorage
-  //   if (token) {
-  //     localStorage.setItem('token', token);
-  //     //set the default header which will be sent with every request made
-  //     // axios.defaults.headers.common['x-access-token'] = token;
-
-  //     //NEED TO REDIRECT TO CREATE PROFILE PAGE
-  //   } else {
-  //     localStorage.removeItem('token');
-  //   }
 }
