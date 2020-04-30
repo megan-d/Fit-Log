@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
-const Register = () => {
+const Register = (props) => {
   const [formData, updateFormData] = useState({
     name: '',
     email: '',
@@ -21,8 +24,8 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      //NEED TO CHANGE THIS TO ERROR THAT USER CAN VIEW
-      console.log('Passwords do not match');
+      //Use Redux alert 
+      props.setAlert('Passwords do not match', 'warning');
     } else {
       const user = {
         name: name,
@@ -136,4 +139,9 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+}
+
+//Connect takes in two things: state the component needs from the store (what you want to map), and an object with any actions you want to use. Allows us to access props.setAlert.
+export default connect(null, { setAlert })(Register);
