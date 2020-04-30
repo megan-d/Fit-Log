@@ -9,9 +9,15 @@ const User = require('../models/User');
 
 //ROUTE: GET api/auth
 //DESCRIPTION: Get user from database (test)
-//ACCESS LEVEL: Public
-router.get('/', (req, res) => {
-  res.send('This is the auth route');
+//ACCESS LEVEL: Private
+router.get('/', verify, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch(err) {
+    console.err(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 //ROUTE: POST api/auth
