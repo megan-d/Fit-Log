@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import About from './components/views/About';
@@ -14,11 +14,23 @@ import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
 import DashboardContainer from './containers/dashboard/DashboardContainer';
+import setHeaderToken from './utilities/setHeaderToken';
 //Redux imports
 import { Provider } from 'react-redux';
 import store from './store';
+import { loadUser } from './actions/auth';
 
-function App() {
+if(localStorage.token) {
+  setHeaderToken(localStorage.token);
+}
+
+const App = () => {
+
+  //run loadUser upon App component mounting (like component did mount - will only run once with empty array)
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
