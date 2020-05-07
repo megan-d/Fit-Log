@@ -11,24 +11,24 @@ import { setAlert } from './alert';
 import setHeaderToken from '../utilities/setHeaderToken';
 
 //****LOAD USER ACTION */
-export const loadUser = () => async (dispatch) => {
-  //if there's a token in localStorage, set it in the global header
-  if (localStorage.token) {
-    setHeaderToken(localStorage.token);
-  }
-  try {
-    const res = await axios.get('/api/auth');
+// export const loadUser = () => async (dispatch) => {
+//   //if there's a token in localStorage, set it in the global header
+//   if (localStorage.token) {
+//     setHeaderToken(localStorage.token);
+//   }
+//   try {
+//     const res = await axios.get('/api/auth');
 
-    dispatch({
-      type: LOAD_USER_SUCCESS,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: LOAD_USER_FAILURE,
-    });
-  }
-};
+//     dispatch({
+//       type: LOAD_USER_SUCCESS,
+//       payload: res.data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: LOAD_USER_FAILURE,
+//     });
+//   }
+// };
 
 //****LOGIN USER ACTION */
 export const login = (user) => async (dispatch) => {
