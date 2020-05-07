@@ -14,7 +14,7 @@ import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
 import DashboardContainer from './containers/dashboard/DashboardContainer';
-import setHeaderToken from './utilities/setHeaderToken';
+import setHeaderAndToken from './utilities/setHeaderAndToken';
 //Redux imports
 import { Provider } from 'react-redux';
 import store from './store';

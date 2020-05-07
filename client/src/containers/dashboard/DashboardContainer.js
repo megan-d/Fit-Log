@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Cards from '../../components/Cards/Cards';
-import Charts from '../../components/Charts/Charts';
+import Charts from '../../components/charts/Charts';
 import Spinner from '../../components/Spinner';
 
 export default class DashboardContainer extends Component {

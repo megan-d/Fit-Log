@@ -12,4 +12,9 @@ const store = createStore(
     composeWithDevTools(applyMiddleware(thunk))
 );
 
+//Set up a subscription to store token in localStorage and set header. Prevent auth error on initial run.
+let currentState = {
+   
+}
+
 export default store;
