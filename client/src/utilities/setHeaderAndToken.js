@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const setHeaderToken = token => {
+const setHeaderAndToken = token => {
     if(token) {
         axios.defaults.headers.common['x-access-token'] = token;
     } else {
@@ -8,4 +8,4 @@ const setHeaderToken = token => {
     }
 }
 
-export default setHeaderToken;
+export default setHeaderAndToken;

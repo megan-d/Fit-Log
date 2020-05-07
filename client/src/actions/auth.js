@@ -8,7 +8,7 @@ import {
   LOAD_USER_FAILURE,
 } from './types';
 import { setAlert } from './alert';
-import setHeaderToken from '../utilities/setHeaderToken';
+import setHeaderAndToken from '../utilities/setHeaderAndToken';
 
 //****LOAD USER ACTION */
 // export const loadUser = () => async (dispatch) => {
