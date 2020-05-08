@@ -6,29 +6,19 @@ import {
   LOGIN_FAILURE,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
+  LOGOUT
 } from './types';
 import { setAlert } from './alert';
-import setHeaderAndToken from '../utilities/setHeaderAndToken';
 
 //****LOAD USER ACTION */
-// export const loadUser = () => async (dispatch) => {
-//   //if there's a token in localStorage, set it in the global header
-//   if (localStorage.token) {
-//     setHeaderToken(localStorage.token);
-//   }
-//   try {
-//     const res = await axios.get('/api/auth');
+export const loadUser = () => async (dispatch) => {
+  try {
+    
+  } catch (err) {
+    
+  }
 
-//     dispatch({
-//       type: LOAD_USER_SUCCESS,
-//       payload: res.data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: LOAD_USER_FAILURE,
-//     });
-//   }
-// };
+}
 
 //****LOGIN USER ACTION */
 export const login = (user) => async (dispatch) => {

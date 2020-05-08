@@ -20,16 +20,14 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 
-// if(localStorage.token) {
-//   setHeaderToken(localStorage.token);
-// }
 
 const App = () => {
 
-  //run loadUser upon App component mounting (like component did mount - will only run once with empty array)
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []);
+  //run loadUser upon App component initially mounting (like component did mount - will only run once with empty array)
+  useEffect(() => {
+    setHeaderAndToken(localStorage.token);
+    store.dispatch(loadUser());
+  }, []);
 
   return (
     <Provider store={store}>
