@@ -1,6 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const DailyCaloriesCard = (props) => {
+
+
+
+  //Input change for input element in DailyCaloriesCard. Want to change this so it calls an action called addCalories (through redux)
+  const inputChangeHandler = (e) => {
+    this.setState({
+      addedCalories:
+        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value,
+    });
+  };
 
   return (
     <div className='card'>
@@ -34,4 +46,8 @@ const DailyCaloriesCard = (props) => {
   );
 };
 
-export default DailyCaloriesCard;
+DailyCaloriesCard.propTypes = {
+  profile: PropTypes.object.isRequired,
+}
+
+export default (DailyCaloriesCard);
