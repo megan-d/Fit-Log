@@ -1,177 +1,58 @@
-import React, { Component, Fragment } from 'react';
-import axios from 'axios';
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Cards from '../../components/Cards/Cards';
 import Charts from '../../components/charts/Charts';
 import Spinner from '../../components/Spinner';
+import { connect } from 'react-redux';
+import { getCurrentUserProfile } from '../../actions/profile';
 
-export default class DashboardContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      isAuthenticated: false,
-      addedCalories: 0,
-      profile: {
-        user: '',
-        weight: null,
-        height: null,
-        bmi: null,
-        goalWeight: null,
-        goalDailyCalories: 0,
-        goalDays: 0,
-        activities: [],
-        caloriesConsumedToday: 0,
-        caloriesRemainingToday: 0,
-      },
-    };
-  }
+const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
+  //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
+  useEffect(() => {
+    getCurrentUserProfile();
+  }, [getCurrentUserProfile]);
 
-  //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
-  // async componentDidMount() {
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'x-access-token': localStorage.token,
-  //     },
-  //   };
 
-  //   const profile = await axios.get('/api/profile/me', config);
-
-  //   this.setState({
-  //     isLoading: false,
-  //     isAuthenticated: true,
-  //     profile: {
-  //       user: profile.data.user,
-  //       weight: profile.data.weight,
-  //       height: profile.data.height,
-  //       bmi: profile.data.bmi,
-  //       goalWeight: profile.data.goalWeight,
-  //       goalDailyCalories: profile.data.goalDailyCalories,
-  //       goalDays: profile.data.goalDays,
-  //       activities: profile.data.activities,
-  //       caloriesConsumedToday: profile.data.caloriesConsumedToday,
-  //       caloriesRemainingToday: profile.data.caloriesRemainingToday,
-  //     },
-  //   });
-  // }
-
-  //Input change for input element in DailyCaloriesCard
-  inputChangeHandler = (e) => {
-    this.setState({
-      addedCalories:
-        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value,
-    });
-  };
-
-  //Pass addedCalories to DailyCalories card via props and listen for onClick to execute
-  addCaloriesHandler = async (addedCalories) => {
-    //When button is clicked in DailyCaloriesCard, update database and state for caloriesConsumedToday and caloriesRemaining today. Create copy of state first so don't mutate it directly. Use spread operator so state still contains everything that is already there (won't replace it with just this).
-
-    const profile = { ...this.state.profile };
-
-    try {
-      //Add the addedCalories sent from DailyCaloriesCard component. Make sure caloriesRemainingToday never goes below 0.
-      const calories = {
-        caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
-      };
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token,
-        },
-      };
-
-      const body = JSON.stringify(calories);
-
-      await axios.put('/api/profile', body, config);
-    } catch (err) {
-      console.error(err);
-    }
-    this.setState((prevState) => ({
-      profile: {
-        ...prevState.profile,
-        caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
-        caloriesRemainingToday:
-          profile.caloriesRemainingToday - addedCalories <= 0
-            ? 0
-            : profile.caloriesRemainingToday - addedCalories,
-      },
-      addedCalories: 0,
-    }));
-  };
-
-  //Reset caloriesConsumedToday and caloriesRemaining today when onClick activated from DailyCaloriesCard
-  resetCaloriesHandler = async () => {
-    const profile = { ...this.state.profile };
-
-    this.setState((prevState) => ({
-      profile: {
-        ...prevState.profile,
-        caloriesConsumedToday: 0,
-        caloriesRemainingToday: profile.goalDailyCalories,
-      },
-    }));
-
-    try {
-      const calories = {
-        caloriesConsumedToday: 0,
-      };
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token,
-        },
-      };
-
-      const body = JSON.stringify(calories);
-
-      await axios.put('/api/profile', body, config);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  render() {
-    return (
-      <Fragment>
-        <div className='main-content'>
-          <div className='dashboard-container'>
-            <h1 className='title-white-bold'>Your Dashboard</h1>
-            
-              <Fragment>
-                <Cards
-                  profile={this.state.profile}
-                  inputChangeHandler={this.inputChangeHandler}
-                  addCaloriesHandler={this.addCaloriesHandler}
-                  addedCalories={this.state.addedCalories}
-                  resetCaloriesHandler={this.resetCaloriesHandler}
-                />
-                <Charts />
-              </Fragment>
-          </div>
+  return profile.loading && profile.profile === null? 
+  (
+    <Spinner />
+  ) :
+  (
+    <Fragment>
+      <div className='main-content'>
+        <div className='dashboard-container'>
+          <h1 className='title-white-bold'>Your Dashboard</h1>
+          {profile.profile !== null ? (
+            <Fragment >
+              <Cards profile={profile.profile} />
+            <Charts />
+            </Fragment>
+          ) : 
+          (
+            <Fragment >
+              <p>You do not have a profile set up. Please add this information to view your dashboard.
+                <Link to='/createprofile'>Create Profile</Link>
+              </p>
+            </Fragment>
+          )
+          }
+          
         </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
+};
+
+DashboardContainer.propTypes = {
+  getCurrentUserProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
 }
 
-// {/* <div className='charts'>
-//             <div className='chart'>Chart 1</div>
-//             <div className='chart'>Chart 2</div>
-//             <div className='chart'>Chart 3</div>
-//           </div>
-//           <div className='activity-log-container'>
-//             <button>Add Activity</button>
-//             <h2>Activity Log</h2>
-//             <div className='activity-headings'>
-//               <p className='activity-heading'>Date</p>
-//               <p className='activity-heading'>Duration</p>
-//               <p className='activity-heading'>Category</p>
-//               <p className='activity-heading'>Calories Burned</p>
-//             </div>
-//             <div className='activities'>
-//               <div className='activity'>Activity 1</div>
-//               <div className='activity'>Activity 2</div>
-//             </div> */}
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile,
+})
+
+export default connect(mapStateToProps, { getCurrentUserProfile })(DashboardContainer);

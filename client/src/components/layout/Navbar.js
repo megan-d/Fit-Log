@@ -16,6 +16,7 @@ const Navbar = () => {
           <li><Link className="nav-link" to="/demo">View Demo</Link></li>
           <li><Link className="nav-link" to="/register">Sign Up</Link></li>
           <li><Link className="nav-link" to="/login">Login</Link></li>
+          <li><Link className="nav-link" to="/" onClick={console.log('logged out')}>Logout</Link></li>
         </ul>
       </nav>
     </header>
