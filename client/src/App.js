@@ -14,7 +14,6 @@ import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
 import DashboardContainer from './containers/dashboard/DashboardContainer';
-import setHeaderAndToken from './utilities/setHeaderAndToken';
 //Redux imports
 import { Provider } from 'react-redux';
 import store from './store';
@@ -25,7 +24,6 @@ const App = () => {
 
   //run loadUser upon App component initially mounting (like component did mount - will only run once with empty array)
   useEffect(() => {
-    setHeaderAndToken(localStorage.token);
     store.dispatch(loadUser());
   }, []);
 

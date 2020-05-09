@@ -27,33 +27,33 @@ export default class DashboardContainer extends Component {
   }
 
   //Fetch the user data here and set the state with the user data (api request to /api/profile/me). The api response will be the profile object, which can then be added to state.
-  async componentDidMount() {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.token,
-      },
-    };
+  // async componentDidMount() {
+  //   const config = {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'x-access-token': localStorage.token,
+  //     },
+  //   };
 
-    const profile = await axios.get('/api/profile/me', config);
+  //   const profile = await axios.get('/api/profile/me', config);
 
-    this.setState({
-      isLoading: false,
-      isAuthenticated: true,
-      profile: {
-        user: profile.data.user,
-        weight: profile.data.weight,
-        height: profile.data.height,
-        bmi: profile.data.bmi,
-        goalWeight: profile.data.goalWeight,
-        goalDailyCalories: profile.data.goalDailyCalories,
-        goalDays: profile.data.goalDays,
-        activities: profile.data.activities,
-        caloriesConsumedToday: profile.data.caloriesConsumedToday,
-        caloriesRemainingToday: profile.data.caloriesRemainingToday,
-      },
-    });
-  }
+  //   this.setState({
+  //     isLoading: false,
+  //     isAuthenticated: true,
+  //     profile: {
+  //       user: profile.data.user,
+  //       weight: profile.data.weight,
+  //       height: profile.data.height,
+  //       bmi: profile.data.bmi,
+  //       goalWeight: profile.data.goalWeight,
+  //       goalDailyCalories: profile.data.goalDailyCalories,
+  //       goalDays: profile.data.goalDays,
+  //       activities: profile.data.activities,
+  //       caloriesConsumedToday: profile.data.caloriesConsumedToday,
+  //       caloriesRemainingToday: profile.data.caloriesRemainingToday,
+  //     },
+  //   });
+  // }
 
   //Input change for input element in DailyCaloriesCard
   inputChangeHandler = (e) => {
@@ -139,9 +139,7 @@ export default class DashboardContainer extends Component {
         <div className='main-content'>
           <div className='dashboard-container'>
             <h1 className='title-white-bold'>Your Dashboard</h1>
-            {this.state.isLoading ? (
-              <Spinner />
-            ) : (
+            
               <Fragment>
                 <Cards
                   profile={this.state.profile}
@@ -152,7 +150,6 @@ export default class DashboardContainer extends Component {
                 />
                 <Charts />
               </Fragment>
-            )}
           </div>
         </div>
       </Fragment>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -23,10 +23,15 @@ const Login = (props) => {
     //Create variable for user's email and password entered
     const user = {
       email: email,
-      password: password
-    }
+      password: password,
+    };
     props.login(user);
   };
+
+  //Redirect to dashboard if logged in
+  if (props.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <div className='main-content'>
@@ -74,6 +79,11 @@ const Login = (props) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-}
+  isAuthenticated: PropTypes.bool.isRequired,
+};
 
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
