@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { updateProfile } from '../../../actions/profile';
 
-const DailyCaloriesCard = (props) => {
+const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
+  //Input change for input element in DailyCaloriesCard.
+  //Need to figure out how to only allow positive numbers
+  let addedCalories;
 
-
-
-  //Input change for input element in DailyCaloriesCard. Want to change this so it calls an action called addCalories (through redux)
   const inputChangeHandler = (e) => {
-    this.setState({
-      addedCalories:
-        e.target.type === 'number' ? parseInt(e.target.value) : e.target.value,
-    });
+    addedCalories = e.target.type === 'number' ? parseInt(e.target.value) : e.target.value;
+  };
+
+  //If reset button is clicked, send 0 for calories consumed today and reset calories remaining today
+  const resetCalories = {
+    caloriesConsumedToday: 0,
+  };
+
+  //If add calories button is clicked, add those calories to the daily calories
+  const updateCalories = {
+    caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories
   };
 
   return (
@@ -20,11 +28,11 @@ const DailyCaloriesCard = (props) => {
       <div className='card-stats'>
         <div className='card-item'>
           <p className='card-label'>Calories Consumed:</p>
-          <p className='card-value'>{props.caloriesConsumedToday}</p>
+          <p className='card-value'>{profile.caloriesConsumedToday}</p>
         </div>
         <div className='card-item'>
           <p className='card-label'>Calories Remaining:</p>
-          <p className='card-value'>{props.caloriesRemainingToday}</p>
+          <p className='card-value'>{profile.caloriesRemainingToday}</p>
         </div>
       </div>
       <div className='card-item calories-input'>
@@ -32,13 +40,19 @@ const DailyCaloriesCard = (props) => {
           className='card-input'
           type='number'
           name='addedCalories'
-          value={props.addedCalories}
-          onChange={props.inputChangeHandler}
+          value={addedCalories}
+          onChange={(e) => inputChangeHandler(e)}
         ></input>
-        <button className='card-button' onClick={() => props.addCaloriesHandler(props.addedCalories)}>
+        <button
+          className='card-button'
+          onClick={() => updateProfile(updateCalories, history)}
+        >
           Add Calories
         </button>
-        <button className='card-button reset-button' onClick={() => props.resetCaloriesHandler()}>
+        <button
+          className='card-button reset-button'
+          onClick={() => updateProfile(resetCalories, history)}
+        >
           Reset Calories
         </button>
       </div>
@@ -48,6 +62,7 @@ const DailyCaloriesCard = (props) => {
 
 DailyCaloriesCard.propTypes = {
   profile: PropTypes.object.isRequired,
-}
+  updateProfile: PropTypes.func.isRequired,
+};
 
-export default (DailyCaloriesCard);
+export default connect(null, { updateProfile })(DailyCaloriesCard);

@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Cards from '../../components/Cards/Cards';
+import Cards from './Cards/Cards';
 import Charts from './charts/Charts';
-import Spinner from '../../components/Spinner';
+import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile } from '../../actions/profile';
 
@@ -14,10 +14,10 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
     getCurrentUserProfile();
   }, [getCurrentUserProfile]);
 
-  return profile.loading && profile.profile === null ? (
+  return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
       <div className='dashboard-container'>
-        <h1 className='title-white-bold'>Your Dashboard</h1>
+        <h1 className='title-white-bold'>Dashboard</h1>
         <Spinner />
       </div>
     </div>
@@ -26,7 +26,7 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
       <div className='main-content'>
         <div className='dashboard-container'>
           <h1 className='title-white-bold'>Dashboard</h1>
-          {profile.profile !== null ? (
+          {profile.profile !== null && !profile.isLoading ? (
             <Fragment>
               <Cards profile={profile.profile} />
               <Charts />
