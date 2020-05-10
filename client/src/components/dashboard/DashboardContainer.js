@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Cards from '../../components/Cards/Cards';
-import Charts from '../../components/charts/Charts';
+import Charts from './charts/Charts';
 import Spinner from '../../components/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile } from '../../actions/profile';

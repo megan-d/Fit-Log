@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateProfile } from '../../actions/profile';
 
-const UpdateGoals = (props) => {
+const UpdateGoals = ({ updateProfile, history }) => {
   const [formData, updateFormData] = useState({
     goalWeight: '',
     goalDailyCalories: '',
@@ -20,30 +22,13 @@ const UpdateGoals = (props) => {
     e.preventDefault();
 
     //Pull out the formData into variable to send as payload
-    const goals = {
+    const updates = {
       goalWeight: goalWeight,
       goalDailyCalories: goalDailyCalories,
       goalDays: goalDays,
     };
-
-    try {
-      //stringify stats object
-      const body = JSON.stringify(goals);
-
-      //Set the headers in config
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token,
-        },
-      };
-
-      //Make PUT request to api/profile
-      await axios.put('/api/profile', body, config);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    updateProfile(updates, history);
+  }
 
   //Could change placeholder to display what's currently in database for this user
   return (
@@ -102,4 +87,8 @@ const UpdateGoals = (props) => {
   );
 };
 
-export default UpdateGoals;
+UpdateGoals.propTypes = {
+  updateProfile: PropTypes.func.isRequired,
+}
+
+export default connect(null, { updateProfile })(UpdateGoals);
