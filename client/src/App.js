@@ -11,7 +11,6 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/CreateProfile';
 import UpdateStats from './components//Cards/UpdateStats';
 import UpdateGoals from './components/Cards/UpdateGoals';
-import AddActivity from './components/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
 import DashboardContainer from './containers/dashboard/DashboardContainer';
@@ -43,7 +42,6 @@ const App = () => {
             <PrivateRoute path='/dashboard' component={DashboardContainer} exact />
             <PrivateRoute path='/stats' component={UpdateStats} exact />
             <PrivateRoute path='/goals' component={UpdateGoals} exact />
-            <PrivateRoute path='/activity' component={AddActivity} exact />
             <Route path='' component={Error} />
           </Switch>
         </Layout>
