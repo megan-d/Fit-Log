@@ -7,7 +7,7 @@ import Spinner from '../../components/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile } from '../../actions/profile';
 
-const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
+const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
   
   useEffect(() => {
@@ -48,12 +48,10 @@ const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
 
 DashboardContainer.propTypes = {
   getCurrentUserProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   profile: state.profile,
 });
 
