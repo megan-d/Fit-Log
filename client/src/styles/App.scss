@@ -425,6 +425,7 @@ body {
   width: 100px;
   height: 100px;
   animation: spin 1s linear infinite;
+  margin: 0 auto;
 }
 
 @keyframes spin {
@@ -438,6 +439,7 @@ body {
 
 .loading {
   margin-top: 1rem;
+  text-align: center;
 }
 
 .charts {

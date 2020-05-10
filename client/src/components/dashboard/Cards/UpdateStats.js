@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateProfile } from '../../actions/profile';
+import { updateProfile } from '../../../actions/profile';
 
 const UpdateStats = ({ updateProfile, history }) => {
   const [formData, updateFormData] = useState({
