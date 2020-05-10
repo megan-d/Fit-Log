@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
+//Props come in from Cards, which comes in from Dashboard Container (pulls from Redux store)
 const GoalsCard = ({ profile }) => {
   return (
     <div className='card'>

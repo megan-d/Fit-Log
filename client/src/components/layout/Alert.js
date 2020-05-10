@@ -7,7 +7,7 @@ const Alert = (props) =>
     props.alerts !== null && props.alerts.length > 0 && props.alerts.map(el => 
         (
         <div key={el.id} className={`alert alert-${el.alertType}`}>
-            { el.message }
+            { el.msg }
         </div>
         ))
    

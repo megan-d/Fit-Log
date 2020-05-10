@@ -7,6 +7,7 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_FAILURE,
   LOGOUT,
+  PROFILE_CLEARED,
 } from './types';
 import { setAlert } from './alert';
 
@@ -95,31 +96,33 @@ export const register = (user) => async (dispatch) => {
 //****LOAD USER ACTION */
 //This is to address if the user already has a valid token and comes to the page, and will also run after login and registration so the state is populated with the user's information.
 export const loadUser = () => async (dispatch) => {
-  
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.getItem('token'),
-        },
-      };
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.getItem('token'),
+      },
+    };
 
-      const res = await axios.get('/api/auth', config);
+    const res = await axios.get('/api/auth', config);
 
-      dispatch({
-        type: LOAD_USER_SUCCESS,
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: LOAD_USER_FAILURE,
-      });
-    }
+    dispatch({
+      type: LOAD_USER_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAD_USER_FAILURE,
+    });
+  }
 };
 
 //Logout User
 export const logoutUser = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
+  });
+  dispatch({
+    type: PROFILE_CLEARED,
   });
 };
