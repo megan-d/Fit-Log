@@ -7,6 +7,7 @@ import Landing from './components/views/Landing';
 import Login from './containers/auth/Login';
 import Register from './containers/auth/Register';
 import Alert from './components/layout/Alert';
+import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/CreateProfile';
 import UpdateStats from './components//Cards/UpdateStats';
 import UpdateGoals from './components/Cards/UpdateGoals';
@@ -38,11 +39,11 @@ const App = () => {
             <Route path='/contact' component={Contact} exact />
             <Route path='/login' component={Login} exact />
             <Route path='/register' component={Register} exact />
-            <Route path='/createprofile' component={CreateProfile} exact />
-            <Route path='/dashboard' component={DashboardContainer} exact />
-            <Route path='/stats' component={UpdateStats} exact />
-            <Route path='/goals' component={UpdateGoals} exact />
-            <Route path='/activity' component={AddActivity} exact />
+            <PrivateRoute path='/createprofile' component={CreateProfile} exact />
+            <PrivateRoute path='/dashboard' component={DashboardContainer} exact />
+            <PrivateRoute path='/stats' component={UpdateStats} exact />
+            <PrivateRoute path='/goals' component={UpdateGoals} exact />
+            <PrivateRoute path='/activity' component={AddActivity} exact />
             <Route path='' component={Error} />
           </Switch>
         </Layout>

@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   profile: null,
-  loading: true,
+  isLoading: true,
   errors: {},
 };
 
@@ -20,27 +20,26 @@ export default function(state = initialState, action) {
       return {
         ...state,
         profile: action.payload,
-        loading: false,
+        isLoading: false,
       };
     case PROFILE_LOADING:
       return {
         ...state,
-        loading: true,
+        isLoading: true,
       };
     case UPDATE_PROFILE_FAILURE:
     case LOAD_PROFILE_FAILURE:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         errors: action.payload,
         profile: null,
       };
     case PROFILE_CLEARED:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         profile: null,
-        errors: {}
       };
     default:
       return state;

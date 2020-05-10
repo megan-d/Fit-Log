@@ -12,7 +12,6 @@ import { setAlert } from './alert';
 
 //****LOGIN USER ACTION */
 export const login = (user) => async (dispatch) => {
-  
   //Set header in config.
   const config = {
     headers: {
@@ -32,7 +31,7 @@ export const login = (user) => async (dispatch) => {
     const res = await axios.post('/api/auth', body, config);
 
     const token = res.data.token;
-    if(token) {
+    if (token) {
       localStorage.setItem('token', token);
     }
     dispatch({
@@ -73,7 +72,7 @@ export const register = (user) => async (dispatch) => {
     const res = await axios.post('/api/users', body, config);
 
     const token = res.data.token;
-    if(token) {
+    if (token) {
       localStorage.setItem('token', token);
     }
     dispatch({
@@ -96,30 +95,31 @@ export const register = (user) => async (dispatch) => {
 //****LOAD USER ACTION */
 //This is to address if the user already has a valid token and comes to the page, and will also run after login and registration so the state is populated with the user's information.
 export const loadUser = () => async (dispatch) => {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.getItem('token'),
-      },
-    };
+  
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': localStorage.getItem('token'),
+        },
+      };
 
-    const res = await axios.get('/api/auth', config);
+      const res = await axios.get('/api/auth', config);
 
-    dispatch({
-      type: LOAD_USER_SUCCESS,
-      payload: res.data
-    })
-  } catch (err) {
-    dispatch({
-      type: LOAD_USER_FAILURE
-    })
-  }
+      dispatch({
+        type: LOAD_USER_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: LOAD_USER_FAILURE,
+      });
+    }
 };
 
 //Logout User
-export const logoutUser = () => dispatch => {
-  dispatch({ 
+export const logoutUser = () => (dispatch) => {
+  dispatch({
     type: LOGOUT,
   });
 };
