@@ -9,6 +9,7 @@ import { getCurrentUserProfile } from '../../actions/profile';
 
 const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
+  
   useEffect(() => {
     getCurrentUserProfile();
   }, [getCurrentUserProfile]);
@@ -24,7 +25,7 @@ const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
     <Fragment>
       <div className='main-content'>
         <div className='dashboard-container'>
-          <h1 className='title-white-bold'>Your Dashboard</h1>
+          <h1 className='title-white-bold'>Dashboard</h1>
           {profile.profile !== null ? (
             <Fragment>
               <Cards profile={profile.profile} />
@@ -33,7 +34,7 @@ const DashboardContainer = ({ getCurrentUserProfile, auth, profile }) => {
           ) : (
             <Fragment>
               <p>
-                You do not have a profile set up. Please add this information to
+                You do not have a profile set up yet. Please add this information to
                 view your dashboard.
                 <Link to='/createprofile'>Create Profile</Link>
               </p>

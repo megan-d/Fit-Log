@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile } from '../actions/profile';
 
-const CreateProfile = () => {
+const CreateProfile = ({ createProfile, history }) => {
   const [formData, updateFormData] = useState({
     weight: '',
     height: '',
@@ -29,24 +32,7 @@ const CreateProfile = () => {
       goalDailyCalories: goalDailyCalories,
       goalDays: goalDays,
     };
-    try {
-      //Create config with headers. Get token from localStorage and put in req header.
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token
-        },
-      }
-
-      //Create body variable and stringify
-      const body = JSON.stringify(profile);
-
-      //Make post request to api/profile. Don't need to provide authorization header (x-access-token) because set as global header with axios
-      await axios.post('api/profile', body, config);
-
-    } catch (err) {
-      console.error(err.response.data);
-  }
+    createProfile(profile, history);
 };
 
   return (
@@ -134,4 +120,8 @@ const CreateProfile = () => {
   );
 };
 
-export default CreateProfile;
+CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+}
+
+export default connect(null, { createProfile })(CreateProfile);
