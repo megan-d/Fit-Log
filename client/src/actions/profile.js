@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import {
-  PROFILE_LOADING,
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_FAILURE,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
-  PROFILE_CLEARED,
 } from './types';
 
 //Get logged in user's profile
@@ -36,6 +34,7 @@ export const getCurrentUserProfile = () => async (dispatch) => {
   }
 };
 
+//Create new profile
 export const createProfile = (profile, history) => async (dispatch) => {
   try {
     //Create config with headers. Get token from localStorage and put in req header.
@@ -59,8 +58,53 @@ export const createProfile = (profile, history) => async (dispatch) => {
     dispatch(setAlert('Profile created', 'success'));
     history.push('/dashboard');
   } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      //if errors, loop through them and dispatch the setAlert
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+    }
     dispatch({
       type: LOAD_PROFILE_FAILURE,
+      payload: {
+        msg: err.response.data.msg,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+//Update profile
+export const updateProfile = (updates, history) => async (dispatch) => {
+  try {
+    //Create config with headers. Get token from localStorage and put in req header.
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.getItem('token'),
+      },
+    };
+
+    //Stringify data sent from UpdateStats component for the body to send to db
+    const body = JSON.stringify(updates);
+
+    //Make PUT request to api/profile
+    const res = await axios.put('api/profile', body, config);
+
+    dispatch({
+      type: UPDATE_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Profile updated', 'success'));
+
+    history.push('/dashboard');
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+    }
+    dispatch({
+      type: UPDATE_PROFILE_FAILURE,
       payload: {
         msg: err.response.data.msg,
         status: err.response.status,
