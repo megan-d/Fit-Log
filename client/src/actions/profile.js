@@ -101,12 +101,13 @@ export const updateProfile = (updates, history) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
+      //if errors, loop through them and dispatch the setAlert
       errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
     }
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
       payload: {
-        msg: err.response.data.msg,
+        msg: err.response,
         status: err.response.status,
       },
     });
