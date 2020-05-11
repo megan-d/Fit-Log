@@ -50,6 +50,7 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
         <input
           className='card-input'
           type='number'
+          min='0'
           name='addedCalories'
           value={addedCalories}
           onChange={onInputChange}
