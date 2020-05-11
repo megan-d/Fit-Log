@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
-const Register = () => {
+const Register = (props) => {
   const [formData, updateFormData] = useState({
     name: '',
     email: '',
@@ -21,46 +24,21 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      //NEED TO CHANGE THIS TO ERROR THAT USER CAN VIEW
-      console.log('Passwords do not match');
+      //Use Redux alert
+      setAlert('Passwords do not match', 'warning');
     } else {
       const user = {
         name: name,
         email: email,
         password: password,
       };
-
-      try {
-        //Create config with headers
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        //Create body and stringify user object
-        const body = JSON.stringify(user);
-
-        //Axios will return promise with response in route to add new user (should return a token)
-        const res = await axios.post('/api/users', body, config);
-        const token = res.data.token;
-        //Set the token in localstorage
-        if(token) {
-          localStorage.setItem('token', token);
-          //set the default header which will be sent with every request made
-          // axios.defaults.headers.common['x-access-token'] = token;
-
-          //NEED TO REDIRECT TO CREATE PROFILE PAGE
-
-        } else {
-          localStorage.removeItem('token');
-          delete axios.defaults.headers.common['x-access-token'];
-        }
-      } catch (err) {
-        //NEED TO UPDATE ERROR HANDLING
-        console.error(err.response.data);
-      }
+      props.register(user);
     }
   };
+
+  if (props.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <div className='main-content'>
@@ -136,4 +114,15 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+//Connect takes in two things: state the component needs from the store (what you want to map), and an object with any actions you want to use. Allows us to access props.setAlert.
+export default connect(mapStateToProps, { setAlert, register })(Register);
