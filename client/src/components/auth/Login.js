@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
-const Login = () => {
+const Login = (props) => {
   const [formData, updateFormData] = useState({
     email: '',
     password: '',
@@ -21,34 +23,15 @@ const Login = () => {
     //Create variable for user's email and password entered
     const user = {
       email: email,
-      password: password
-    }
-    try {
-      //Set header in config
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-
-      //Set body by stringifying data
-      const body = JSON.stringify(user);
-
-      //Post request to api/auth
-      const res = await axios.post('/api/auth', body, config);
-
-      //Get token in response and save to localStorage
-      const token = res.data.token;
-      if(token) {
-        localStorage.setItem('token', token);
-      }
-      //Redirect to dashboard if logged in
-      
-    } catch (err) {
-      //NEED TO UPDATE ERROR HANDLING
-      console.error(err.response.data);
-    }
+      password: password,
+    };
+    props.login(user);
   };
+
+  //Redirect to dashboard if logged in
+  if (props.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
 
   return (
     <div className='main-content'>
@@ -94,4 +77,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

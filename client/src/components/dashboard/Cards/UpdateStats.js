@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateProfile } from '../../../actions/profile';
 
-const UpdateStats = (props) => {
+const UpdateStats = ({ updateProfile, history }) => {
   const [formData, updateFormData] = useState({
     weight: '',
     height: '',
@@ -14,45 +16,23 @@ const UpdateStats = (props) => {
     updateFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    //Creat variable for user data based on formData
-    const stats = {
-      weight: weight,
-      height: height,
-    };
-
-    try {
-      //Stringify this for the body
-      const body = JSON.stringify(stats);
-
-      //Create config with headers. Get token from localStorage and put in req header.
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token
-        }
-      }
-
-      //Make PUT request to api/profile
-      await axios.put('api/profile', body, config);
-
-    } catch (err) {
-      console.error(err);
-    }
+  //Creat variable for user data based on formData
+  const updates = {
+    weight: weight,
+    height: height,
   };
 
-  console.log(props);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    //execute updateProfile action, which takes in the updates and history
+    updateProfile(updates, history);
+  };
+
   return (
     <div className='main-content'>
       <div className='form-page-container'>
         <h1 className='title-white-bold'>Update Your Stats</h1>
-        <form
-          className='form contact-form'
-          action=''
-          onSubmit={onSubmit}
-        >
+        <form className='form contact-form' action='' onSubmit={onSubmit}>
           <div className='form-container'>
             <div className='form-group'>
               <label>
@@ -88,4 +68,8 @@ const UpdateStats = (props) => {
   );
 };
 
-export default UpdateStats;
+UpdateStats.propTypes = {
+  updateProfile: PropTypes.func.isRequired,
+}
+
+export default connect(null, { updateProfile })(UpdateStats);
