@@ -6,10 +6,21 @@ import { updateProfile } from '../../../actions/profile';
 const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
   //Input change for input element in DailyCaloriesCard.
   //Need to figure out how to only allow positive numbers
-  let addedCalories;
+  const [calorieData, updateCalorieData] = useState({
+    addedCalories: 0,
+  });
 
-  const inputChangeHandler = (e) => {
-    addedCalories = e.target.type === 'number' ? parseInt(e.target.value) : e.target.value;
+  const { addedCalories } = calorieData;
+
+  console.log(addedCalories);
+
+  const onInputChange = (e) => {
+    updateCalorieData({...calorieData, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value }  )
+  };
+
+  //Clear the addCalories input (will be run when Add Calories button is clicked)
+  const clearInputHandler = () => {
+    updateCalorieData({ ...calorieData, addedCalories: 0 });
   };
 
   //If reset button is clicked, send 0 for calories consumed today and reset calories remaining today
@@ -18,8 +29,8 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
   };
 
   //If add calories button is clicked, add those calories to the daily calories
-  const updateCalories = {
-    caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories
+  const addCalories = {
+    caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
   };
 
   return (
@@ -41,11 +52,14 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
           type='number'
           name='addedCalories'
           value={addedCalories}
-          onChange={(e) => inputChangeHandler(e)}
+          onChange={onInputChange}
         ></input>
         <button
           className='card-button'
-          onClick={() => updateProfile(updateCalories, history)}
+          onClick={() => {
+            updateProfile(addCalories, history);
+            clearInputHandler();
+          }}
         >
           Add Calories
         </button>

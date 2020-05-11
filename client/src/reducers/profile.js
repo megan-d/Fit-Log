@@ -10,7 +10,7 @@ import {
 const initialState = {
   profile: null,
   isLoading: true,
-  errors: {},
+  error: {},
 };
 
 export default function(state = initialState, action) {
@@ -32,7 +32,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        errors: action.payload,
+        error: action.payload,
         profile: null,
       };
     case PROFILE_CLEARED:
