@@ -86,18 +86,31 @@ export const updateProfile = (updates, history) => async (dispatch) => {
 
     //Stringify data sent from UpdateStats component for the body to send to db
     const body = JSON.stringify(updates);
+    
 
     //Make PUT request to api/profile
     const res = await axios.put('api/profile', body, config);
+    
 
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
       payload: res.data,
     });
 
-    dispatch(setAlert('Profile updated', 'success'));
+    //for calories updates, dispatch alert of 'calories updated'. For stats and goals, dispatch alert of 'profile updated.'
+    if(updates.hasOwnProperty('caloriesConsumedToday')) {
+      dispatch(setAlert('Calories updated', 'success'));
+    } else {
+      dispatch(setAlert('Profile updated', 'success'));
+    }
+    
 
-    history.push('/dashboard');
+    //redirect to dashboard unless the calories was the card updated. Might need to change this when do modal.
+    if(!updates.hasOwnProperty('caloriesConsumedToday')) {
+      history.push('/dashboard');
+    }
+      
+    
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

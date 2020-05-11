@@ -12,8 +12,6 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
 
   const { addedCalories } = calorieData;
 
-  console.log(addedCalories);
-
   const onInputChange = (e) => {
     updateCalorieData({...calorieData, [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value }  )
   };
@@ -32,6 +30,8 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
   const addCalories = {
     caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
   };
+
+  
 
   return (
     <div className='card'>
