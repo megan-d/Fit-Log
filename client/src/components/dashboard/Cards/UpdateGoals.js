@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateProfile } from '../../../actions/profile';
 
-const UpdateGoals = ({ updateProfile, history }) => {
+const UpdateGoals = ({ updateProfile, history, profile }) => {
   const [formData, updateFormData] = useState({
     goalWeight: '',
     goalDailyCalories: '',
@@ -48,6 +48,7 @@ const UpdateGoals = ({ updateProfile, history }) => {
                   type='number'
                   name='goalWeight'
                   value={goalWeight}
+                  placeholder={profile.goalWeight}
                   onChange={(e) => onChangeHandler(e)}
                 />
               </label>
@@ -60,6 +61,7 @@ const UpdateGoals = ({ updateProfile, history }) => {
                   type='number'
                   name='goalDailyCalories'
                   value={goalDailyCalories}
+                  placeholder={profile.goalDailyCalories}
                   onChange={(e) => onChangeHandler(e)}
                 />
               </label>
@@ -71,6 +73,7 @@ const UpdateGoals = ({ updateProfile, history }) => {
                   type='number'
                   name='goalDays'
                   value={goalDays}
+                  placeholder={profile.goalDays}
                   onChange={(e) => onChangeHandler(e)}
                 />
               </label>
@@ -89,6 +92,11 @@ const UpdateGoals = ({ updateProfile, history }) => {
 
 UpdateGoals.propTypes = {
   updateProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object,
 }
 
-export default connect(null, { updateProfile })(UpdateGoals);
+const mapStateToProps = (state) => ({
+  profile: state.profile.profile,
+});
+
+export default connect(mapStateToProps, { updateProfile })(UpdateGoals);
