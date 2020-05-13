@@ -1,25 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'react-moment';
-import moment from 'moment';
-// import Activity from '../activities/Activity';
+import Activity from '../activities/Activity';
 
 const Activities = ({ activities }) => {
 
-   const activitiesList =  activities.map(activity => (
-       <tr key={activity._id}>
-           <td>{activity.date.toLocaleDateString}</td>
-           <td>{activity.duration}</td>
-           <td>{activity.category}</td>
-           <td>{activity.calories}</td>
-           <td>
-                <button>Delete</button>
-            </td>
-       </tr>
-   ))
+  const activitiesTable = activities.map((activity) => {
+    return <Activity key={activity._id} activity={activity} />;
+  });
+
   return (
     <div className='activities'>
-        <h3>Activity Log</h3>
+      <h3>Activity Log</h3>
       <table>
         <thead>
           <tr className='table-row'>
@@ -29,17 +20,14 @@ const Activities = ({ activities }) => {
             <th>Calories Burned</th>
           </tr>
         </thead>
-
-        <tbody>
-          {activitiesList}
-        </tbody>
+        <tbody>{activitiesTable}</tbody>
       </table>
     </div>
   );
 };
 
 Activities.propTypes = {
-  activities: PropTypes.array.isRequired,
-};
+    activities: PropTypes.array.isRequired,
+}
 
 export default Activities;
