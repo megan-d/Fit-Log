@@ -444,14 +444,14 @@ body {
 
 .charts {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
 }
 
 .chart {
   background-color: $primaryText;
-  flex-basis: calc(33% - 3rem);
-  justify-content: space-between;
+  flex-basis: calc(50% - 1rem);
+  justify-content: center;
   align-items: center;
   color: $darkText;
   display: flex;
@@ -473,6 +473,18 @@ body {
 .chart-2 {
   min-width: 25%;
   max-width: 25%;
+}
+
+.activities {
+  background: $darkText;
+  width: 90%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
 }
 
 .alert {

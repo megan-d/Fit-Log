@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Cards from './Cards/Cards';
 import Charts from './charts/Charts';
+import Activities from './activities/Activities';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile } from '../../actions/profile';
@@ -30,6 +31,7 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
             <Fragment>
               <Cards profile={profile.profile} />
               <Charts />
+              <Activities activities={profile.profile.activities}/>
             </Fragment>
           ) : (
             <Fragment>
