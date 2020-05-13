@@ -608,18 +608,19 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   width: 100%;
 }
 
 .chart {
   background-color: #f5f3f3;
-  -ms-flex-preferred-size: calc(33% - 3rem);
-      flex-basis: calc(33% - 3rem);
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-preferred-size: calc(50% - 1rem);
+      flex-basis: calc(50% - 1rem);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -651,6 +652,18 @@ body {
 .chart-2 {
   min-width: 25%;
   max-width: 25%;
+}
+
+.activities {
+  background: #203a43;
+  width: 90%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
 }
 
 .alert {
