@@ -32,14 +32,15 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
               <Cards profile={profile.profile} />
               <Charts />
               <Activities activities={profile.profile.activities}/>
+              <button className='delete-button'>Delete Profile and Account</button>
             </Fragment>
           ) : (
             <Fragment>
               <p>
                 You do not have a profile set up yet. Please add this information to
                 view your dashboard.
-                <Link to='/createprofile'>Create Profile</Link>
               </p>
+              <Link to='/createprofile'>Create Profile</Link>
             </Fragment>
           )}
         </div>
