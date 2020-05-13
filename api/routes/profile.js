@@ -317,23 +317,24 @@ router.put(
     try {
       //Find profile of user that comes in with token
       const profile = await Profile.findOne({ user: req.user.id });
+      
       //Need to perform calculation to calculate calories based on weight, category, and duration. Mets derived from acsm.org and ace.
       //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration;
       const mets = {
-        bicyclingLeisure: 6,
-        bicyclingVigorous: 10,
-        runningSlow: 8,
-        runningFast: 11.5,
-        swimming: 8,
-        walkingLeisure: 3,
-        walkingBrisk: 5,
-        hiking: 7,
-        nordicSkiing: 8,
-        tennis: 8,
-        weightTraining: 4,
-        yoga: 2.5,
-        basketball: 6.5,
-        aerobics: 5,
+        'Bicycling - Leisure': 6,
+        'Bicycling - Vigorous': 10,
+        'Running - Slow': 8,
+        'Running - Fast': 11.5,
+        'Swimming': 8,
+        'Walking - Leisure': 3,
+        'Walking - Brisk': 5,
+        'Hiking': 7,
+        'Nordic Skiing': 8,
+        'Tennis': 8,
+        'Weight Training': 4,
+        'Yoga': 2.5,
+        'Basketball': 6.5,
+        'Aerobics': 5,
       };
       const category = newActivity.category;
       newActivity.calories = Math.round(
