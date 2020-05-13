@@ -129,7 +129,48 @@ export const updateProfile = (updates, history) => async (dispatch) => {
 
 
 //Add an activity
+export const addActivity = (activity, history) => async (dispatch) => {
+  try {
+    //Create config with headers. Get token from localStorage and put in req header.
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.getItem('token'),
+      },
+    };
 
+    //Stringify data sent from AddActivity component for the body to send to db
+    const body = JSON.stringify(activity);
+  
+
+    //Make PUT request to api/profile
+    const res = await axios.put('api/profile/activity', body, config);
+    
+
+    dispatch({
+      type: UPDATE_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+
+      dispatch(setAlert('Activity added', 'success'));
+    
+      history.push('/dashboard');
+    
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      //if errors, loop through them and dispatch the setAlert
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+    }
+    dispatch({
+      type: UPDATE_PROFILE_FAILURE,
+      payload: {
+        msg: err.response,
+        status: err.response.status,
+      },
+    });
+  }
+};
 
 
 //Delete an activity by activity id

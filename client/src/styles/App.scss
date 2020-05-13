@@ -400,6 +400,21 @@ body {
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
 }
+.activity-button {
+  background-color: $primaryText;
+  color: $darkText;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  font-size: 14px;
+  width: 135px;
+  max-width: 150px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
 
 .card-input {
   font-family: 'Poppins', sans-serif;
@@ -505,6 +520,23 @@ body {
 
 .alert-success {
   background-color: rgb(80, 160, 80);
+}
+
+.delete-button {
+  background-color: rgb(231, 48, 48);
+  color: $primaryText;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: 14px;
+  width: 200px;
+  max-width: 200px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 935px) {

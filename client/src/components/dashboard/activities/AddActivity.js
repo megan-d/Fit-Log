@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addActivity } from '../../../actions/profile';
 
-const AddActivity = () => {
+const AddActivity = ({ addActivity, history }) => {
   const [activityData, updateActivityData] = useState({
     duration: '',
     category: '',
@@ -21,24 +23,7 @@ const AddActivity = () => {
       duration: duration,
       category: category,
     };
-    try {
-      //Set the body of request
-      const body = JSON.stringify(activity);
-
-      //Set the config
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': localStorage.token,
-        },
-      };
-
-      //Make PUT request to back end to save activity to user's profile
-      await axios.put('/api/profile/activity', body, config);
-
-    } catch (err) {
-      console.error(err.response.data);
-    }
+    addActivity(activity, history);
   };
 
   return (
@@ -60,20 +45,22 @@ const AddActivity = () => {
                   required
                   onChange={(e) => onChange(e)}
                 >
-                  <option value='bicyclingLeisure'>Bicycling - Leisure</option>
-                  <option value='bicyclingVigorous'>Bicycling - Vigorous</option>
-                  <option value='runningSlow'>Running - Slow</option>
-                  <option value='runningFast'>Running - Fast</option>
-                  <option value='swimming'>Swimming</option>
-                  <option value='walkingLeisure'>Walking - Leisure</option>
-                  <option value='walkingBrisk'>Walking - Brisk</option>
-                  <option value='hiking'>Hiking</option>
-                  <option value='nordicSkiing'>Nordic Skiing</option>
-                  <option value='tennis'>Tennis</option>
-                  <option value='weightTraining'>Weight Training</option>
-                  <option value='yoga'>Yoga</option>
-                  <option value='basketball'>Basketball</option>
-                  <option value='aerobics'>Aerobics</option>
+                  <option value='Bicycling - Leisure'>Bicycling - Leisure</option>
+                  <option value='Bicycling - Vigorous'>
+                    Bicycling - Vigorous
+                  </option>
+                  <option value='Running - Slow'>Running - Slow</option>
+                  <option value='Running - Fast'>Running - Fast</option>
+                  <option value='Swimming'>Swimming</option>
+                  <option value='Walking - Leisure'>Walking - Leisure</option>
+                  <option value='Walking - Brisk'>Walking - Brisk</option>
+                  <option value='Hiking'>Hiking</option>
+                  <option value='Nordic Skiing'>Nordic Skiing</option>
+                  <option value='Tennis'>Tennis</option>
+                  <option value='Weight Training'>Weight Training</option>
+                  <option value='Yoga'>Yoga</option>
+                  <option value='Basketball'>Basketball</option>
+                  <option value='Aerobics'>Aerobics</option>
                 </select>
               </label>
             </div>
@@ -101,4 +88,8 @@ const AddActivity = () => {
   );
 };
 
-export default AddActivity;
+AddActivity.propTypes = {
+  addActivity: PropTypes.func.isRequired,
+};
+
+export default connect(null, { addActivity })(AddActivity);

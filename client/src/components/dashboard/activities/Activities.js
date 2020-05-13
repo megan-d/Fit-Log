@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Activity from '../activities/Activity';
 
@@ -11,6 +12,9 @@ const Activities = ({ activities }) => {
   return (
     <div className='activities'>
       <h3>Activity Log</h3>
+      <Link className='activity-button' to='/addactivity'>
+        Add Activity
+      </Link>
       <table>
         <thead>
           <tr className='table-row'>
