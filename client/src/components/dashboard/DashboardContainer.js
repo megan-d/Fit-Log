@@ -32,7 +32,7 @@ const DashboardContainer = ({ getCurrentUserProfile, profile, deleteUser }) => {
               <Cards profile={profile.profile} />
               <Charts />
               <Activities activities={profile.profile.activities}/>
-              <button className='delete-button' onClick={() => deleteUser()}>Delete Profile and Account</button>
+              <button className='delete-user-button' onClick={() => deleteUser()}>Delete Profile and Account</button>
             </Fragment>
           ) : (
             <Fragment>

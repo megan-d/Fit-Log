@@ -400,21 +400,6 @@ body {
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
 }
-.activity-button {
-  background-color: $primaryText;
-  color: $darkText;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  padding: 0.3rem;
-  font-size: 14px;
-  width: 135px;
-  max-width: 150px;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-}
 
 .card-input {
   font-family: 'Poppins', sans-serif;
@@ -492,14 +477,63 @@ body {
 
 .activities {
   background: $darkText;
-  width: 90%;
+  min-width: 100%;
   margin-top: 3rem;
   margin-bottom: 3rem;
+  position: relative;
+  border-radius: 10px;
+}
+
+.activities h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.table {
+  background-color: $darkText;
+  margin: 1rem auto;
+  width: 100%;
 }
 
 .table th,
 .table td {
-  padding: 1rem;
+  padding: 0.5rem 2rem;
+  margin: 3rem;
+  text-align: center;
+}
+
+.add-activity-button {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background-color: $primaryBtn;
+  color: $darkText;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  font-size: 14px;
+  width: 135px;
+  max-width: 150px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+.delete-activity-button {
+  background-color: rgb(231, 48, 48);
+  color: $primaryText;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  font-size: 14px;
+  width: 100px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
 }
 
 .alert {
@@ -522,7 +556,7 @@ body {
   background-color: rgb(80, 160, 80);
 }
 
-.delete-button {
+.delete-user-button {
   background-color: rgb(231, 48, 48);
   color: $primaryText;
   text-decoration: none;
@@ -530,7 +564,7 @@ body {
   border-radius: 5px;
   padding: 0.3rem;
   margin-bottom: 2rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
   font-size: 14px;
   width: 200px;
   max-width: 200px;
