@@ -6,9 +6,9 @@ import Charts from './charts/Charts';
 import Activities from './activities/Activities';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
-import { getCurrentUserProfile } from '../../actions/profile';
+import { getCurrentUserProfile, deleteUser } from '../../actions/profile';
 
-const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
+const DashboardContainer = ({ getCurrentUserProfile, profile, deleteUser }) => {
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
   
   useEffect(() => {
@@ -32,7 +32,7 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
               <Cards profile={profile.profile} />
               <Charts />
               <Activities activities={profile.profile.activities}/>
-              <button className='delete-button'>Delete Profile and Account</button>
+              <button className='delete-button' onClick={() => deleteUser()}>Delete Profile and Account</button>
             </Fragment>
           ) : (
             <Fragment>
@@ -52,12 +52,13 @@ const DashboardContainer = ({ getCurrentUserProfile, profile }) => {
 DashboardContainer.propTypes = {
   getCurrentUserProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
+  deleteUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentUserProfile })(
+export default connect(mapStateToProps, { getCurrentUserProfile, deleteUser })(
   DashboardContainer,
 );

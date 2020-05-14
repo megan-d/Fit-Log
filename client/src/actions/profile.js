@@ -5,6 +5,8 @@ import {
   LOAD_PROFILE_FAILURE,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
+  PROFILE_CLEARED,
+  USER_DELETED
 } from './types';
 
 //Get logged in user's profile
@@ -86,11 +88,9 @@ export const updateProfile = (updates, history) => async (dispatch) => {
 
     //Stringify data sent from UpdateStats component for the body to send to db
     const body = JSON.stringify(updates);
-    
 
     //Make PUT request to api/profile
     const res = await axios.put('api/profile', body, config);
-    
 
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
@@ -98,19 +98,16 @@ export const updateProfile = (updates, history) => async (dispatch) => {
     });
 
     //for calories updates, dispatch alert of 'calories updated'. For stats and goals, dispatch alert of 'profile updated.'
-    if(updates.hasOwnProperty('caloriesConsumedToday')) {
+    if (updates.hasOwnProperty('caloriesConsumedToday')) {
       dispatch(setAlert('Calories updated', 'success'));
     } else {
       dispatch(setAlert('Profile updated', 'success'));
     }
-    
 
     //redirect to dashboard unless the calories was the card updated. Might need to change this when do modal.
-    if(!updates.hasOwnProperty('caloriesConsumedToday')) {
+    if (!updates.hasOwnProperty('caloriesConsumedToday')) {
       history.push('/dashboard');
     }
-      
-    
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -126,7 +123,6 @@ export const updateProfile = (updates, history) => async (dispatch) => {
     });
   }
 };
-
 
 //Add an activity
 export const addActivity = (activity, history) => async (dispatch) => {
@@ -141,21 +137,18 @@ export const addActivity = (activity, history) => async (dispatch) => {
 
     //Stringify data sent from AddActivity component for the body to send to db
     const body = JSON.stringify(activity);
-  
 
     //Make PUT request to api/profile
     const res = await axios.put('api/profile/activity', body, config);
-    
 
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
       payload: res.data,
     });
 
-      dispatch(setAlert('Activity added', 'success'));
-    
-      history.push('/dashboard');
-    
+    dispatch(setAlert('Activity added', 'success'));
+
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -172,5 +165,54 @@ export const addActivity = (activity, history) => async (dispatch) => {
   }
 };
 
-
 //Delete an activity by activity id
+export const deleteActivity = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`api/profile/activity/${id}`, {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      },
+    });
+    dispatch({
+      type: UPDATE_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+    dispatch(setAlert('Activity removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: UPDATE_PROFILE_FAILURE,
+      payload: {
+        msg: err.response.data.msg,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+//Delete profile and user
+export const deleteUser = () => async(dispatch) => {
+  try {
+    //Confirm that user wants to delete
+
+    await axios.delete('api/profile', {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      },
+    });
+    dispatch({
+      type: PROFILE_CLEARED
+    });
+    dispatch({
+      type: USER_DELETED
+    });
+    dispatch(setAlert('Your profile and account have been permanently deleted.', 'success'));
+  } catch (err) {
+    dispatch({
+      type: UPDATE_PROFILE_FAILURE,
+      payload: {
+        msg: err.response.data.msg,
+        status: err.response.status,
+      },
+    });
+  }
+};
