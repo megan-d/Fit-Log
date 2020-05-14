@@ -39,13 +39,11 @@ const AddActivity = ({ addActivity, history }) => {
             <div className='form-group'>
               <label>
                 Type of activity:
-                <select
-                  name='category'
-                  value={category}
-                  required
-                  onChange={(e) => onChange(e)}
-                >
-                  <option value='Bicycling - Leisure'>Bicycling - Leisure</option>
+                <select name='category' required onChange={(e) => onChange(e)}>
+                  <option value=''>Please select a type of activity...</option>
+                  <option value='Bicycling - Leisure'>
+                    Bicycling - Leisure
+                  </option>
                   <option value='Bicycling - Vigorous'>
                     Bicycling - Vigorous
                   </option>
