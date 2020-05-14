@@ -14,7 +14,7 @@ const Activity = ({ activity, deleteActivity, history }) => {
         <td>{activity.category}</td>
         <td>{activity.calories}</td>
         <td>
-          <button onClick={() => deleteActivity(activity._id, history)}>Delete</button>
+          <button className='delete-activity-button' onClick={() => deleteActivity(activity._id, history)}>Delete</button>
         </td>
       </tr>
   );

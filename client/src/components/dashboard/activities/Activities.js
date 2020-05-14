@@ -12,10 +12,10 @@ const Activities = ({ activities }) => {
   return (
     <div className='activities'>
       <h3>Activity Log</h3>
-      <Link className='activity-button' to='/addactivity'>
+      <Link className='add-activity-button' to='/addactivity'>
         Add Activity
       </Link>
-      <table>
+      <table className='table'>
         <thead>
           <tr className='table-row'>
             <th>Date</th>
