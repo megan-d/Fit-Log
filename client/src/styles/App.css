@@ -488,8 +488,8 @@ body {
   height: 200px;
   margin-top: 1rem;
   padding: 1rem 0;
-  -webkit-box-shadow: 1px 1px 3px grey;
-          box-shadow: 1px 1px 3px grey;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   cursor: pointer;
 }
@@ -636,8 +636,8 @@ body {
   height: 200px;
   margin-top: 3rem;
   padding: 1rem 0;
-  -webkit-box-shadow: 1px 1px 3px grey;
-          box-shadow: 1px 1px 3px grey;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   cursor: pointer;
 }
@@ -656,11 +656,13 @@ body {
 
 .activities {
   background: #203a43;
-  min-width: 100%;
   margin-top: 3rem;
   margin-bottom: 3rem;
   position: relative;
   border-radius: 10px;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  min-width: 90%;
 }
 
 .activities h3 {
@@ -671,8 +673,10 @@ body {
 
 .table {
   background-color: #203a43;
-  margin: 1rem auto;
+  margin: 2rem auto;
   width: 100%;
+  border-spacing: 0;
+  overflow: hidden;
 }
 
 .table th,
@@ -682,9 +686,22 @@ body {
   text-align: center;
 }
 
+.table td {
+  font-size: 0.9rem;
+}
+
+.table th {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.table tbody tr td {
+  border-bottom: 1px solid #f5f3f3;
+}
+
 .add-activity-button {
   position: absolute;
-  top: 20px;
+  top: 15px;
   left: 30px;
   background-color: rgba(255, 201, 60, 0.9);
   color: #203a43;
@@ -699,6 +716,8 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .delete-activity-button {
@@ -713,18 +732,19 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .alert {
-  color: #f5f3f3;
+  color: white;
   width: 80%;
   max-width: 1000px;
   margin: 1rem auto;
   padding: 1rem;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 5px;
   line-height: 10px;
-  opacity: 0.9;
 }
 
 .alert-warning {
@@ -741,7 +761,7 @@ body {
   text-decoration: none;
   border: none;
   border-radius: 5px;
-  padding: 0.3rem;
+  padding: 0.5rem;
   margin-bottom: 2rem;
   margin-top: 4rem;
   font-size: 14px;
@@ -750,6 +770,8 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 @media only screen and (max-width: 935px) {

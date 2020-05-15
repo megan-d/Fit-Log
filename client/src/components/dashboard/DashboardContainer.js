@@ -8,9 +8,14 @@ import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile, deleteUser } from '../../actions/profile';
 
-const DashboardContainer = ({ getCurrentUserProfile, profile, deleteUser }) => {
+const DashboardContainer = ({
+  getCurrentUserProfile,
+  profile,
+  deleteUser,
+  auth,
+}) => {
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
-  
+
   useEffect(() => {
     getCurrentUserProfile();
   }, [getCurrentUserProfile]);
@@ -18,7 +23,6 @@ const DashboardContainer = ({ getCurrentUserProfile, profile, deleteUser }) => {
   return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
       <div className='dashboard-container'>
-        <h1 className='title-white-bold'>Dashboard</h1>
         <Spinner />
       </div>
     </div>
@@ -26,19 +30,24 @@ const DashboardContainer = ({ getCurrentUserProfile, profile, deleteUser }) => {
     <Fragment>
       <div className='main-content'>
         <div className='dashboard-container'>
-          <h1 className='title-white-bold'>Dashboard</h1>
+          <h1 className='title-white-bold'>Welcome to your dashboard, {auth.user.name}</h1>
           {profile.profile !== null && !profile.isLoading ? (
             <Fragment>
               <Cards profile={profile.profile} />
               <Charts />
-              <Activities activities={profile.profile.activities}/>
-              <button className='delete-user-button' onClick={() => deleteUser()}>Delete Profile and Account</button>
+              <Activities activities={profile.profile.activities} />
+              <button
+                className='delete-user-button'
+                onClick={() => deleteUser()}
+              >
+                Delete Profile and Account
+              </button>
             </Fragment>
           ) : (
             <Fragment>
               <p>
-                You do not have a profile set up yet. Please add this information to
-                view your dashboard.
+                You do not have a profile set up yet. Please add this
+                information to view your dashboard.
               </p>
               <Link to='/createprofile'>Create Profile</Link>
             </Fragment>
@@ -57,6 +66,7 @@ DashboardContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getCurrentUserProfile, deleteUser })(
