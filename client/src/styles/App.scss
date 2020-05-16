@@ -595,6 +595,55 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
+.confirm-delete-user-button {
+  background-color: rgb(231, 48, 48);
+  color: $primaryText;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 2rem auto;
+  font-size: 14px;
+  width: 100px;
+  max-width: 200px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.cancel-user-button {
+  background-color: $primaryText;
+  color: $darkText;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 2rem auto;
+  font-size: 14px;
+  width: 100px;
+  max-width: 200px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal {
+  position: fixed;
+  z-index: 400;
+  background-color: $primaryText;
+  color: $darkText;
+  width: 600px;
+  top: 25%;
+  left: 33vw;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-buttons {
+  width: 100%;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;

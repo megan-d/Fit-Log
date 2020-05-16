@@ -5,6 +5,7 @@ import Cards from './Cards/Cards';
 import Charts from './charts/Charts';
 import Activities from './activities/Activities';
 import Spinner from '../layout/Spinner';
+import Modal from '../../components/layout/Modal';
 import { connect } from 'react-redux';
 import { getCurrentUserProfile, deleteUser } from '../../actions/profile';
 
@@ -30,9 +31,12 @@ const DashboardContainer = ({
     <Fragment>
       <div className='main-content'>
         <div className='dashboard-container'>
-          <h1 className='title-white-bold'>Welcome to your dashboard, {auth.user.name}</h1>
           {profile.profile !== null && !profile.isLoading ? (
             <Fragment>
+              <h1 className='title-white-bold'>
+                Welcome to your dashboard, {auth.user.name}
+              </h1>
+
               <Cards profile={profile.profile} />
               <Charts />
               <Activities activities={profile.profile.activities} />
@@ -42,6 +46,21 @@ const DashboardContainer = ({
               >
                 Delete Profile and Account
               </button>
+              <Modal>
+                <p>
+                  This action cannot be undone. Are you sure you want to delete
+                  your profile and account?
+                </p>
+                <div className='modal-buttons'>
+                  <button className='cancel-user-button'>Cancel</button>
+                  <button
+                    className='confirm-delete-user-button'
+                    onClick={() => deleteUser()}
+                  >
+                    Yes
+                  </button>
+                </div>
+              </Modal>
             </Fragment>
           ) : (
             <Fragment>

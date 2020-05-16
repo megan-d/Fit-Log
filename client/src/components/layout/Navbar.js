@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { logoutUser } from '../../actions/auth';
 import Logo from '../../assets/images/Logo.svg';
 
-const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
+const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
     const userNav = (
       <ul className="nav-links">
           <li><Link className="nav-link" to="/dashboard">My Dashboard</Link></li>
@@ -30,7 +30,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, loading } }) => {
       </div>
 
       <nav>
-        {!loading && (
+        {!isLoading && (
           <Fragment >
             {isAuthenticated ? userNav : guestNav }
           </Fragment>

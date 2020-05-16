@@ -774,6 +774,58 @@ body {
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
+.confirm-delete-user-button {
+  background-color: #e73030;
+  color: #f5f3f3;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 2rem auto;
+  font-size: 14px;
+  width: 100px;
+  max-width: 200px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.cancel-user-button {
+  background-color: #f5f3f3;
+  color: #203a43;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 2rem auto;
+  font-size: 14px;
+  width: 100px;
+  max-width: 200px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal {
+  position: fixed;
+  z-index: 400;
+  background-color: #f5f3f3;
+  color: #203a43;
+  width: 600px;
+  top: 25%;
+  left: 33vw;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-buttons {
+  width: 100%;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;
