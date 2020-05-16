@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Modal = (props) => (
-    <div className='modal'>
-        {props.children}
-    </div>
+const Modal = ({ show, children }) => (
+  <div className='modal'>
+    <div >{children}</div>
+  </div>
 );
 
 export default Modal;
