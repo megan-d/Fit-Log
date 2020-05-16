@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Modal = (props) => (
-    <div>
+    <div className='modal'>
         {props.children}
     </div>
 );

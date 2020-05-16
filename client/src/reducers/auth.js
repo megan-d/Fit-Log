@@ -12,7 +12,7 @@ import {
 const initialState = {
   token: localStorage.getItem('token'),
   isLoading: true,
-  isAuthenticated: false,
+  isAuthenticated: null,
   user: null,
 };
 

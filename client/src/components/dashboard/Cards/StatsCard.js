@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Spinner from '../../layout/Spinner';
 import PropTypes from 'prop-types';
 
 const StatsCard = ({ profile }) => {
-  return (
+  return profile.isLoading && profile.profile === null ? (
+    <div className='card'>
+      <Spinner />
+    </div>
+  ) : (
     <div className='card'>
       <h2 className='card-title'>Stats</h2>
       <div className='card-stats'>
@@ -29,6 +34,6 @@ const StatsCard = ({ profile }) => {
 
 StatsCard.propTypes = {
   profile: PropTypes.object.isRequired,
-}
+};
 
 export default StatsCard;
