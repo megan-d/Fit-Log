@@ -817,9 +817,12 @@ body {
   margin: 0 auto;
   color: #203a43;
   width: 50%;
-  top: 25%;
+  top: 33%;
+  left: 25%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .modal-delete-buttons {
