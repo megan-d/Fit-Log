@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Modal = ({ show, children }) => (
-  <div className='modal'>
-    <div >{children}</div>
+  <div className={show ? 'modal-on' : 'modal-off'}>
+    <div className='modal'>{children}</div>
   </div>
 );
 

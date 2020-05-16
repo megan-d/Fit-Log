@@ -15,7 +15,7 @@ const DashboardContainer = ({
   deleteUser,
   auth,
 }) => {
-  //Keep track of the modal visibility state
+  //Keep track of the modal view state
   const [modalView, setModal] = useState(false);
 
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
@@ -46,7 +46,7 @@ const DashboardContainer = ({
                 Welcome to your dashboard, {auth.user.name}
               </h1>
 
-              <Cards profile={profile.profile} modalOpen={modalOpenHandler} modalClosed={modalCloseHandler}/>
+              <Cards profile={profile.profile} />
               <Charts />
               <Activities activities={profile.profile.activities} />
               <button
