@@ -6,7 +6,7 @@ import StatsCard from './StatsCard';
 const Cards = (props) => {
   return (
     <div className='cards'>
-      <StatsCard profile={props.profile}/>
+      <StatsCard profile={props.profile} />
       <GoalsCard profile={props.profile}/>
       <DailyCaloriesCard profile={props.profile}/>
     </div>

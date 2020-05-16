@@ -584,7 +584,7 @@ body {
   border: none;
   border-radius: 5px;
   padding: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 10px;
   margin-top: 4rem;
   font-size: 14px;
   width: 200px;
@@ -601,8 +601,8 @@ body {
   text-decoration: none;
   border: none;
   border-radius: 5px;
-  padding: 0.5rem;
-  margin: 2rem auto;
+  padding: 10px;
+  margin: 10px;
   font-size: 14px;
   width: 100px;
   max-width: 200px;
@@ -618,8 +618,8 @@ body {
   text-decoration: none;
   border: none;
   border-radius: 5px;
-  padding: 0.5rem;
-  margin: 2rem auto;
+  padding: 10px;
+  margin: 10px;
   font-size: 14px;
   width: 100px;
   max-width: 200px;
@@ -633,15 +633,29 @@ body {
   position: fixed;
   z-index: 400;
   background-color: $primaryText;
+  margin: 0 auto;
   color: $darkText;
-  width: 600px;
+  width: 50%;
   top: 25%;
-  left: 33vw;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
-.modal-buttons {
+.modal-delete-buttons {
   width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-delete-desc {
+  margin: 20px;
+}
+
+.modal-on {
+  display: block;
+}
+
+.modal-off {
+  display: none;
 }
 
 @media only screen and (max-width: 935px) {

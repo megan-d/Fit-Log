@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Cards from './Cards/Cards';
@@ -15,11 +15,20 @@ const DashboardContainer = ({
   deleteUser,
   auth,
 }) => {
+  //Keep track of the modal visibility state
+  const [modalView, setModal] = useState(false);
+
   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
 
   useEffect(() => {
     getCurrentUserProfile();
   }, [getCurrentUserProfile]);
+
+  //Modal open handler
+  const modalOpenHandler = () => setModal(true);
+
+  //Modal close handler
+  const modalCloseHandler = () => setModal(false);
 
   return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
@@ -37,30 +46,33 @@ const DashboardContainer = ({
                 Welcome to your dashboard, {auth.user.name}
               </h1>
 
-              <Cards profile={profile.profile} />
+              <Cards profile={profile.profile} modalOpen={modalOpenHandler} modalClosed={modalCloseHandler}/>
               <Charts />
               <Activities activities={profile.profile.activities} />
               <button
                 className='delete-user-button'
-                onClick={() => deleteUser()}
+                onClick={() => modalOpenHandler()}
               >
                 Delete Profile and Account
-              </button>
-              <Modal>
-                <p>
-                  This action cannot be undone. Are you sure you want to delete
-                  your profile and account?
-                </p>
-                <div className='modal-buttons'>
-                  <button className='cancel-user-button'>Cancel</button>
-                  <button
-                    className='confirm-delete-user-button'
-                    onClick={() => deleteUser()}
-                  >
-                    Yes
-                  </button>
+              </button> 
+              {modalView && <Modal show={modalView}>
+                <div className='delete-modal'>
+                  <p className='modal-delete-desc'>
+                    This action cannot be undone. Are you sure you want to
+                    delete your profile and account?
+                  </p>
+                  <div className='modal-delete-buttons'>
+                    <button className='cancel-user-button' onClick={() => modalCloseHandler()}>Cancel</button>
+                    <button
+                      className='confirm-delete-user-button'
+                      onClick={() => deleteUser()}
+                    >
+                      Yes
+                    </button>
+                  </div>
                 </div>
-              </Modal>
+              </Modal>}
+              
             </Fragment>
           ) : (
             <Fragment>
