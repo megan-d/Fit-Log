@@ -55,7 +55,7 @@ const DashboardContainer = ({
               >
                 Delete Profile and Account
               </button> 
-              {modalView && <Modal show={modalView}>
+              {modalView && <Modal show={modalView} modalClosed={modalCloseHandler}>
                 <div className='delete-modal'>
                   <p className='modal-delete-desc'>
                     This action cannot be undone. Are you sure you want to
