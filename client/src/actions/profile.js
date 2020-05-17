@@ -104,10 +104,10 @@ export const updateProfile = (updates, history) => async (dispatch) => {
       dispatch(setAlert('Profile updated', 'success'));
     }
 
-    //redirect to dashboard unless the calories was the card updated. Might need to change this when do modal.
-    if (!updates.hasOwnProperty('caloriesConsumedToday')) {
-      history.push('/dashboard');
-    }
+    // //redirect to dashboard unless the calories was the card updated. Might need to change this when do modal.
+    // if (!updates.hasOwnProperty('caloriesConsumedToday')) {
+    //   history.push('/dashboard');
+    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

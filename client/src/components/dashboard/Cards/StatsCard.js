@@ -1,9 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import Spinner from '../../layout/Spinner';
+import Modal from '../../layout/Modal';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateProfile } from '../../../actions/profile';
 
-const StatsCard = ({ profile }) => {
+const StatsCard = ({ profile, updateProfile, history }) => {
+  //Keep track of the modal view state
+  const [modalView, setModal] = useState(false);
+  //Modal open handler
+  const modalOpenHandler = () => setModal(true);
+  //Modal close handler
+  const modalCloseHandler = () => {
+    setModal(false);
+    clearInputHandler();
+  }
+
+  const [formData, updateFormData] = useState({
+    weight: '',
+    height: '',
+  });
+
+  const { weight, height } = formData;
+
+  //Update state on input change using updateFormData
+  const onChangeHandler = (e) => {
+    updateFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  //Clear the formData (will be run when submit button is clicked or when modal is closed by clicking on background)
+  const clearInputHandler = () => {
+    updateFormData({ ...formData, weight: '', height: '' });
+  };
+
+  //Creat variable for user data based on formData
+  const updates = {
+    weight: weight,
+    height: height,
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    //execute updateProfile action, which takes in the updates and history
+    await updateProfile(updates, history);
+    modalCloseHandler();
+    clearInputHandler();
+  };
+
   return profile.isLoading && profile.profile === null ? (
     <div className='card'>
       <Spinner />
@@ -25,15 +68,56 @@ const StatsCard = ({ profile }) => {
           <p className='card-value'>{profile.bmi}</p>
         </div>
       </div>
-      <Link className='card-button' to='/stats'>
+      <button className='card-button' onClick={() => modalOpenHandler()}>
         Update Stats
-      </Link>
+      </button>
+      {modalView && (
+        <Modal show={modalView} modalClosed={modalCloseHandler}>
+          <div className='main-content'>
+            <div className='form-page-container'>
+              <h1>Update Your Stats</h1>
+              <form className='form contact-form' action='' onSubmit={onSubmit}>
+                <div className='form-container'>
+                  <div className='form-group'>
+                    <label>
+                      What is your current weight in pounds?
+                      <input
+                        type='number'
+                        name='weight'
+                        value={weight}
+                        onChange={(e) => onChangeHandler(e)}
+                      />
+                    </label>
+                  </div>
+                  <div className='form-group'>
+                    <label>
+                      What is your height in inches?
+                      <input
+                        type='number'
+                        name='height'
+                        value={height}
+                        onChange={(e) => onChangeHandler(e)}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <input
+                  type='submit'
+                  value='Submit'
+                  className='button form-button button-column'
+                />
+              </form>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
 
 StatsCard.propTypes = {
   profile: PropTypes.object.isRequired,
+  updateProfile: PropTypes.func.isRequired,
 };
 
-export default StatsCard;
+export default connect(null, { updateProfile })(StatsCard);
