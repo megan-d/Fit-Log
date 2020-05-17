@@ -452,6 +452,9 @@ body {
 .form-button {
   border: none;
   padding: 0.3rem 2.3rem;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  color: #203a43;
 }
 
 .cards {
@@ -547,6 +550,8 @@ body {
   text-align: center;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-input {
@@ -556,6 +561,8 @@ body {
   padding: 0.3rem;
   width: 55px;
   margin-right: 10px;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .calories-input {
@@ -564,6 +571,8 @@ body {
 
 .reset-button {
   margin-left: 10px;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .spinner {
