@@ -14,7 +14,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
   const modalCloseHandler = () => {
     setModal(false);
     clearInputHandler();
-  }
+  };
 
   const [formData, updateFormData] = useState({
     weight: '',
@@ -101,11 +101,19 @@ const StatsCard = ({ profile, updateProfile, history }) => {
                     </label>
                   </div>
                 </div>
-                <input
-                  type='submit'
-                  value='Submit'
-                  className='button form-button button-column'
-                />
+                <div className='modal-delete-buttons'>
+                  <button
+                    className='cancel-user-button'
+                    onClick={() => modalCloseHandler()}
+                  >
+                    Cancel
+                  </button>
+                  <input
+                    type='submit'
+                    value='Submit'
+                    className='button form-button button-column'
+                  />
+                </div>
               </form>
             </div>
           </div>
