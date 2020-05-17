@@ -73,50 +73,48 @@ const StatsCard = ({ profile, updateProfile, history }) => {
       </button>
       {modalView && (
         <Modal show={modalView} modalClosed={modalCloseHandler}>
-          <div className='main-content'>
-            <div className='form-page-container'>
-              <h1>Update Your Stats</h1>
-              <form className='form contact-form' action='' onSubmit={onSubmit}>
-                <div className='form-container'>
-                  <div className='form-group'>
-                    <label>
-                      What is your current weight in pounds?
-                      <input
-                        type='number'
-                        name='weight'
-                        value={weight}
-                        onChange={(e) => onChangeHandler(e)}
-                      />
-                    </label>
-                  </div>
-                  <div className='form-group'>
-                    <label>
-                      What is your height in inches?
-                      <input
-                        type='number'
-                        name='height'
-                        value={height}
-                        onChange={(e) => onChangeHandler(e)}
-                      />
-                    </label>
-                  </div>
-                </div>
-                <div className='modal-delete-buttons'>
-                  <button
-                    className='cancel-user-button'
-                    onClick={() => modalCloseHandler()}
-                  >
-                    Cancel
-                  </button>
+          <h1 className='card-update-heading'>Update Your Stats</h1>
+          <form className='form contact-form' action='' onSubmit={onSubmit}>
+            <div className='form-container'>
+              <div className='form-group'>
+                <label>
+                  What is your current weight in pounds?
                   <input
-                    type='submit'
-                    value='Submit'
-                    className='button form-button button-column'
+                    type='number'
+                    name='weight'
+                    value={weight}
+                    placeholder={profile.weight}
+                    onChange={(e) => onChangeHandler(e)}
                   />
-                </div>
-              </form>
+                </label>
+              </div>
+              <div className='form-group'>
+                <label>
+                  What is your height in inches?
+                  <input
+                    type='number'
+                    name='height'
+                    value={height}
+                    placeholder={profile.height}
+                    onChange={(e) => onChangeHandler(e)}
+                  />
+                </label>
+              </div>
             </div>
-          </div>
+            <div className='modal-delete-buttons'>
+              <button
+                className='cancel-user-button'
+                onClick={() => modalCloseHandler()}
+              >
+                Cancel
+              </button>
+              <input
+                type='submit'
+                value='Submit'
+                className='card-submit-button'
+              />
+            </div>
+          </form>
         </Modal>
       )}
     </div>

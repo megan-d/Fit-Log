@@ -9,8 +9,6 @@ import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
 import PrivateRoute from './components/routing/PrivateRoute';
 import CreateProfile from './components/dashboard/CreateProfile';
-import UpdateStats from './components/dashboard/Cards/UpdateStats';
-import UpdateGoals from './components/dashboard/Cards/UpdateGoals';
 import AddActivity from './components/dashboard/activities/AddActivity';
 import Error from './components/views/Error';
 import './styles/App.css';
@@ -41,8 +39,6 @@ const App = () => {
             <Route path='/register' component={Register} exact />
             <PrivateRoute path='/createprofile' component={CreateProfile} exact />
             <PrivateRoute path='/dashboard' component={DashboardContainer} exact />
-            <PrivateRoute path='/stats' component={UpdateStats} exact />
-            <PrivateRoute path='/goals' component={UpdateGoals} exact />
             <PrivateRoute path='/addactivity' component={AddActivity} exact />
             <Route path='' component={Error} />
           </Switch>
