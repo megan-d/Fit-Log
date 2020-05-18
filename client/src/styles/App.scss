@@ -458,13 +458,13 @@ body {
 .chart {
   background-color: $primaryText;
   flex-basis: calc(50% - 1rem);
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   color: $darkText;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 200px;
+  height: 300px;
   margin-top: 3rem;
   padding: 1rem 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);

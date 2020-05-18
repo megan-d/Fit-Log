@@ -1,10 +1,12 @@
 import React from 'react';
+import LineChart  from './LineChart';
+import PieChart from './PieChart'
 
 const Charts = (props) => {
   return (
     <div className='charts'>
-      <div className='chart chart-1'>Chart 1</div>
-      <div className='chart chart-2'>Chart 2</div>
+      <LineChart />
+      <PieChart />
     </div>
   );
 };
