@@ -47,7 +47,7 @@ const DashboardContainer = ({
               </h1>
 
               <Cards profile={profile.profile} />
-              <Charts />
+              <Charts profile={profile.profile}/>
               <Activities activities={profile.profile.activities} />
               <button
                 className='delete-user-button'
