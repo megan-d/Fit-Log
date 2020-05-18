@@ -29,9 +29,6 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
   
-      // //If passes validation, destructure req.body
-      // const { name, email, password } = req.body;
-  
       try {
         //Check if user already exists. If user already exists, give an error
         let user = await User.findOne({ email: req.body.email });

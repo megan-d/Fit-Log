@@ -5,8 +5,8 @@ import PieChart from './PieChart'
 const Charts = (props) => {
   return (
     <div className='charts'>
-      <LineChart />
-      <PieChart />
+      <LineChart profile={props.profile}/>
+      <PieChart profile={props.profile}/>
     </div>
   );
 };

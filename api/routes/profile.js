@@ -123,7 +123,7 @@ router.post(
       if (profile) {
         return res.json({
           msg:
-            'A profile already exists for this user. Please select edit profile from your dashboard to update your profile.',
+            'A profile already exists for this user. Please select update stats from your dashboard to update your profile.',
         });
       }
       //If profile isn't found, create a new one
