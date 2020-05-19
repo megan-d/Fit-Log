@@ -66,7 +66,7 @@ const Login = (props) => {
               </label>
             </div>
           </div>
-          <input type='submit' value='Login' className='button form-button' />
+          <input type='submit' value='Login' className='button login-form-button' />
         </form>
       </div>
       <div className='no-account'>
@@ -79,7 +79,7 @@ const Login = (props) => {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

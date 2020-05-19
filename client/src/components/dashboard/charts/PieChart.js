@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
 const PieChart = ({ profile }) => {
@@ -16,7 +16,7 @@ const PieChart = ({ profile }) => {
 
   return (
     <div className='chart chart-2'>
-      <Pie
+      <Doughnut
         data={chartData}
         options={{
           maintainAspectRatio: false,
