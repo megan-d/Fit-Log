@@ -338,6 +338,13 @@ body {
   color: $darkText;
 }
 
+.login-form-button {
+  border: none;
+  padding: 0.3rem 2.3rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  color: $primaryText;
+}
+
 .cards {
   display: flex;
   justify-content: space-around;
