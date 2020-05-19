@@ -80,10 +80,15 @@ router.post(
     } = req.body;
 
     //Build the profileItems object. If the value is there, add it to the profileItems object.
-    const profileItems = {};
+    const profileItems = {
+      weightHistory: {
+        weight: weight,
+      },
+    };
     profileItems.user = req.user.id;
     if (weight) {
       profileItems.weight = weight;
+      profileItems.weightHistory.weight = weight;
     }
     if (height) {
       profileItems.height = height;
@@ -161,7 +166,7 @@ router.put(
         .optional({ checkFalsy: true })
         .isInt({ min: 0, max: 7 })
         .trim(),
-        check('goalWeight', 'Please provide a number')
+      check('goalWeight', 'Please provide a number')
         .optional({ checkFalsy: true })
         .isInt()
         .trim(),
@@ -169,7 +174,7 @@ router.put(
         .optional({ checkFalsy: true })
         .isInt()
         .trim(),
-        check('caloriesConsumedToday', 'Please provide a number')
+      check('caloriesConsumedToday', 'Please provide a number')
         .optional({ checkFalsy: true })
         .isInt()
         .trim(),
@@ -205,8 +210,15 @@ router.put(
       //Build the profileItems object. If the value is there, add it to the profileItems object.
       const profileItems = {};
       profileItems.user = req.user.id;
+
       if (weight) {
         profileItems.weight = weight;
+        weightHistoryInput = {
+          weight: weight,
+        };
+        profileItems.weightHistory = [...profile.weightHistory];
+        profileItems.weightHistory.push(weightHistoryInput);
+        console.log(profileItems.weightHistory);
       } else {
         profileItems.weight = profile.weight;
       }
@@ -235,9 +247,9 @@ router.put(
       //Calculate calories remaining once have data from either profileItems or profile (or both)
       profileItems.caloriesRemainingToday =
         profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
-        if(profileItems.caloriesRemainingToday <= 0) {
-          profileItems.caloriesRemainingToday = 0;
-        }
+      if (profileItems.caloriesRemainingToday <= 0) {
+        profileItems.caloriesRemainingToday = 0;
+      }
 
       //Set bmi remaining once look up what's in profile (since have default value or user inputed value)
       profileItems.bmi = (
@@ -317,7 +329,7 @@ router.put(
     try {
       //Find profile of user that comes in with token
       const profile = await Profile.findOne({ user: req.user.id });
-      
+
       //Need to perform calculation to calculate calories based on weight, category, and duration. Mets derived from acsm.org and ace.
       //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration;
       const mets = {
@@ -325,16 +337,16 @@ router.put(
         'Bicycling - Vigorous': 10,
         'Running - Slow': 8,
         'Running - Fast': 11.5,
-        'Swimming': 8,
+        Swimming: 8,
         'Walking - Leisure': 3,
         'Walking - Brisk': 5,
-        'Hiking': 7,
+        Hiking: 7,
         'Nordic Skiing': 8,
-        'Tennis': 8,
+        Tennis: 8,
         'Weight Training': 4,
-        'Yoga': 2.5,
-        'Basketball': 6.5,
-        'Aerobics': 5,
+        Yoga: 2.5,
+        Basketball: 6.5,
+        Aerobics: 5,
       };
       const category = newActivity.category;
       newActivity.calories = Math.round(
