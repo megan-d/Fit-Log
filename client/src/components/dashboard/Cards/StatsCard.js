@@ -68,7 +68,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
           <p className='card-value'>{profile.bmi}</p>
         </div>
       </div>
-      <button className='card-button' onClick={() => modalOpenHandler()}>
+      <button className='card-button' onClick={modalOpenHandler}>
         Update Stats
       </button>
       {modalView && (
@@ -84,7 +84,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
                     name='weight'
                     value={weight}
                     placeholder={profile.weight}
-                    onChange={(e) => onChangeHandler(e)}
+                    onChange={onChangeHandler}
                   />
                 </label>
               </div>
@@ -96,7 +96,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
                     name='height'
                     value={height}
                     placeholder={profile.height}
-                    onChange={(e) => onChangeHandler(e)}
+                    onChange={onChangeHandler}
                   />
                 </label>
               </div>
@@ -104,7 +104,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
             <div className='modal-delete-buttons'>
               <button
                 className='cancel-user-button'
-                onClick={() => modalCloseHandler()}
+                onClick={modalCloseHandler}
               >
                 Cancel
               </button>
