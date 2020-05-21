@@ -52,7 +52,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   name='weight'
                   placeholder=''
                   value={weight}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChange}
                   required
                 />
               </label>
@@ -65,7 +65,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   name='height'
                   placeholder=''
                   value={height}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChange}
                   required
                 />
               </label>
@@ -78,7 +78,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   name='goalWeight'
                   placeholder=''
                   value={goalWeight}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChange}
                 />
               </label>
             </div>
@@ -91,7 +91,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   name='goalDailyCalories'
                   placeholder=''
                   value={goalDailyCalories}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChange}
                 />
               </label>
             </div>
@@ -103,7 +103,7 @@ const CreateProfile = ({ createProfile, history }) => {
                   name='goalDays'
                   placeholder=''
                   value={goalDays}
-                  onChange={(e) => onChange(e)}
+                  onChange={onChange}
                 />
               </label>
             </div>
