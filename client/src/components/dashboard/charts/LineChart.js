@@ -7,14 +7,12 @@ import moment from 'moment';
 //Minutes of activity over the last 7 days
 const LineChart = ({ profile }) => {
 
-  const weights = profile.weightHistory.map(el => el.weight);
-
   const chartData = {
     labels: [...profile.weightHistory.map(el => moment(el.date).format('MM-DD-YYYY'))],
     datasets: [
       {
-        label: 'Weight (lbs)',
-        data: weights,
+        label: ['Weight'],
+        data: profile.weightHistory.map(el => el.weight),
         borderColor: 'rgba(251,155,61, 1)',
         backgroundColor: 'rgba(203, 199, 187, 0.5)',
       },
@@ -36,9 +34,20 @@ const LineChart = ({ profile }) => {
             position: 'bottom',
             align: 'center',
           },
-          scaleLabel: {
-            labelString: 'Test'
-          }
+          scales: {
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Weight (lbs)'
+              }
+            }],
+            xAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Date'
+              }
+            }]
+          }     
         }}
       />
     </div>

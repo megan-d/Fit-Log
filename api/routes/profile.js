@@ -218,7 +218,6 @@ router.put(
         };
         profileItems.weightHistory = [...profile.weightHistory];
         profileItems.weightHistory.push(weightHistoryInput);
-        console.log(profileItems.weightHistory);
       } else {
         profileItems.weight = profile.weight;
       }
