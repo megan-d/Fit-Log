@@ -73,7 +73,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
           <p className='card-value'>{profile.goalDays}</p>
         </div>
       </div>
-      <button className='card-button' onClick={() => modalOpenHandler()}>
+      <button className='card-button' onClick={modalOpenHandler}>
         Update Goals
       </button>
       {modalView && (
@@ -83,7 +83,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
               <form
                 className='form contact-form'
                 action=''
-                onSubmit={(e) => onSubmit(e)}
+                onSubmit={onSubmit}
               >
                 <div className='form-container'>
                   <div className='form-group'>
@@ -94,7 +94,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         name='goalWeight'
                         value={goalWeight}
                         placeholder={profile.goalWeight}
-                        onChange={(e) => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                       />
                     </label>
                   </div>
@@ -107,7 +107,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         name='goalDailyCalories'
                         value={goalDailyCalories}
                         placeholder={profile.goalDailyCalories}
-                        onChange={(e) => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                       />
                     </label>
                   </div>
@@ -119,7 +119,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         name='goalDays'
                         value={goalDays}
                         placeholder={profile.goalDays}
-                        onChange={(e) => onChangeHandler(e)}
+                        onChange={onChangeHandler}
                       />
                     </label>
                   </div>
@@ -127,7 +127,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                 <div className='modal-delete-buttons'>
                   <button
                     className='cancel-user-button'
-                    onClick={() => modalCloseHandler()}
+                    onClick={modalCloseHandler}
                   >
                     Cancel
                   </button>
