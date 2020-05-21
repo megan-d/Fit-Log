@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout';
 import About from './components/views/About';
 import Contact from './components/views/Contact';
 import Landing from './components/views/Landing';
+import Demo from './components/demo/Demo';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Alert from './components/layout/Alert';
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='/' component={Landing} exact />
             <Route path='/about' component={About} exact />
             <Route path='/contact' component={Contact} exact />
+            <Route path='/demo' component={Demo} exact />
             <Route path='/login' component={Login} exact />
             <Route path='/register' component={Register} exact />
             <PrivateRoute path='/createprofile' component={CreateProfile} exact />
