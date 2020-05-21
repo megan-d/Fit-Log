@@ -1,7 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import Moment from 'react-moment';
 import moment from 'moment';
 
 //Minutes of activity over the last 7 days
