@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Cards from './Cards/Cards';
+import Cards from './cards/Cards';
 import Charts from './charts/Charts';
 import Activities from './activities/Activities';
 import Spinner from '../layout/Spinner';
