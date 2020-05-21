@@ -51,7 +51,7 @@ const DashboardContainer = ({
               <Activities activities={profile.profile.activities} />
               <button
                 className='delete-user-button'
-                onClick={() => modalOpenHandler()}
+                onClick={modalOpenHandler}
               >
                 Delete Profile and Account
               </button> 
@@ -62,7 +62,7 @@ const DashboardContainer = ({
                     delete your profile and account?
                   </p>
                   <div className='modal-delete-buttons'>
-                    <button className='cancel-user-button' onClick={() => modalCloseHandler()}>Cancel</button>
+                    <button className='cancel-user-button' onClick={modalCloseHandler}>Cancel</button>
                     <button
                       className='confirm-delete-user-button'
                       onClick={() => deleteUser()}
