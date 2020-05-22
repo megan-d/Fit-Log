@@ -73,48 +73,50 @@ const StatsCard = ({ profile, updateProfile, history }) => {
       </button>
       {modalView && (
         <Modal show={modalView} modalClosed={modalCloseHandler}>
-          <h1 className='card-update-heading'>Update Your Stats</h1>
-          <form className='form contact-form' action='' onSubmit={onSubmit}>
-            <div className='form-container'>
-              <div className='form-group'>
-                <label>
-                  What is your current weight in pounds?
-                  <input
-                    type='number'
-                    name='weight'
-                    value={weight}
-                    placeholder={profile.weight}
-                    onChange={onChangeHandler}
-                  />
-                </label>
+          <div className='update-modal'>
+            <h1 className='card-update-heading'>Update Your Stats</h1>
+            <form className='form contact-form' action='' onSubmit={onSubmit}>
+              <div className='form-container'>
+                <div className='form-group'>
+                  <label>
+                    What is your current weight in pounds?
+                    <input
+                      type='number'
+                      name='weight'
+                      value={weight}
+                      placeholder={profile.weight}
+                      onChange={onChangeHandler}
+                    />
+                  </label>
+                </div>
+                <div className='form-group'>
+                  <label>
+                    What is your height in inches?
+                    <input
+                      type='number'
+                      name='height'
+                      value={height}
+                      placeholder={profile.height}
+                      onChange={onChangeHandler}
+                    />
+                  </label>
+                </div>
               </div>
-              <div className='form-group'>
-                <label>
-                  What is your height in inches?
-                  <input
-                    type='number'
-                    name='height'
-                    value={height}
-                    placeholder={profile.height}
-                    onChange={onChangeHandler}
-                  />
-                </label>
+              <div className='modal-delete-buttons'>
+                <button
+                  className='cancel-user-button'
+                  onClick={modalCloseHandler}
+                >
+                  Cancel
+                </button>
+                <input
+                  type='submit'
+                  value='Submit'
+                  className='card-submit-button'
+                />
               </div>
-            </div>
-            <div className='modal-delete-buttons'>
-              <button
-                className='cancel-user-button'
-                onClick={modalCloseHandler}
-              >
-                Cancel
-              </button>
-              <input
-                type='submit'
-                value='Submit'
-                className='card-submit-button'
-              />
-            </div>
-          </form>
+            </form>
+          </div>
         </Modal>
       )}
     </div>

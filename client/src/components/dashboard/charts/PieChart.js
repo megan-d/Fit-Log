@@ -29,6 +29,12 @@ const PieChart = ({ profile }) => {
             display: true,
             position: 'bottom',
           },
+          layout: {
+            padding: {
+              left: 20,
+              right: 20,
+            }
+          }
         }}
       />
     </div>

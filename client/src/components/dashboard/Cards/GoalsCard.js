@@ -78,7 +78,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
       </button>
       {modalView && (
         <Modal show={modalView} modalClosed={modalCloseHandler}>
-          <div className='main-content'>
+          <div className='update-modal'>
               <h1 className='card-update-heading'>Update Your Goals</h1>
               <form
                 className='form contact-form'

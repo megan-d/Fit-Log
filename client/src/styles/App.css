@@ -358,6 +358,7 @@ body {
 
 .form {
   margin: 0 auto;
+  width: 90%;
   min-width: 450px;
   max-width: 550px;
   display: -webkit-box;
@@ -629,7 +630,7 @@ body {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  width: 100%;
+  width: 80vw;
 }
 
 .chart {
@@ -657,13 +658,15 @@ body {
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
+  position: relative;
+  width: 80vw;
 }
 
 .chart-1 {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  max-width: 60%;
+  max-width: 70%;
 }
 
 .chart-2 {
@@ -792,12 +795,12 @@ body {
 }
 
 .modal {
+  width: 50%;
   position: fixed;
   z-index: 400;
   background-color: #f5f3f3;
   margin: 0 auto;
   color: #203a43;
-  width: 50%;
   top: 25%;
   left: 25%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -897,9 +900,6 @@ body {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .chart {
-    padding: 20px;
-  }
 }
 
 @media only screen and (max-width: 790px) {
@@ -914,6 +914,8 @@ body {
   }
   .form {
     min-width: 300px;
+    margin: 0 auto;
+    width: 90%;
   }
   .image-container {
     display: none;
@@ -960,20 +962,80 @@ body {
   }
   .chart {
     margin-top: 1rem;
-    min-width: 500px;
     position: relative;
+    width: 500px;
+    max-width: 800px;
+  }
+  .delete-activity-button {
+    width: 50px;
+  }
+  .activities {
+    margin: 2rem;
+  }
+  .activities h3 {
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .table {
+    margin: 1rem auto;
+    width: 100%;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+  .table th,
+  .table td {
+    padding: 0.3rem 0.1rem;
+    margin: 3rem;
+    text-align: center;
+  }
+  .table td {
+    font-size: 0.9rem;
+  }
+  .table th {
+    font-size: 0.9rem;
+  }
+  .add-activity-button {
+    padding: 1px;
+    font-size: 14px;
+    width: 80px;
+    top: 10px;
+    left: 5px;
   }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 600px) {
   header {
     width: 90%;
   }
-  .nav-link {
-    display: none;
-  }
   .footer-link {
     padding: 0 1rem;
+  }
+  .form {
+    min-width: 100px;
+    margin: 5px;
+  }
+  .form-container {
+    margin-top: 5px;
+  }
+  .form-container-signup {
+    width: 90%;
+  }
+  .card-update-heading {
+    margin-top: 5px;
+  }
+  .modal {
+    width: 50%;
+    padding: 5px;
+    margin: 0 auto;
+    top: 10%;
+  }
+  .modal-delete-buttons {
+    margin: 5px;
+  }
+  .chart {
+    margin-top: 1rem;
+    position: relative;
+    width: 80vw;
   }
 }
 /*# sourceMappingURL=App.css.map */
