@@ -10,6 +10,11 @@ import { connect } from 'react-redux';
 import { getCurrentUserProfile, deleteUser } from '../../actions/profile';
 
 const Demo = ({ getCurrentUserProfile, profile, deleteUser, auth }) => {
+    //Steps:
+    //  1. When user clicks the view demo link, a new user is automatically created by using 1@demo.com, 2@demo.com, etc and a password of 12345678
+    //  2. 
+
+
   //   //Keep track of the modal view state
   //   const [modalView, setModal] = useState(false);
 
