@@ -107,6 +107,8 @@ header {
 .no-account,
 .have-account {
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .no-account p {
@@ -353,17 +355,16 @@ body {
 
 .card {
   background: linear-gradient(to right, $highlightText, #ffc93c);
-  max-width: 500px;
   flex-basis: calc(33% - 3rem);
   color: $darkText;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-width: 150px;
+  min-width: 245px;
   max-width: 350px;
   height: 200px;
-  margin-top: 1rem;
+  margin: 1rem 10px;
   padding: 1rem 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -371,6 +372,7 @@ body {
 
 .card-title {
   font-size: 20px;
+  text-align: center;
 }
 
 .card-stats {
@@ -423,7 +425,7 @@ body {
 }
 
 .calories-input {
-  width: 75%;
+  width: 95%;
 }
 
 .reset-button {
@@ -706,9 +708,15 @@ body {
   .main-section-signup {
     flex-direction: column;
   }
+  .chart {
+    padding: 20px;
+  }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 790px) {
+  .nav-link {
+    padding-left: 2rem;
+  }
   .button {
     align-self: center;
     margin-right: 0px;
@@ -727,14 +735,38 @@ body {
     align-self: center;
     margin-right: 0px;
   }
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card {
+    width: 500px;
+    height: 200px;
+    margin: 1rem 10px;
+    padding: 1rem 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+  }
+
+  .charts {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .chart {
+    margin-top: 1rem;
+    min-width: 500px;
+    position: relative;
+  }
 }
 
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 576px) {
   header {
     width: 90%;
   }
   .nav-link {
-    padding-left: 0.5rem;
+    display: none;
   }
   .footer-link {
     padding: 0 1rem;

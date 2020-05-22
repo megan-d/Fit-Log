@@ -24,6 +24,7 @@ const LineChart = ({ profile }) => {
         data={chartData}
         options={{
           maintainAspectRatio: false,
+          responsive: true,
           title: {
             display: true,
             text: 'Weight Tracker',
