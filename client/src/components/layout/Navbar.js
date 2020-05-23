@@ -6,49 +6,82 @@ import { logoutUser } from '../../actions/auth';
 import Logo from '../../assets/images/Logo.svg';
 
 const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
-    const userNav = (
-      <ul className="nav-links">
-          <li><Link className="nav-link" to="/dashboard">My Dashboard</Link></li>
-          <li><a className="nav-link" onClick={logoutUser} href='/'>Logout</a></li>
-        </ul>
-    );
-    
-    const guestNav = (
-      <ul className="nav-links">
-          <li><Link className="nav-link" to="/demo">View Demo</Link></li>
-          <li><Link className="nav-link" to="/register">Sign Up</Link></li>
-          <li><Link className="nav-link" to="/login">Login</Link></li>
-        </ul>
-    )
+  const userNav = (
+    <Fragment>
+      <div className='hamburger'>
+        <div className='line line1'></div>
+        <div className='line line2'></div>
+        <div className='line line3'></div>
+      </div>
+      <ul className='nav-links'>
+        <li>
+          <Link className='nav-link' to='/dashboard'>
+            My Dashboard
+          </Link>
+        </li>
+        <li>
+          <a className='nav-link' onClick={logoutUser} href='/'>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </Fragment>
+  );
 
+  const guestNav = (
+    <Fragment>
+      <div className='hamburger'>
+        <div className='line'></div>
+        <div className='line'></div>
+        <div className='line'></div>
+      </div>
+      <ul className='nav-links'>
+        <li>
+          <Link className='nav-link' to='/demo'>
+            View Demo
+          </Link>
+        </li>
+        <li>
+          <Link className='nav-link' to='/register'>
+            Sign Up
+          </Link>
+        </li>
+        <li>
+          <Link className='nav-link' to='/login'>
+            Login
+          </Link>
+        </li>
+      </ul>
+    </Fragment>
+  );
 
-    return(
-        <header>
-      <div className="logo-container">
-        <img src={Logo} alt="logo" id="logo-image"/>
-        <h1><Link to="/">Fit Ally</Link></h1>
+  return (
+    <header>
+      <div className='logo-container'>
+        <img src={Logo} alt='logo' id='logo-image' />
+        <h1>
+          <Link to='/'>Fit Ally</Link>
+        </h1>
       </div>
 
       <nav>
         {!isLoading && (
-          <Fragment >
-            {isAuthenticated ? userNav : guestNav }
-          </Fragment>
+          <Fragment>{isAuthenticated ? userNav : guestNav}</Fragment>
         )}
       </nav>
     </header>
-    )
-}
+  );
+};
 
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-}
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-}
-}
+  };
+};
 
 export default connect(mapStateToProps, { logoutUser })(Navbar);
