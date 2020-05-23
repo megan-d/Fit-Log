@@ -959,12 +959,14 @@ body {
         -ms-flex-align: center;
             align-items: center;
     padding: 0px;
+    height: 800px;
   }
   .chart {
     margin-top: 1rem;
     position: relative;
     width: 500px;
     max-width: 800px;
+    height: 400px;
   }
   .delete-activity-button {
     width: 50px;
@@ -1010,6 +1012,9 @@ body {
   .footer-link {
     padding: 0 1rem;
   }
+  .footer {
+    height: 30px;
+  }
   .form {
     min-width: 100px;
     margin: 5px;
@@ -1018,7 +1023,10 @@ body {
     margin-top: 5px;
   }
   .form-container-signup {
-    width: 90%;
+    width: 80%;
+  }
+  .form-right {
+    min-width: 0px;
   }
   .card-update-heading {
     margin-top: 5px;
@@ -1035,7 +1043,10 @@ body {
   .chart {
     margin-top: 1rem;
     position: relative;
-    width: 80vw;
+    width: 85vw;
+  }
+  .nav-links {
+    display: none;
   }
 }
 /*# sourceMappingURL=App.css.map */
