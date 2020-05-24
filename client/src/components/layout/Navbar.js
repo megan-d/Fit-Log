@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,54 +6,12 @@ import { logoutUser } from '../../actions/auth';
 import Logo from '../../assets/images/Logo.svg';
 
 const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
-  const userNav = (
-    <Fragment>
-      <div className='hamburger'>
-        <div className='line line1'></div>
-        <div className='line line2'></div>
-        <div className='line line3'></div>
-      </div>
-      <ul className='nav-links'>
-        <li>
-          <Link className='nav-link' to='/dashboard'>
-            My Dashboard
-          </Link>
-        </li>
-        <li>
-          <a className='nav-link' onClick={logoutUser} href='/'>
-            Logout
-          </a>
-        </li>
-      </ul>
-    </Fragment>
-  );
 
-  const guestNav = (
-    <Fragment>
-      <div className='hamburger'>
-        <div className='line'></div>
-        <div className='line'></div>
-        <div className='line'></div>
-      </div>
-      <ul className='nav-links'>
-        <li>
-          <Link className='nav-link' to='/demo'>
-            View Demo
-          </Link>
-        </li>
-        <li>
-          <Link className='nav-link' to='/register'>
-            Sign Up
-          </Link>
-        </li>
-        <li>
-          <Link className='nav-link' to='/login'>
-            Login
-          </Link>
-        </li>
-      </ul>
-    </Fragment>
-  );
+const [ isOpen, toggle ] = useState(false);
+
+  const toggleNav = () => toggle(!isOpen);
+
+  const navClass = isOpen ? 'nav-links open' : 'nav-links close';
 
   return (
     <header>
@@ -66,7 +24,48 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
 
       <nav>
         {!isLoading && (
-          <Fragment>{isAuthenticated ? userNav : guestNav}</Fragment>
+          <Fragment>{isAuthenticated ? <Fragment>
+            <div className='hamburger' onClick={toggleNav}>
+              <div className='line line1'></div>
+              <div className='line line2'></div>
+              <div className='line line3'></div>
+            </div>
+            <ul className={navClass}>
+              <li>
+                <Link className='nav-link' to='/dashboard' onClick={toggleNav}>
+                  My Dashboard
+                </Link>
+              </li>
+              <li>
+                <a className='nav-link' onClick={logoutUser} href='/'>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </Fragment> : <Fragment>
+      <div className='hamburger' onClick={toggleNav}>
+        <div className='line'></div>
+        <div className='line'></div>
+        <div className='line'></div>
+      </div>
+      <ul className={navClass}>
+        <li>
+          <Link className='nav-link' to='/demo' onClick={toggleNav}>
+            View Demo
+          </Link>
+        </li>
+        <li>
+          <Link className='nav-link' to='/register' onClick={toggleNav}>
+            Sign Up
+          </Link>
+        </li>
+        <li>
+          <Link className='nav-link' to='/login' onClick={toggleNav}>
+            Login
+          </Link>
+        </li>
+      </ul>
+    </Fragment>}</Fragment>
         )}
       </nav>
     </header>

@@ -51,6 +51,10 @@ header {
   color: rgba(255, 201, 60, 0.9);
 }
 
+.hamburger {
+  display: none;
+}
+
 .error-page {
   text-align: center;
 }
@@ -890,6 +894,10 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.sideDrawer {
+  display: none;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;
@@ -1006,6 +1014,9 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
   header {
     width: 90%;
   }
@@ -1049,7 +1060,6 @@ body {
     position: absolute;
     right: 0px;
     top: 10vh;
-    height: 50vh;
     background-color: #203a43;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1058,25 +1068,44 @@ body {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    width: 100%;
+    width: 50%;
+    height: 100%;
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    list-style: none;
+    font-size: 0.85rem;
+    -webkit-transition: -webkit-transform 0.3s ease-in;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+    z-index: 1;
+  }
+  .open {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  .close {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  .nav-link {
+    padding: 0;
   }
   .hamburger {
-    position: absolute;
+    display: block;
     cursor: pointer;
-    right: 2vh;
-    top: 2vh;
-    margin: 5px;
+    z-index: 4;
   }
   .line {
     width: 25px;
     height: 3px;
     background: white;
     margin: 5px;
+    z-index: 4;
   }
 }
 /*# sourceMappingURL=App.css.map */
