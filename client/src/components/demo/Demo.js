@@ -1,55 +1,77 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Cards from '../dashboard/cards/Cards';
-import Charts from '../dashboard/charts/Charts';
-import Activities from '../dashboard/activities/Activities';
-import Spinner from '../layout/Spinner';
-import Modal from '../layout/Modal';
 import { connect } from 'react-redux';
-import { getCurrentUserProfile, deleteUser } from '../../actions/profile';
+import { v4 as uuidv4 } from 'uuid';
+import DashboardContainer from '../dashboard/DashboardContainer';
+import Spinner from '../layout/Spinner';
+import { createDemoProfile, updateDemoProfile } from '../../actions/profile';
+import { register } from '../../actions/auth';
 
-const Demo = ({ getCurrentUserProfile, profile, deleteUser, auth }) => {
-    //Steps:
-    //  1. When user clicks the view demo link, a new user is automatically created by using 1@demo.com, 2@demo.com, etc and a password of 12345678
-    //  2. 
+const Demo = ({ register, profile, createDemoProfile, updateDemoProfile }) => {
+  //When this component loads (when user clicks view demo link), register a new demo user, set up the demo user's profile, and update the profile so there is information for the charts.
 
+  //Register demo user using register action
+  let id = uuidv4();
+  const demoUser = {
+    name: 'Steven',
+    email: `${id}@demo.com`,
+    password: '123456789',
+  };
 
-  //   //Keep track of the modal view state
-  //   const [modalView, setModal] = useState(false);
+  const registerDemoUser = async () => {
+    await register(demoUser);
+  };
 
-  //   //Load the user profile - display spinner while loading. Fetch the data from the database through action/reducer. Once profile is loaded, display profile in dashboard.
+  //Create demo profile using createDemoProfile action
+  const demoProfile = {
+    weight: 220,
+    height: 70,
+    goalWeight: 200,
+    goalDailyCalories: 2000,
+    goalDays: 4,
+  };
 
-  //   useEffect(() => {
-  //     getCurrentUserProfile();
-  //   }, [getCurrentUserProfile]);
+  const makeDemoProfile = async () => {
+    await createDemoProfile(demoProfile);
+  };
 
-  //   //Modal open handler
-  //   const modalOpenHandler = () => setModal(true);
+  //Set up profile information for updateDemoProfile action. For this I will need to come up with the updates and hit the correct endpoints. I also need to figure out what's going on with the mobile nav for the demo user (when change to mobile view the mobile nav appears without clicking the button.)
+  const updates = {
 
-  //   //Modal close handler
-  //   const modalCloseHandler = () => setModal(false);
+  }
+  const seedProfile = async () => {
+    await updateDemoProfile(updates);
+  }
 
-  return (
+  //On component load, run an async function that awaits all of the above functions.
+  useEffect(() => {
+    const populateDemo = async () => {
+      await registerDemoUser();
+      await makeDemoProfile();
+      await seedProfile();
+    };
+    populateDemo();
+  }, []);
+
+  return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
       <div className='dashboard-container'>
-          <h1>This is the demo page</h1>
+        <Spinner />
       </div>
     </div>
+  ) : (
+    <DashboardContainer />
   );
 };
 
 Demo.propTypes = {
-  getCurrentUserProfile: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  deleteUser: PropTypes.func.isRequired,
+  createDemoProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
-  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCurrentUserProfile, deleteUser })(
-  Demo,
-);
+export default connect(mapStateToProps, { register, createDemoProfile, updateDemoProfile })(Demo);
