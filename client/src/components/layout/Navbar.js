@@ -12,11 +12,6 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
 
   const navClass = isOpen ? 'nav-links open' : 'nav-links close';
 
-  const logoutUserNav = () => {
-    toggleNav();
-    logoutUser();
-  }
-
   return (
     <header>
       <div className='logo-container'>
@@ -46,8 +41,8 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
                       My Dashboard
                     </Link>
                   </li>
-                  <li>
-                    <a className='nav-link' onClick={logoutUserNav} href='/'>
+                  <li onClick={toggleNav}>
+                    <a className='nav-link' onClick={logoutUser} href='/'>
                       Logout
                     </a>
                   </li>
@@ -61,8 +56,8 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
                   <div className='line'></div>
                 </div>
                 <ul className={navClass}>
-                  <li>
-                    <Link className='nav-link' to='/demo' onClick={toggleNav}>
+                  <li  onClick={toggleNav}>
+                    <Link className='nav-link' to='/demo'>
                       View Demo
                     </Link>
                   </li>

@@ -216,3 +216,49 @@ export const deleteUser = () => async(dispatch) => {
     });
   }
 };
+
+// ****ACTIONS FOR DEMO*******
+// ---------------------------------------
+
+//Create new DEMO profile
+export const createDemoProfile = (profile) => async (dispatch) => {
+  try {
+    //Create config with headers. Get token from localStorage and put in req header.
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': localStorage.getItem('token'),
+      },
+    };
+
+    //Create body variable and stringify
+    const body = JSON.stringify(profile);
+
+    //Make post request to api/profile.
+    const res = await axios.post('api/profile', body, config);
+
+    dispatch({
+      type: LOAD_PROFILE_SUCCESS,
+      payload: res.data,
+    });
+    getCurrentUserProfile();
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      //if errors, loop through them and dispatch the setAlert
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+    }
+    dispatch({
+      type: LOAD_PROFILE_FAILURE,
+      payload: {
+        msg: err.response.data.msg,
+        status: err.response.status,
+      },
+    });
+  }
+};
+
+//Update DEMO profile (seed demo profile)
+export const updateDemoProfile = (updates) => async (dispatch) => {
+  console.log('demo profile will go here');
+}
