@@ -58,7 +58,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
                 <ul className={navClass}>
                   <li  onClick={toggleNav}>
                     <Link className='nav-link' to='/demo'>
-                      View Demo
+                      Demo
                     </Link>
                   </li>
                   <li>
