@@ -1,5 +1,6 @@
 import {
   REGISTER_SUCCESS,
+  REGISTER_SUCCESS_DEMO,
   REGISTER_FAILURE,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -7,6 +8,7 @@ import {
   LOAD_USER_FAILURE,
   LOGOUT,
   USER_DELETED,
+  LOAD_USER_SUCCESS_DEMO,
 } from '../actions/types';
 
 const initialState = {
@@ -26,7 +28,15 @@ export default function(state = initialState, action) {
         isLoading: false,
         isAuthenticated: true,
       };
+    case REGISTER_SUCCESS_DEMO:
+      return {
+        ...state,
+        ...action.payload,
+        isLoading: false,
+        isAuthenticated: true,
+      };
     case LOAD_USER_SUCCESS:
+    case LOAD_USER_SUCCESS_DEMO:
       return {
         ...state,
         isLoading: false,

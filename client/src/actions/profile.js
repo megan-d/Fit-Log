@@ -6,7 +6,9 @@ import {
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAILURE,
   PROFILE_CLEARED,
-  USER_DELETED
+  USER_DELETED,
+  LOAD_PROFILE_SUCCESS_DEMO,
+  LOAD_PROFILE_FAILURE_DEMO,
 } from './types';
 
 //Get logged in user's profile
@@ -66,7 +68,7 @@ export const createProfile = (profile, history) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
     }
     dispatch({
-      type: LOAD_PROFILE_FAILURE,
+      type: LOAD_PROFILE_FAILURE_DEMO,
       payload: {
         msg: err.response.data.msg,
         status: err.response.status,
@@ -190,7 +192,7 @@ export const deleteActivity = (id) => async (dispatch) => {
 };
 
 //Delete profile and user
-export const deleteUser = () => async(dispatch) => {
+export const deleteUser = () => async (dispatch) => {
   try {
     //Confirm that user wants to delete
 
@@ -200,12 +202,17 @@ export const deleteUser = () => async(dispatch) => {
       },
     });
     dispatch({
-      type: PROFILE_CLEARED
+      type: PROFILE_CLEARED,
     });
     dispatch({
-      type: USER_DELETED
+      type: USER_DELETED,
     });
-    dispatch(setAlert('Your profile and account have been permanently deleted.', 'success'));
+    dispatch(
+      setAlert(
+        'Your profile and account have been permanently deleted.',
+        'success',
+      ),
+    );
   } catch (err) {
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
@@ -219,15 +226,15 @@ export const deleteUser = () => async(dispatch) => {
 
 // ****ACTIONS FOR DEMO*******
 // ---------------------------------------
+//**************************** */
 
 //Create new DEMO profile
 export const createDemoProfile = (profile) => async (dispatch) => {
   try {
-    //Create config with headers. Get token from localStorage and put in req header.
+    //Create config with headers.
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': localStorage.getItem('token'),
       },
     };
 
@@ -235,13 +242,13 @@ export const createDemoProfile = (profile) => async (dispatch) => {
     const body = JSON.stringify(profile);
 
     //Make post request to api/profile.
-    const res = await axios.post('api/profile', body, config);
+    const res = await axios.post('api/profile/demo', body, config);
 
     dispatch({
-      type: LOAD_PROFILE_SUCCESS,
+      type: LOAD_PROFILE_SUCCESS_DEMO,
       payload: res.data,
     });
-    getCurrentUserProfile();
+    // getDemoUserProfile();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -258,7 +265,33 @@ export const createDemoProfile = (profile) => async (dispatch) => {
   }
 };
 
-//Update DEMO profile (seed demo profile)
+//Update DEMO profile - for when user updates
 export const updateDemoProfile = (updates) => async (dispatch) => {
   console.log('demo profile will go here');
-}
+};
+
+//Get logged in user's profile
+export const getDemoUserProfile = () => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.get('/api/profile/me/demo', config);
+
+    dispatch({
+      type: LOAD_PROFILE_SUCCESS_DEMO,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAD_PROFILE_FAILURE,
+      payload: {
+        msg: err.response.data.msg,
+        status: err.response.status,
+      },
+    });
+  }
+};

@@ -73,6 +73,28 @@ router.post(
   },
 );
 
+//****DEMO AUTH ROUTES */
+//******************** */
+//********************** */
+
+//ROUTE: GET api/auth
+//DESCRIPTION: Get user from database
+//ACCESS LEVEL: Public
+
+router.get('/demo', async (req, res) => {
+  try {
+    console.log(req);
+    const user = await User.findById(req.headers.userid).select('-password');
+    res.json(user);
+  } catch(err) {
+    console.err(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
+
 
 
 module.exports = router;

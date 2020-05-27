@@ -8,8 +8,11 @@ import {
   LOAD_USER_FAILURE,
   LOGOUT,
   PROFILE_CLEARED,
+  REGISTER_SUCCESS_DEMO,
+  LOAD_USER_SUCCESS_DEMO
 } from './types';
 import { setAlert } from './alert';
+import setHeader from '../utilities/setHeader';
 
 //****LOGIN USER ACTION */
 export const login = (user) => async (dispatch) => {
@@ -125,4 +128,69 @@ export const logoutUser = () => (dispatch) => {
   dispatch({
     type: PROFILE_CLEARED,
   });
+};
+
+// ****ACTIONS FOR DEMO*******
+// ---------------------------------------
+
+
+//Register DEMO user
+export const registerDemoUser = (user) => async (dispatch) => {
+  //Create config with headers
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const data = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+    };
+    const body = JSON.stringify(data);
+
+  try {
+    //Axios will return promise with response in route to add new user (should return a token)
+    const res = await axios.post('/api/users/demo', body, config);
+
+    const userId = res.data.userId;
+    setHeader(userId);
+
+    dispatch({
+      type: REGISTER_SUCCESS_DEMO,
+      payload: res.data,
+    });
+    dispatch(loadDemoUser());
+  //   dispatch(loadDemoUser());
+  } catch (err) {
+    //If errors, get array of errors and loop through them and dispatch setAlert
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => console.log(error));
+    }
+    dispatch({
+      type: REGISTER_FAILURE,
+    });
+  }
+};
+
+export const loadDemoUser = () => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    
+    const res = await axios.get('/api/auth/demo', config);
+
+    dispatch({
+      type: LOAD_USER_SUCCESS_DEMO,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: LOAD_USER_FAILURE,
+    });
+  }
 };
