@@ -241,7 +241,7 @@ export const createDemoProfile = (profile) => async (dispatch) => {
       type: LOAD_PROFILE_SUCCESS,
       payload: res.data,
     });
-    getCurrentUserProfile();
+    // getCurrentUserProfile();
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

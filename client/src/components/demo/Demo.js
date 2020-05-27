@@ -36,19 +36,19 @@ const Demo = ({ register, profile, createDemoProfile, updateDemoProfile }) => {
   };
 
   //Set up profile information for updateDemoProfile action. For this I will need to come up with the updates and hit the correct endpoints. I also need to figure out what's going on with the mobile nav for the demo user (when change to mobile view the mobile nav appears without clicking the button.)
-  const updates = {
+  // const updates = {
 
-  }
-  const seedProfile = async () => {
-    await updateDemoProfile(updates);
-  }
+  // }
+  // const seedProfile = async () => {
+  //   await updateDemoProfile(updates);
+  // }
 
   //On component load, run an async function that awaits all of the above functions.
   useEffect(() => {
     const populateDemo = async () => {
       await registerDemoUser();
       await makeDemoProfile();
-      await seedProfile();
+      // await seedProfile();
     };
     populateDemo();
   }, []);
