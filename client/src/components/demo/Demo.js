@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import DashboardContainer from '../dashboard/DashboardContainer';
 import Spinner from '../layout/Spinner';
-import { createDemoProfile } from '../../actions/profile';
+import { createDemoProfile, getCurrentUserProfile } from '../../actions/profile';
 import { register } from '../../actions/auth';
 
 const Demo = ({ register, profile, createDemoProfile }) => {
@@ -36,7 +36,8 @@ const Demo = ({ register, profile, createDemoProfile }) => {
     populateDemo();
   }, []);
 
-  return profile.profile === null ? (
+
+  return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
       <div className='dashboard-container'>
         <Spinner />
