@@ -36,7 +36,7 @@ const Demo = ({ register, profile, createDemoProfile }) => {
     populateDemo();
   }, []);
 
-  return profile.isLoading && profile.profile === null ? (
+  return profile.profile === null ? (
     <div className='main-content'>
       <div className='dashboard-container'>
         <Spinner />

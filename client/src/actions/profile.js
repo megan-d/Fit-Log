@@ -57,7 +57,6 @@ export const createProfile = (profile, history) => async (dispatch) => {
       type: LOAD_PROFILE_SUCCESS,
       payload: res.data,
     });
-    dispatch(setAlert('Profile created', 'success'));
     history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
@@ -97,17 +96,6 @@ export const updateProfile = (updates, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    //for calories updates, dispatch alert of 'calories updated'. For stats and goals, dispatch alert of 'profile updated.'
-    if (updates.hasOwnProperty('caloriesConsumedToday')) {
-      dispatch(setAlert('Calories updated', 'success'));
-    } else {
-      dispatch(setAlert('Profile updated', 'success'));
-    }
-
-    // //redirect to dashboard unless the calories was the card updated. Might need to change this when do modal.
-    // if (!updates.hasOwnProperty('caloriesConsumedToday')) {
-    //   history.push('/dashboard');
-    // }
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -146,8 +134,6 @@ export const addActivity = (activity, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Activity added', 'success'));
-
     history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
@@ -177,7 +163,7 @@ export const deleteActivity = (id) => async (dispatch) => {
       type: UPDATE_PROFILE_SUCCESS,
       payload: res.data,
     });
-    dispatch(setAlert('Activity removed', 'success'));
+    
   } catch (err) {
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
