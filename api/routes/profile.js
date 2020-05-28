@@ -401,3 +401,143 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
 });
 
 module.exports = router;
+
+//*******DEMO PROFILE */
+//******************* */
+
+//ROUTE: POST api/profile/demo
+//DESCRIPTION: Create the profile that will be the initial load for each demo user generated
+//ACCESS LEVEL: Private
+
+router.post('/demo', verify, async (req, res) => {
+  //Populate all profile values that we want the demo user to have and put them in a profileItems object. Then, send this object to the database. Don't need all of the if statement verificaiton since I'm populating it myself.
+  const mets = {
+    'Bicycling - Leisure': 6,
+    'Bicycling - Vigorous': 10,
+    'Running - Slow': 8,
+    'Running - Fast': 11.5,
+    Swimming: 8,
+    'Walking - Leisure': 3,
+    'Walking - Brisk': 5,
+    Hiking: 7,
+    'Nordic Skiing': 8,
+    Tennis: 8,
+    'Weight Training': 4,
+    Yoga: 2.5,
+    Basketball: 6.5,
+    Aerobics: 5,
+  };
+
+  const user = req.user.id;
+
+  const profileItems = {
+    weight: 220,
+    height: 70,
+    goalWeight: 200,
+    goalDailyCalories: 2000,
+    goalDays: 4,
+    user: user,
+    caloriesConsumedToday: 600,
+    caloriesRemainingToday: 1400,
+    weightHistory: [
+      {
+        weight: 235,
+        date: 'March 12, 2020',
+      },
+      {
+        weight: 227,
+        date: 'April 16, 2020',
+      },
+      {
+        weight: 230,
+        date: 'May 1, 2020',
+      },
+      {
+        weight: 221,
+        date: 'May 25, 2020',
+      },
+      {
+        weight: 220,
+        date: 'May 27, 2020',
+      },
+    ],
+  };
+
+  (profileItems.activities = [
+    {
+      duration: 55,
+      category: 'Swimming',
+      calories: Math.round(
+        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 55,
+      ),
+      date: 'May 27, 2020',
+    },
+    {
+      duration: 35,
+      category: 'Running - Slow',
+      calories: Math.round(
+        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
+      ),
+      date: 'May 20, 2020',
+    },
+    {
+      duration: 76,
+      category: 'Hiking',
+      calories: Math.round(
+        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
+      ),
+      date: 'May 12, 2020',
+    },
+    {
+      duration: 42,
+      category: 'Hiking',
+      calories: Math.round(
+        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
+      ),
+      date: 'May 9, 2020',
+    },
+    {
+      duration: 60,
+      category: 'Basketball',
+      calories: Math.round(
+        ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+      ),
+      date: 'May 1, 2020',
+    },
+  ]),
+    (profileItems.bmi = (
+      (profileItems.weight / (profileItems.height * profileItems.height)) *
+      703
+    ).toFixed(1));
+
+  //Once all fields are prepared, update and populate the data
+  try {
+    //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
+    let user = await User.findOne({ _id: req.user.id });
+    if (!user) {
+      return res.json({
+        msg: 'You must be a currently registered user to create a profile.',
+      });
+    }
+
+    //Use findOne to find profile
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    //If profile is found, give error and suggest user updates profile
+    if (profile) {
+      return res.json({
+        msg:
+          'A profile already exists for this user. Please select update stats from your dashboard to update your profile.',
+      });
+    }
+    //If profile isn't found, create a new one
+    if (!profile) {
+      profile = await new Profile(profileItems);
+      await profile.save();
+      res.json(profile);
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});

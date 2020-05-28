@@ -235,7 +235,7 @@ export const createDemoProfile = (profile) => async (dispatch) => {
     const body = JSON.stringify(profile);
 
     //Make post request to api/profile.
-    const res = await axios.post('api/profile', body, config);
+    const res = await axios.post('api/profile/demo', body, config);
 
     dispatch({
       type: LOAD_PROFILE_SUCCESS,
@@ -257,8 +257,3 @@ export const createDemoProfile = (profile) => async (dispatch) => {
     });
   }
 };
-
-//Update DEMO profile (seed demo profile)
-export const updateDemoProfile = (updates) => async (dispatch) => {
-  console.log('demo profile will go here');
-}
