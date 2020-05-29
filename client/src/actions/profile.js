@@ -207,7 +207,7 @@ export const deleteUser = () => async(dispatch) => {
 // ---------------------------------------
 
 //Create new DEMO profile
-export const createDemoProfile = (profile) => async (dispatch) => {
+export const createDemoProfile = (history) => async (dispatch) => {
   try {
     //Create config with headers. Get token from localStorage and put in req header.
     const config = {
@@ -218,7 +218,7 @@ export const createDemoProfile = (profile) => async (dispatch) => {
     };
 
     //Create body variable and stringify
-    const body = JSON.stringify(profile);
+    const body = JSON.stringify();
 
     //Make post request to api/profile.
     const res = await axios.post('api/profile/demo', body, config);
@@ -227,6 +227,7 @@ export const createDemoProfile = (profile) => async (dispatch) => {
       type: LOAD_PROFILE_SUCCESS,
       payload: res.data,
     });
+    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
