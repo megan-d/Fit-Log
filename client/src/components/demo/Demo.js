@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
-import DashboardContainer from '../dashboard/DashboardContainer';
 import Cards from '../dashboard/cards/Cards';
 import Charts from '../dashboard/charts/Charts';
 import Activities from '../dashboard/activities/Activities';
@@ -43,7 +42,7 @@ const Demo = ({ register, profile, createDemoProfile, deleteUser, auth, history 
 
   useEffect(() => {
     getCurrentUserProfile();
-  }, [getCurrentUserProfile]);
+  }, []);
 
   return profile.isLoading && profile.profile === null ? (
     <div className='main-content'>
