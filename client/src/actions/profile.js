@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+import { displayAlert } from './alert';
 import {
   LOAD_PROFILE_SUCCESS,
   LOAD_PROFILE_FAILURE,
@@ -61,8 +61,8 @@ export const createProfile = (profile, history) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      //if errors, loop through them and dispatch the setAlert
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      //if errors, loop through them and dispatch the displayAlert
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: LOAD_PROFILE_FAILURE,
@@ -99,8 +99,8 @@ export const updateProfile = (updates, history) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      //if errors, loop through them and dispatch the setAlert
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      //if errors, loop through them and dispatch the displayAlert
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
@@ -138,8 +138,8 @@ export const addActivity = (activity, history) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      //if errors, loop through them and dispatch the setAlert
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      //if errors, loop through them and dispatch the displayAlert
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
@@ -191,7 +191,7 @@ export const deleteUser = () => async(dispatch) => {
     dispatch({
       type: USER_DELETED
     });
-    dispatch(setAlert('Your profile and account have been permanently deleted.', 'success'));
+    dispatch(displayAlert('Your profile and account have been permanently deleted.', 'success'));
   } catch (err) {
     dispatch({
       type: UPDATE_PROFILE_FAILURE,
@@ -231,8 +231,8 @@ export const createDemoProfile = (history) => async (dispatch) => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      //if errors, loop through them and dispatch the setAlert
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      //if errors, loop through them and dispatch the displayAlert
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: LOAD_PROFILE_FAILURE,

@@ -9,7 +9,7 @@ import {
   LOGOUT,
   PROFILE_CLEARED,
 } from './types';
-import { setAlert } from './alert';
+import { displayAlert } from './alert';
 
 //****LOGIN USER ACTION */
 export const login = (user) => async (dispatch) => {
@@ -44,7 +44,7 @@ export const login = (user) => async (dispatch) => {
     //If errors, get array of errors and loop through them and dispatch setAlert
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: LOGIN_FAILURE,
@@ -85,7 +85,7 @@ export const register = (user) => async (dispatch) => {
     //If errors, get array of errors and loop through them and dispatch setAlert
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'warning')));
+      errors.forEach((error) => dispatch(displayAlert(error.msg, 'warning')));
     }
     dispatch({
       type: REGISTER_FAILURE,

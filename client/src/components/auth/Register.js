@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
+import { displayAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 
 const Register = (props) => {
@@ -25,7 +25,7 @@ const Register = (props) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       //Use Redux alert
-      setAlert('Passwords do not match', 'warning');
+      props.displayAlert('Passwords do not match', 'warning');
     } else {
       const user = {
         name: name,
@@ -115,7 +115,7 @@ const Register = (props) => {
 };
 
 Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
+  displayAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
@@ -124,5 +124,5 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-//Connect takes in two things: state the component needs from the store (what you want to map), and an object with any actions you want to use. Allows us to access props.setAlert.
-export default connect(mapStateToProps, { setAlert, register })(Register);
+//Connect takes in two things: state the component needs from the store (what you want to map), and an object with any actions you want to use. Allows us to access props.displayAlert.
+export default connect(mapStateToProps, { displayAlert, register })(Register);

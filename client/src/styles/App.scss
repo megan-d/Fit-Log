@@ -583,7 +583,7 @@ body {
   color: white;
   width: 80%;
   max-width: 1000px;
-  margin: 4rem auto 0 auto;
+  margin: 4rem auto 5px auto;
   padding: 1rem;
   text-align: center;
   border-radius: 5px;
@@ -718,6 +718,8 @@ body {
   }
   .main-section-signup {
     flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
   }
 }
 
