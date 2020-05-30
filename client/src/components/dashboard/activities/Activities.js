@@ -20,7 +20,7 @@ const Activities = ({ activities }) => {
           <tr className='table-row'>
             <th>Date</th>
             <th>Duration (minutes)</th>
-            <th>Category</th>
+            <th>Type</th>
             <th>Calories Burned</th>
           </tr>
         </thead>

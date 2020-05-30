@@ -462,7 +462,7 @@ body {
   text-align: center;
 }
 
-.charts {
+.weight-calorie-charts {
   display: flex;
   justify-content: space-evenly;
   width: 80vw;
@@ -494,6 +494,12 @@ body {
 .chart-2 {
   min-width: 25%;
   max-width: 25%;
+}
+
+.chart-3 {
+  flex: 1;
+  min-width: 90%;
+  margin-top: 3rem;
 }
 
 .activities {
@@ -760,7 +766,7 @@ body {
     border-radius: 10px;
   }
 
-  .charts {
+  .weight-calorie-charts {
     flex-direction: column;
     align-items: center;
     padding: 0px;
