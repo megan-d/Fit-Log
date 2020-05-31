@@ -9,7 +9,7 @@ const PieChart = ({ profile }) => {
       {
         label: 'Calories',
         data: [profile.caloriesConsumedToday, profile.caloriesRemainingToday],
-        backgroundColor: ['rgba(255, 201, 60, 1)', 'rgba(43, 93, 108, 1)'],
+        backgroundColor: ['#ffa600', '#ff6361'],
       },
     ],
   };

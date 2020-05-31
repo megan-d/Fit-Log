@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,300&display=swap");
 @import-normalize;
 header {
   display: -webkit-box;
@@ -30,7 +31,7 @@ header {
 
 .logo-container h1 a {
   text-decoration: none;
-  color: #f5f3f3;
+  color: #003f5c;
 }
 
 .nav-links {
@@ -43,12 +44,12 @@ header {
 
 .nav-link {
   text-decoration: none;
-  color: #f5f3f3;
+  color: #003f5c;
   padding-left: 3rem;
 }
 
 .nav-link:hover {
-  color: rgba(255, 201, 60, 0.9);
+  color: #ffa600;
 }
 
 .hamburger {
@@ -61,7 +62,7 @@ header {
 
 .footer {
   width: 100%;
-  background-color: #f5f3f3;
+  background-color: #003f5c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -91,7 +92,7 @@ header {
 
 .footer-link {
   text-decoration: none;
-  color: #203a43;
+  color: #fffafa;
   font-size: 0.85rem;
   padding: 0 1.5rem;
   -webkit-box-align: center;
@@ -100,11 +101,11 @@ header {
 }
 
 .footer-link:hover {
-  color: rgba(255, 201, 60, 0.9);
+  color: #ffa600;
 }
 
 .left-wrapper .title-landing {
-  color: #ff9a3c;
+  color: #003f5c;
   font-weight: normal;
   font-size: 1.9rem;
   padding-bottom: 2rem;
@@ -113,6 +114,7 @@ header {
 .left-wrapper .subtitle-landing {
   font-weight: normal;
   font-size: 1.2rem;
+  color: #003f5c;
 }
 
 .left-wrapper .image-line {
@@ -143,7 +145,7 @@ header {
 .no-account a,
 .have-account a {
   text-decoration: underline;
-  color: #f5f3f3;
+  color: #fffafa;
 }
 
 .form-right {
@@ -176,12 +178,12 @@ header {
 }
 
 .form-container-signup {
-  background-color: #203a43;
+  background-color: #58508d;
   width: 100%;
   min-height: 150px;
-  border: 1px solid #f5f3f3;
+  border: 1px solid #fffafa;
   border-radius: 5px;
-  color: #f5f3f3;
+  color: #fffafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -210,10 +212,9 @@ html {
 }
 
 body {
-  background: -webkit-gradient(linear, left top, right top, from(#203a43), to(#316f81));
-  background: linear-gradient(to right, #203a43, #316f81);
-  font-family: 'Poppins', sans-serif;
-  color: #f5f3f3;
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+  color: #fffafa;
   height: 100%;
   width: 100%;
 }
@@ -230,8 +231,8 @@ body {
 }
 
 .button {
-  background-color: rgba(255, 201, 60, 0.9);
-  color: #f5f3f3;
+  background-color: #ffa600;
+  color: #fffafa;
   text-decoration: none;
   font-weight: bold;
   border-radius: 3px;
@@ -239,7 +240,7 @@ body {
   font-size: 1.3rem;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-top: 2rem;
   cursor: pointer;
 }
@@ -267,9 +268,9 @@ body {
 
 .title-white {
   font-weight: normal;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   text-align: center;
-  color: #f5f3f3;
+  color: #003f5c;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -277,13 +278,13 @@ body {
 
 .title-white-bold {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
-  color: #f5f3f3;
+  color: #003f5c;
 }
 
 .title-orange {
-  color: #ff9a3c;
+  color: #ff6361;
 }
 
 .main-content {
@@ -378,12 +379,12 @@ body {
 }
 
 .form-container {
-  background-color: #203a43;
+  background-color: #58508d;
   width: 100%;
   min-height: 150px;
-  border: 1px solid #f5f3f3;
+  border: 1px solid #fffafa;
   border-radius: 5px;
-  color: #f5f3f3;
+  color: #fffafa;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -420,14 +421,14 @@ body {
 
 .form-group input,
 .form-group select {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #3d6874;
   border: none;
   height: 30px;
   border-radius: 5px;
   margin: 0 auto;
   width: 90%;
-  color: #f5f3f3;
+  color: #fffafa;
   font-size: 14px;
   width: 100%;
   padding-left: 3px;
@@ -436,19 +437,19 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border: 1px solid #f5f3f3;
-  outline: #f5f3f3;
+  border: 1px solid #fffafa;
+  outline: #fffafa;
 }
 
 .form-group textarea {
   resize: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #3d6874;
   border: none;
   border-radius: 5px;
   margin: 0 auto;
   width: 100%;
-  color: #f5f3f3;
+  color: #fffafa;
   font-size: 14px;
 }
 
@@ -461,7 +462,7 @@ body {
   padding: 0.3rem 2.3rem;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  color: #203a43;
+  color: #58508d;
 }
 
 .login-form-button {
@@ -469,7 +470,7 @@ body {
   padding: 0.3rem 2.3rem;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  color: #f5f3f3;
+  color: #fffafa;
 }
 
 .cards {
@@ -482,11 +483,10 @@ body {
 }
 
 .card {
-  background: -webkit-gradient(linear, left top, right top, from(#ff9a3c), to(#ffc93c));
-  background: linear-gradient(to right, #ff9a3c, #ffc93c);
+  background-color: #f5f5f5;
   -ms-flex-preferred-size: calc(33% - 3rem);
       flex-basis: calc(33% - 3rem);
-  color: #203a43;
+  color: #58508d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -511,7 +511,7 @@ body {
 }
 
 .card-title {
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 }
 
@@ -534,6 +534,7 @@ body {
           align-items: space-between;
   margin: 20px;
   width: 75%;
+  font-size: 14px;
 }
 
 .card-item {
@@ -548,11 +549,12 @@ body {
 
 .card-label {
   font-weight: bold;
+  font-size: 15px;
 }
 
 .card-button {
-  background-color: #203a43;
-  color: #f5f3f3;
+  background-color: #58508d;
+  color: #fffafa;
   text-decoration: none;
   font-weight: bold;
   border: none;
@@ -562,15 +564,15 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-input {
-  font-family: 'Poppins', sans-serif;
-  border: 2px solid #203a43;
+  font-family: 'Roboto', sans-serif;
+  border: 2px solid #58508d;
   border-radius: 5px;
   padding: 0.3rem;
   width: 55px;
@@ -590,8 +592,8 @@ body {
 }
 
 .spinner {
-  border: 10px solid #f5f3f3;
-  border-top: 10px solid rgba(255, 201, 60, 0.9);
+  border: 10px solid #fffafa;
+  border-top: 10px solid #ffa600;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -638,7 +640,7 @@ body {
 }
 
 .chart {
-  background-color: #f5f3f3;
+  background-color: #fffafa;
   -ms-flex-preferred-size: calc(50% - 1rem);
       flex-basis: calc(50% - 1rem);
   -webkit-box-pack: justify;
@@ -647,7 +649,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #203a43;
+  color: #58508d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -687,7 +689,8 @@ body {
 }
 
 .activities {
-  background: #203a43;
+  background: #f5f5f5;
+  color: #666;
   margin-top: 3rem;
   margin-bottom: 3rem;
   position: relative;
@@ -699,12 +702,13 @@ body {
 
 .activities h3 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 20px;
   margin: 1rem;
 }
 
 .table {
-  background-color: #203a43;
+  background-color: #f5f5f5;
+  color: #666;
   margin: 2rem auto;
   width: 100%;
   border-spacing: 0;
@@ -723,20 +727,20 @@ body {
 }
 
 .table th {
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .table tbody tr td {
-  border-bottom: 1px solid #f5f3f3;
+  border-bottom: 1px solid grey;
 }
 
 .add-activity-button {
   position: absolute;
   top: 15px;
   left: 30px;
-  background-color: rgba(255, 201, 60, 0.9);
-  color: #203a43;
+  background-color: #ffa600;
+  color: #fffafa;
   text-decoration: none;
   font-weight: bold;
   border: none;
@@ -746,7 +750,7 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -754,7 +758,7 @@ body {
 
 .delete-activity-button {
   background-color: #e73030;
-  color: #f5f3f3;
+  color: #fffafa;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -762,7 +766,7 @@ body {
   font-size: 14px;
   width: 100px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -789,7 +793,7 @@ body {
 
 .delete-user-button {
   background-color: #e73030;
-  color: #f5f3f3;
+  color: #fffafa;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -800,7 +804,7 @@ body {
   width: 200px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -810,9 +814,9 @@ body {
   width: 50%;
   position: fixed;
   z-index: 400;
-  background-color: #f5f3f3;
+  background-color: #fffafa;
   margin: 0 auto;
-  color: #203a43;
+  color: #58508d;
   top: 25%;
   left: 25%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -834,7 +838,7 @@ body {
 
 .confirm-delete-user-button {
   background-color: #e73030;
-  color: #f5f3f3;
+  color: #fffafa;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -844,15 +848,15 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .cancel-user-button {
-  background-color: #f5f3f3;
-  color: #203a43;
+  background-color: #fffafa;
+  color: #58508d;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -862,15 +866,15 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-submit-button {
-  background-color: rgba(255, 201, 60, 0.9);
-  color: #203a43;
+  background-color: #ffa600;
+  color: #58508d;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -880,7 +884,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);

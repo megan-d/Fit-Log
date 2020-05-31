@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,300&display=swap');
 @import './variables';
 @import './mixins';
 @import-normalize;
@@ -22,7 +23,7 @@ header {
 
 .logo-container h1 a {
   text-decoration: none;
-  color: $primaryText;
+  color: $darkBackground;
 }
 
 .nav-links {
@@ -33,7 +34,7 @@ header {
 
 .nav-link {
   text-decoration: none;
-  color: $primaryText;
+  color: $darkBackground;
   padding-left: 3rem;
 }
 
@@ -51,7 +52,7 @@ header {
 
 .footer {
   width: 100%;
-  background-color: $primaryText;
+  background-color: $darkBackground;
   @include flex-alignItems-center;
   height: 40px;
   -ms-flex-negative: 0;
@@ -72,7 +73,7 @@ header {
 
 .footer-link {
   text-decoration: none;
-  color: $darkText;
+  color: $primaryText;
   font-size: 0.85rem;
   padding: 0 1.5rem;
   align-items: center;
@@ -83,7 +84,7 @@ header {
 }
 
 .left-wrapper .title-landing {
-  color: $highlightText;
+  color: $darkBackground;
   font-weight: normal;
   font-size: 1.9rem;
   padding-bottom: 2rem;
@@ -92,6 +93,7 @@ header {
 .left-wrapper .subtitle-landing {
   font-weight: normal;
   font-size: 1.2rem;
+  color: $darkBackground;
 }
 
 .left-wrapper .image-line {
@@ -164,15 +166,9 @@ html {
 }
 
 body {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from($darkText),
-    to(#316f81)
-  );
-  background: linear-gradient(to right, $darkText, #316f81);
-  font-family: 'Poppins', sans-serif;
+  // background: linear-gradient(to right, $darkText, #316f81);
+  background-color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
   color: $primaryText;
   height: 100%;
   width: 100%;
@@ -193,7 +189,7 @@ body {
   font-size: 1.3rem;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin-top: 2rem;
   cursor: pointer;
 }
@@ -215,17 +211,17 @@ body {
 
 .title-white {
   font-weight: normal;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   text-align: center;
-  color: $primaryText;
+  color: $darkBackground;
   justify-content: flex-start;
 }
 
 .title-white-bold {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-align: center;
-  color: $primaryText;
+  color: $darkBackground;
 }
 
 .title-orange {
@@ -302,7 +298,7 @@ body {
 
 .form-group input,
 .form-group select {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #3d6874;
   border: none;
   height: 30px;
@@ -324,7 +320,7 @@ body {
 
 .form-group textarea {
   resize: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #3d6874;
   border: none;
   border-radius: 5px;
@@ -359,7 +355,8 @@ body {
 }
 
 .card {
-  background: linear-gradient(to right, $highlightText, #ffc93c);
+  // background: linear-gradient(to right, $highlightText, #ffc93c);
+  background-color: $backgroundColor;
   flex-basis: calc(33% - 3rem);
   color: $darkText;
   display: flex;
@@ -371,12 +368,13 @@ body {
   height: 200px;
   margin: 1rem 10px;
   padding: 1rem 0;
+  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
 .card-title {
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
 }
 
@@ -388,6 +386,7 @@ body {
   align-items: space-between;
   margin: 20px;
   width: 75%;
+  font-size: 14px;
 }
 
 .card-item {
@@ -398,6 +397,7 @@ body {
 
 .card-label {
   font-weight: bold;
+  font-size: 15px;
 }
 
 .card-button {
@@ -412,14 +412,13 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
-
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-input {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   border: 2px solid $darkText;
   border-radius: 5px;
   padding: 0.3rem;
@@ -503,7 +502,8 @@ body {
 }
 
 .activities {
-  background: $darkText;
+  background: $backgroundColor;
+  color: $greyText;
   margin-top: 3rem;
   margin-bottom: 3rem;
   position: relative;
@@ -514,12 +514,13 @@ body {
 
 .activities h3 {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 20px;
   margin: 1rem;
 }
 
 .table {
-  background-color: $darkText;
+  background-color: $backgroundColor;
+  color: $greyText;
   margin: 2rem auto;
   width: 100%;
   border-spacing: 0;
@@ -537,12 +538,12 @@ body {
   }
 
   th {
-    font-size: 1.1rem;
+    font-size: 16px;
     font-weight: bold;
   }
 
   tbody tr td {
-    border-bottom: 1px solid $primaryText;
+    border-bottom: 1px solid grey;
   }
   // tbody tr:nth-of-type(even) {
   //   background-color: #f3f3f3;
@@ -555,7 +556,7 @@ body {
   top: 15px;
   left: 30px;
   background-color: $primaryBtn;
-  color: $darkText;
+  color: $primaryText;
   text-decoration: none;
   font-weight: bold;
   border: none;
@@ -565,13 +566,13 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .delete-activity-button {
-  background-color: rgb(231, 48, 48);
+  background-color: $deleteButtons;
   color: $primaryText;
   text-decoration: none;
   border: none;
@@ -580,7 +581,7 @@ body {
   font-size: 14px;
   width: 100px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -597,7 +598,7 @@ body {
 }
 
 .alert-warning {
-  background-color: rgb(231, 48, 48);
+  background-color: $deleteButtons;
 }
 
 .alert-success {
@@ -605,7 +606,7 @@ body {
 }
 
 .delete-user-button {
-  background-color: rgb(231, 48, 48);
+  background-color: $deleteButtons;
   color: $primaryText;
   text-decoration: none;
   border: none;
@@ -617,7 +618,7 @@ body {
   width: 200px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -648,7 +649,7 @@ body {
 }
 
 .confirm-delete-user-button {
-  background-color: rgb(231, 48, 48);
+  background-color: $deleteButtons;
   color: $primaryText;
   text-decoration: none;
   border: none;
@@ -659,7 +660,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -676,7 +677,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -693,7 +694,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }

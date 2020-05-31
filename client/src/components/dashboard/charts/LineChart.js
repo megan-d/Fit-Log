@@ -12,7 +12,7 @@ const LineChart = ({ profile }) => {
       {
         label: ['Weight'],
         data: profile.weightHistory.map(el => el.weight),
-        borderColor: 'rgba(251,155,61, 1)',
+        borderColor: '#bc5090',
         backgroundColor: 'rgba(203, 199, 187, 0.5)',
       },
     ],
