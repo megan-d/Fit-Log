@@ -1,23 +1,29 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 //Minutes of activity over the last 7 days
 const ActivityChart = ({ profile }) => {
 
-    // const categories = [...profile.activities.map(el => el.category)];
+  //Get the categories from the activities. If it's the same category name, add those minutes together under that category.
+  const activities = [...profile.activities];
+  const activityTypeDurations = {};
 
-    // const categoryMinutes = {
+  activities.forEach(activity => {
+    if (activityTypeDurations[activity.category]) {
+      activityTypeDurations[activity.category] = activity.duration + activityTypeDurations[activity.category]
+    } else {
+      activityTypeDurations[activity.category] = activity.duration;
+    }
+  });
 
-    // }
-
+  //To display the duration for each category, get the values of each key with Object.values
   const chartData = {
-    labels: [...profile.activities.map(el => el.category)],
+    labels: [...Object.keys(activityTypeDurations)],
     datasets: [
       {
         label: ['Minutes'],
-        data: profile.activities.map(el => el.duration),
+        data: Object.values(activityTypeDurations),
         borderColor: 'rgba(251,155,61, 1)',
         backgroundColor: 'rgba(255, 201, 60, 1)',
       },
