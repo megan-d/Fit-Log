@@ -136,6 +136,7 @@ header {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 50px;
+  color: #003f5c;
 }
 
 .no-account p {
@@ -145,7 +146,7 @@ header {
 .no-account a,
 .have-account a {
   text-decoration: underline;
-  color: #fffafa;
+  color: #003f5c;
 }
 
 .form-right {
@@ -178,7 +179,7 @@ header {
 }
 
 .form-container-signup {
-  background-color: #58508d;
+  background-color: #003f5c;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -283,8 +284,12 @@ body {
   color: #003f5c;
 }
 
-.title-orange {
-  color: #ff6361;
+.subheading {
+  font-size: 2.2rem;
+}
+
+.title-accent {
+  color: #bc5090;
 }
 
 .main-content {
@@ -379,7 +384,7 @@ body {
 }
 
 .form-container {
-  background-color: #58508d;
+  background-color: #003f5c;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -400,6 +405,8 @@ body {
           align-items: center;
   margin-top: 2rem;
   padding: 0.7rem 0;
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .form-group {
@@ -422,7 +429,7 @@ body {
 .form-group input,
 .form-group select {
   font-family: 'Roboto', sans-serif;
-  background-color: #3d6874;
+  background-color: #f5f5f5;
   border: none;
   height: 30px;
   border-radius: 5px;
@@ -437,8 +444,8 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border: 1px solid #fffafa;
-  outline: #fffafa;
+  border: 1px solid #bc5090;
+  outline: #bc5090;
 }
 
 .form-group textarea {

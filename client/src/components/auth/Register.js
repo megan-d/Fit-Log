@@ -43,8 +43,8 @@ const Register = (props) => {
   return (
     <div className='main-content'>
       <div className='main-section-signup'>
-        <h1 className='title-white-bold'>
-          Get <span className='title-orange'>FIT</span> with us.
+        <h1 className='title-white-bold subheading'>
+          Get <span className='title-accent'>FIT</span> with us.
         </h1>
 
         <form className='form-right' action='' onSubmit={(e) => onSubmit(e)}>
