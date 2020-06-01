@@ -24,8 +24,9 @@ const ActivityChart = ({ profile }) => {
       {
         label: ['Minutes'],
         data: Object.values(activityTypeDurations),
-        borderColor: 'white',
-        backgroundColor: ['#ff6361', '#ffa600', '#58508d', '#003f5c', '#bc5090'],
+        borderColor: ['rgba(255, 99, 97, 1)', 'rgba(255, 166, 0, 1)', 'rgba(88, 80, 141, 1)', 'rgba(0, 63, 92, 1)', 'rgba(188, 80, 144, 1)'],
+        borderWidth: '2',
+        backgroundColor: ['rgba(255, 99, 97, 0.75)', 'rgba(255, 166, 0, 0.75)', 'rgba(88, 80, 141, 0.75)', 'rgba(0, 63, 92, 0.75)', 'rgba(188, 80, 144, 0.75)'],
       },
     ],
   };

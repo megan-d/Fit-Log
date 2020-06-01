@@ -16,7 +16,7 @@ const Navbar = ({ logoutUser, auth: { isAuthenticated, isLoading } }) => {
     <header>
       <div className='logo-container'>
         <img src={Logo} alt='logo' id='logo-image' />
-        <h1>
+        <h1 className='site-title'>
           <Link to='/'>Fit Ally</Link>
         </h1>
       </div>

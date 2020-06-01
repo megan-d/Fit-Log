@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,300&display=swap");
 @import-normalize;
 header {
   display: -webkit-box;
@@ -13,6 +14,10 @@ header {
   width: 80%;
   margin: auto;
   height: 10vh;
+}
+
+.site-title {
+  font-family: "Roboto", sans-serif;
 }
 
 .logo-container {
@@ -31,7 +36,7 @@ header {
 
 .logo-container h1 a {
   text-decoration: none;
-  color: #003f5c;
+  color: #2a1b3d;
 }
 
 .nav-links {
@@ -44,12 +49,12 @@ header {
 
 .nav-link {
   text-decoration: none;
-  color: #003f5c;
+  color: #2a1b3d;
   padding-left: 3rem;
 }
 
 .nav-link:hover {
-  color: #ffa600;
+  color: #d83f87;
 }
 
 .hamburger {
@@ -62,7 +67,7 @@ header {
 
 .footer {
   width: 100%;
-  background-color: #003f5c;
+  background-color: #2a1b3d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -101,20 +106,24 @@ header {
 }
 
 .footer-link:hover {
-  color: #ffa600;
+  color: #d83f87;
 }
 
 .left-wrapper .title-landing {
-  color: #003f5c;
-  font-weight: normal;
-  font-size: 1.9rem;
+  color: #2a1b3d;
+  font-weight: 400;
+  font-size: 1.8rem;
   padding-bottom: 2rem;
 }
 
 .left-wrapper .subtitle-landing {
-  font-weight: normal;
+  font-weight: 400;
   font-size: 1.2rem;
-  color: #003f5c;
+  color: #2a1b3d;
+}
+
+.fitness {
+  color: #d83f87;
 }
 
 .left-wrapper .image-line {
@@ -128,7 +137,7 @@ header {
 }
 
 .contact-form {
-  width: 70%;
+  width: 80%;
 }
 
 .no-account,
@@ -136,7 +145,7 @@ header {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 50px;
-  color: #003f5c;
+  color: #2a1b3d;
 }
 
 .no-account p {
@@ -146,7 +155,7 @@ header {
 .no-account a,
 .have-account a {
   text-decoration: underline;
-  color: #003f5c;
+  color: #2a1b3d;
 }
 
 .form-right {
@@ -179,7 +188,7 @@ header {
 }
 
 .form-container-signup {
-  background-color: #003f5c;
+  background-color: #2a1b3d;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -214,7 +223,7 @@ html {
 
 body {
   background-color: #f5f5f5;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #fffafa;
   height: 100%;
   width: 100%;
@@ -232,7 +241,7 @@ body {
 }
 
 .button {
-  background-color: #ffa600;
+  background-color: #d83f87;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -241,7 +250,7 @@ body {
   font-size: 1.3rem;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin-top: 2rem;
   cursor: pointer;
 }
@@ -259,6 +268,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  color: #2a1b3d;
 }
 
 .page-description p {
@@ -271,7 +281,7 @@ body {
   font-weight: normal;
   font-size: 1.7rem;
   text-align: center;
-  color: #003f5c;
+  color: #2a1b3d;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -281,7 +291,7 @@ body {
   font-weight: bold;
   font-size: 1.7rem;
   text-align: center;
-  color: #003f5c;
+  color: #2a1b3d;
 }
 
 .subheading {
@@ -289,7 +299,7 @@ body {
 }
 
 .title-accent {
-  color: #bc5090;
+  color: #e98074;
 }
 
 .main-content {
@@ -350,7 +360,6 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 3rem;
 }
 
 .dashboard-container {
@@ -384,7 +393,7 @@ body {
 }
 
 .form-container {
-  background-color: #003f5c;
+  background-color: #2a1b3d;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -428,14 +437,14 @@ body {
 
 .form-group input,
 .form-group select {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #f5f5f5;
-  border: none;
+  border: 1px solid #666;
   height: 30px;
   border-radius: 5px;
   margin: 0 auto;
   width: 90%;
-  color: #fffafa;
+  color: #2a1b3d;
   font-size: 14px;
   width: 100%;
   padding-left: 3px;
@@ -444,19 +453,19 @@ body {
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  border: 1px solid #bc5090;
-  outline: #bc5090;
+  border: 1px solid #e98074;
+  outline: #e98074;
 }
 
 .form-group textarea {
   resize: none;
-  font-family: 'Roboto', sans-serif;
-  background-color: #3d6874;
-  border: none;
+  font-family: "Roboto", sans-serif;
+  background-color: #f5f5f5;
+  border: 1px solid #666;
   border-radius: 5px;
   margin: 0 auto;
   width: 100%;
-  color: #fffafa;
+  color: #f5f5f5;
   font-size: 14px;
 }
 
@@ -469,7 +478,7 @@ body {
   padding: 0.3rem 2.3rem;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  color: #58508d;
+  color: #fffafa;
 }
 
 .login-form-button {
@@ -490,10 +499,10 @@ body {
 }
 
 .card {
-  background-color: #f5f5f5;
+  background-color: snow;
   -ms-flex-preferred-size: calc(33% - 3rem);
       flex-basis: calc(33% - 3rem);
-  color: #58508d;
+  color: #2a1b3d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -560,7 +569,7 @@ body {
 }
 
 .card-button {
-  background-color: #58508d;
+  background-color: #2a1b3d;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -571,15 +580,15 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-input {
-  font-family: 'Roboto', sans-serif;
-  border: 2px solid #58508d;
+  font-family: "Roboto", sans-serif;
+  border: 2px solid #2a1b3d;
   border-radius: 5px;
   padding: 0.3rem;
   width: 55px;
@@ -600,7 +609,7 @@ body {
 
 .spinner {
   border: 10px solid #fffafa;
-  border-top: 10px solid #ffa600;
+  border-top: 10px solid #d83f87;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -656,7 +665,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #58508d;
+  color: #2a1b3d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -696,7 +705,7 @@ body {
 }
 
 .activities {
-  background: #f5f5f5;
+  background: snow;
   color: #666;
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -709,12 +718,12 @@ body {
 
 .activities h3 {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   margin: 1rem;
 }
 
 .table {
-  background-color: #f5f5f5;
+  background-color: snow;
   color: #666;
   margin: 2rem auto;
   width: 100%;
@@ -730,11 +739,11 @@ body {
 }
 
 .table td {
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
 .table th {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -746,7 +755,7 @@ body {
   position: absolute;
   top: 15px;
   left: 30px;
-  background-color: #ffa600;
+  background-color: #d83f87;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -757,7 +766,7 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -773,7 +782,7 @@ body {
   font-size: 14px;
   width: 100px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -811,7 +820,7 @@ body {
   width: 200px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -823,7 +832,7 @@ body {
   z-index: 400;
   background-color: #fffafa;
   margin: 0 auto;
-  color: #58508d;
+  color: #2a1b3d;
   top: 25%;
   left: 25%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -855,7 +864,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -863,7 +872,7 @@ body {
 
 .cancel-user-button {
   background-color: #fffafa;
-  color: #58508d;
+  color: #2a1b3d;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -873,15 +882,15 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-submit-button {
-  background-color: #ffa600;
-  color: #58508d;
+  background-color: #d83f87;
+  color: #2a1b3d;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -891,7 +900,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   cursor: pointer;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -901,6 +910,7 @@ body {
   font-weight: bold;
   font-size: 2rem;
   margin-bottom: 0;
+  color: #2a1b3d;
 }
 
 .backdrop {
@@ -1123,7 +1133,7 @@ body {
   .line {
     width: 25px;
     height: 3px;
-    background: white;
+    background-color: #2a1b3d;
     margin: 5px;
     z-index: 4;
   }

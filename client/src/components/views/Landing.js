@@ -8,7 +8,7 @@ const Landing = () => {
       <div className='main-content'>
       <section className='main-section'>
         <div className='left-wrapper'>
-          <h1 className='title-landing'>Visualize Your Fitness</h1>
+          <h1 className='title-landing'>Visualize Your <span className='fitness'>Fitness</span></h1>
           <h2 className='subtitle-landing'>
             Activity and fitness tracking to help you view your progress and reach your fitness goals
           </h2>

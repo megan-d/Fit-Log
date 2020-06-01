@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,300&display=swap');
 @import './variables';
 @import './mixins';
 @import-normalize;
@@ -10,6 +11,10 @@ header {
   width: 80%;
   margin: auto;
   height: 10vh;
+}
+
+.site-title {
+  font-family: $font;
 }
 
 .logo-container {
@@ -85,15 +90,19 @@ header {
 
 .left-wrapper .title-landing {
   color: $darkBackground;
-  font-weight: normal;
-  font-size: 1.9rem;
+  font-weight: 400;
+  font-size: 1.8rem;
   padding-bottom: 2rem;
 }
 
 .left-wrapper .subtitle-landing {
-  font-weight: normal;
+  font-weight: 400;
   font-size: 1.2rem;
   color: $darkBackground;
+}
+
+.fitness {
+  color: $primaryBtn;
 }
 
 .left-wrapper .image-line {
@@ -107,7 +116,7 @@ header {
 }
 
 .contact-form {
-  width: 70%;
+  width: 80%;
 }
 
 .no-account,
@@ -168,8 +177,8 @@ html {
 
 body {
   // background: linear-gradient(to right, $darkText, #316f81);
-  background-color: #f5f5f5;
-  font-family: 'Roboto', sans-serif;
+  background-color: $backgroundColor;
+  font-family: $font;
   color: $primaryText;
   height: 100%;
   width: 100%;
@@ -190,7 +199,7 @@ body {
   font-size: 1.3rem;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   margin-top: 2rem;
   cursor: pointer;
 }
@@ -202,6 +211,7 @@ body {
 .page-description {
   margin-bottom: 3rem;
   @include flex-column;
+  color: $darkBackground;
 }
 
 .page-description p {
@@ -259,7 +269,6 @@ body {
 .form-page-container {
   @include flex-column;
   align-items: center;
-  margin-top: 3rem;
 }
 
 .dashboard-container {
@@ -304,14 +313,14 @@ body {
 
 .form-group input,
 .form-group select {
-  font-family: 'Roboto', sans-serif;
-  background-color: $backgroundColor;
-  border: none;
+  font-family: $font;
+  background-color: $formInputs;
+  border: 1px solid $greyText;
   height: 30px;
   border-radius: 5px;
   margin: 0 auto;
   width: 90%;
-  color: $primaryText;
+  color: $darkBackground;
   font-size: 14px;
   width: 100%;
   padding-left: 3px;
@@ -326,13 +335,13 @@ body {
 
 .form-group textarea {
   resize: none;
-  font-family: 'Roboto', sans-serif;
-  background-color: #3d6874;
-  border: none;
+  font-family: $font;
+  background-color: $formInputs;
+  border: 1px solid $greyText;
   border-radius: 5px;
   margin: 0 auto;
   width: 100%;
-  color: $primaryText;
+  color: $backgroundColor;
   font-size: 14px;
 }
 
@@ -344,7 +353,7 @@ body {
   border: none;
   padding: 0.3rem 2.3rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  color: $darkText;
+  color: $primaryText;
 }
 
 .login-form-button {
@@ -362,7 +371,7 @@ body {
 
 .card {
   // background: linear-gradient(to right, $highlightText, #ffc93c);
-  background-color: $backgroundColor;
+  background-color: $chartBackground;
   flex-basis: calc(33% - 3rem);
   color: $darkText;
   display: flex;
@@ -374,7 +383,6 @@ body {
   height: 200px;
   margin: 1rem 10px;
   padding: 1rem 0;
-  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
@@ -418,13 +426,13 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-input {
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   border: 2px solid $darkText;
   border-radius: 5px;
   padding: 0.3rem;
@@ -508,7 +516,7 @@ body {
 }
 
 .activities {
-  background: $backgroundColor;
+  background: $chartBackground;
   color: $greyText;
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -520,12 +528,12 @@ body {
 
 .activities h3 {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   margin: 1rem;
 }
 
 .table {
-  background-color: $backgroundColor;
+  background-color: $chartBackground;
   color: $greyText;
   margin: 2rem auto;
   width: 100%;
@@ -540,11 +548,11 @@ body {
   }
 
   td {
-    font-size: 0.9rem;
+    font-size: 14px;
   }
 
   th {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
   }
 
@@ -572,7 +580,7 @@ body {
   width: 135px;
   max-width: 150px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -587,7 +595,7 @@ body {
   font-size: 14px;
   width: 100px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -624,7 +632,7 @@ body {
   width: 200px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -666,14 +674,14 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .cancel-user-button {
   background-color: $primaryText;
-  color: $darkText;
+  color: $darkBackground;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -683,14 +691,14 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .card-submit-button {
   background-color: $primaryBtn;
-  color: $darkText;
+  color: $darkBackground;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -700,7 +708,7 @@ body {
   width: 100px;
   max-width: 200px;
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: $font;
   cursor: pointer;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
@@ -709,6 +717,7 @@ body {
   font-weight: bold;
   font-size: 2rem;
   margin-bottom: 0;
+  color: $darkBackground;
 }
 
 .backdrop {
@@ -915,7 +924,7 @@ body {
   .line {
     width: 25px;
     height: 3px;
-    background: white;
+    background-color: $darkBackground;
     margin: 5px;
     z-index: 4;
   }
