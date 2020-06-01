@@ -91,8 +91,12 @@ header {
 .left-wrapper .title-landing {
   color: $darkBackground;
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 2rem;
   padding-bottom: 2rem;
+}
+
+.title-landing {
+  margin: 0;
 }
 
 .left-wrapper .subtitle-landing {
@@ -202,6 +206,23 @@ body {
   font-family: $font;
   margin-top: 2rem;
   cursor: pointer;
+}
+
+.landing-buttons {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+}
+
+.landing-button {
+  min-width: 130px;
+  margin-right: 10px;
+  margin-top: 1rem;
+}
+
+.landing-link {
+  text-decoration: none;
+  color: $primaryText;
 }
 
 .button-column {
@@ -388,7 +409,7 @@ body {
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -401,6 +422,7 @@ body {
   margin: 20px;
   width: 75%;
   font-size: 14px;
+  color: $greyText;
 }
 
 .card-item {
@@ -411,7 +433,7 @@ body {
 
 .card-label {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .card-button {
@@ -438,7 +460,6 @@ body {
   padding: 0.3rem;
   width: 55px;
   margin-right: 10px;
-
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
