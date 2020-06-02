@@ -273,6 +273,10 @@ body {
   margin-top: 1rem;
 }
 
+.create-profile-button {
+  min-width: 200px;
+}
+
 .landing-link {
   text-decoration: none;
   color: #fffafa;
@@ -298,6 +302,11 @@ body {
   font-size: 14px;
   padding: 0.8rem;
   line-height: 25px;
+}
+
+.create-profile-desc {
+  color: #2a1b3d;
+  margin-top: 3rem;
 }
 
 .title-white {
@@ -400,6 +409,13 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
+}
+
+.dashboard-desc {
+  color: #2a1b3d;
+  font-size: 14px;
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
 .form {
@@ -742,7 +758,7 @@ body {
   border-radius: 10px;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  min-width: 80%;
+  min-width: 60vw;
 }
 
 .activities h3 {

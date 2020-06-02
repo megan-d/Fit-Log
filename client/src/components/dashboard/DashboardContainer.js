@@ -45,6 +45,7 @@ const DashboardContainer = ({
               <h1 className='title-white-bold'>
                 Welcome to your dashboard, {auth.user.name}
               </h1>
+              <p className='dashboard-desc'>Add an activity or edit your information to update your charts</p>
 
               <Cards profile={profile.profile} />
               <Charts profile={profile.profile}/>
@@ -76,11 +77,11 @@ const DashboardContainer = ({
             </Fragment>
           ) : (
             <Fragment>
-              <p>
+              <p className='create-profile-desc'>
                 You do not have a profile set up yet. Please add this
                 information to view your dashboard.
               </p>
-              <Link to='/createprofile'>Create Profile</Link>
+              <Link to='/createprofile' className='button create-profile-button'>Create Profile</Link>
             </Fragment>
           )}
         </div>
