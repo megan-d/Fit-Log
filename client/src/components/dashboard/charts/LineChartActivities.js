@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 //Minutes of activity over the last 7 days
-const LineChart = ({ profile }) => {
+const LineChartActivities = ({ profile }) => {
+
+    const activityDates = [...profile.activities.map(el => moment(el.date).format('MM-DD-YYYY'))].reverse();
 
   const chartData = {
-    labels: [...profile.weightHistory.map(el => moment(el.date).format('MM-DD-YYYY'))],
+    labels: [...activityDates],
     datasets: [
       {
-        label: ['Weight'],
-        data: profile.weightHistory.map(el => el.weight),
-        borderColor: '#bc5090',
+        label: ['Duration'],
+        data: profile.activities.map(el => el.duration),
+        borderColor: '#44318d',
       },
     ],
   };
@@ -26,7 +28,7 @@ const LineChart = ({ profile }) => {
           responsive: true,
           title: {
             display: true,
-            text: 'Weight Tracker',
+            text: 'Activity Durations',
           },
           legend: {
             display: false,
@@ -37,13 +39,17 @@ const LineChart = ({ profile }) => {
             yAxes: [{
               scaleLabel: {
                 display: true,
-                labelString: 'Weight (lbs)'
+                labelString: 'Duration (mins)'
+              },
+              ticks: {
+                beginAtZero:true,
+                min: 0,
               }
             }],
             xAxes: [{
               scaleLabel: {
                 display: false,
-                labelString: 'Date',
+                labelString: 'Date'
               }
             }]
           }     
@@ -53,8 +59,8 @@ const LineChart = ({ profile }) => {
   );
 };
 
-LineChart.propTypes = {
+LineChartActivities.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
-export default LineChart;
+export default LineChartActivities;
