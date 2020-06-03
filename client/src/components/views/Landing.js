@@ -1,6 +1,5 @@
 import React from 'react';
 import Runner from '../../assets/images/lady-running-cover.svg';
-import Line from '../../assets/images/Line.svg';
 
 const Landing = () => {
   //Need to figure out how to not display footer on landing page
@@ -26,7 +25,6 @@ const Landing = () => {
             </div>
           </div>
 
-          <img className='image-line' src={Line} alt='line' />
         </div>
 
         <div className='image-container'>

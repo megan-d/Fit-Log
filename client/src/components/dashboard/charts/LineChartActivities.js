@@ -14,7 +14,7 @@ const LineChartActivities = ({ profile }) => {
       {
         label: ['Duration'],
         data: profile.activities.map(el => el.duration),
-        borderColor: '#44318d',
+        borderColor: '#2a1b3d',
       },
     ],
   };

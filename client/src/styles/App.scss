@@ -44,7 +44,7 @@ header {
 }
 
 .nav-link:hover {
-  color: $primaryBtn;
+  color: $backgroundColor;
 }
 
 .hamburger {
@@ -91,7 +91,7 @@ header {
 .left-wrapper .title-landing {
   color: $darkBackground;
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 32px;
   padding-bottom: 2rem;
 }
 
@@ -106,7 +106,8 @@ header {
 }
 
 .fitness {
-  color: $primaryBtn;
+  color: $accentColor;
+  font-weight: 700;
 }
 
 .left-wrapper .image-line {
@@ -221,8 +222,8 @@ body {
 }
 
 .landing-button {
-  min-width: 130px;
-  margin-right: 10px;
+  min-width: 140px;
+  margin-right: 20px;
   margin-top: 1rem;
 }
 
@@ -272,7 +273,7 @@ body {
 }
 
 .subheading {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
 }
 
 .title-accent {
@@ -292,14 +293,15 @@ body {
   @include flex-alignItems-center;
   min-height: 80vh;
   width: 100%;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .left-wrapper {
   @include flex-column;
-  justify-content: center;
+  align-self: flex-start;
   flex: 1;
-  width: 80%;
+  margin-top: 20vh;
+  width: 60%;
 }
 
 .form-page-container {
@@ -535,7 +537,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 300px;
+  height: 350px;
   margin-top: 3rem;
   padding: 1rem 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
@@ -610,7 +612,7 @@ body {
   position: absolute;
   top: 15px;
   left: 30px;
-  background-color: $primaryBtn;
+  background-color: $highlightText;
   color: $primaryText;
   text-decoration: none;
   font-weight: bold;
@@ -739,7 +741,7 @@ body {
 
 .card-submit-button {
   background-color: $primaryBtn;
-  color: $darkBackground;
+  color: $backgroundColor;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -775,6 +777,13 @@ body {
   display: none;
 }
 
+.about-page {
+  background-color: $chartBackground;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  margin: 2vh auto;
+}
+
 @media only screen and (max-width: 935px) {
   .form {
     min-width: 300px;
@@ -783,6 +792,9 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+  }
+  .image-container img {
+    max-width: 40vw;
   }
 }
 
@@ -794,6 +806,12 @@ body {
     align-self: center;
     margin-right: 0px;
   }
+
+  .landing-buttons {
+    width: 60%;
+    justify-content: space-around;
+  }
+
   .form {
     min-width: 300px;
     margin: 0 auto;
@@ -806,10 +824,7 @@ body {
     align-items: center;
     text-align: center;
   }
-  .image-line {
-    align-self: center;
-    margin-right: 0px;
-  }
+
   .cards {
     flex-direction: column;
     align-items: center;
@@ -896,7 +911,7 @@ body {
     width: 90%;
   }
   .footer-link {
-    padding: 0 1rem;
+    padding: 0 11px;
   }
   .footer {
     height: 30px;
@@ -984,6 +999,17 @@ body {
     background-color: $darkBackground;
     margin: 5px;
     z-index: 4;
+  }
+
+  .landing-buttons {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .landing-button {
+    margin: 15px auto;
+    font-size: 16px;
+    min-width: 120px;
   }
 }
 /*# sourceMappingURL=styles.css.map */

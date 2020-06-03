@@ -113,7 +113,7 @@ export const updateProfile = (updates, history) => async (dispatch) => {
 };
 
 //Add an activity
-export const addActivity = (activity, history) => async (dispatch) => {
+export const addActivity = (activity) => async (dispatch) => {
   try {
     //Create config with headers. Get token from localStorage and put in req header.
     const config = {
@@ -134,7 +134,6 @@ export const addActivity = (activity, history) => async (dispatch) => {
       payload: res.data,
     });
 
-    history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

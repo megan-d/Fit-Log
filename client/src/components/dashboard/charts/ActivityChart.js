@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 //Minutes of activity over the last 7 days
 const ActivityChart = ({ profile }) => {
-
   //Get the categories from the activities. If it's the same category name, add those minutes together under that category.
   const activities = [...profile.activities];
   const activityTypeDurations = {};
 
-  activities.forEach(activity => {
+  activities.forEach((activity) => {
     if (activityTypeDurations[activity.category]) {
-      activityTypeDurations[activity.category] = activity.duration + activityTypeDurations[activity.category]
+      activityTypeDurations[activity.category] =
+        activity.duration + activityTypeDurations[activity.category];
     } else {
       activityTypeDurations[activity.category] = activity.duration;
     }
@@ -24,9 +24,13 @@ const ActivityChart = ({ profile }) => {
       {
         label: ['Minutes'],
         data: Object.values(activityTypeDurations),
-        borderColor: ['rgba(255, 99, 97, 1)', 'rgba(255, 166, 0, 1)', 'rgba(88, 80, 141, 1)', 'rgba(0, 63, 92, 1)', 'rgba(188, 80, 144, 1)'],
-        borderWidth: '2',
-        backgroundColor: ['rgba(255, 99, 97, 0.75)', 'rgba(255, 166, 0, 0.75)', 'rgba(88, 80, 141, 0.75)', 'rgba(0, 63, 92, 0.75)', 'rgba(188, 80, 144, 0.75)'],
+        borderWidth: '4',
+        backgroundColor: [
+          'rgba(42, 27, 61, 1)',
+          'rgba(233, 176, 0, 1)',
+          'rgba(235, 110, 128, 1)',
+          'rgba(0, 143, 149, 1)',
+        ],
       },
     ],
   };
@@ -48,23 +52,27 @@ const ActivityChart = ({ profile }) => {
             align: 'center',
           },
           scales: {
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Minutes',
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Minutes',
+                },
+                ticks: {
+                  beginAtZero: true,
+                  min: 0,
+                },
               },
-              ticks: {
-                beginAtZero:true,
-                min: 0,
-              }
-            }],
-            xAxes: [{
-              scaleLabel: {
-                display: false,
-                labelString: 'Category'
-              }
-            }]
-          }     
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: false,
+                  labelString: 'Category',
+                },
+              },
+            ],
+          },
         }}
       />
     </div>
