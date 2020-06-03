@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 //Minutes of activity over the last 7 days
 const ActivityChart = ({ profile }) => {
   //Get the categories from the activities. If it's the same category name, add those minutes together under that category.
-  const activities = [...profile.activities];
+  const activities = [...profile.activities].reverse();
   const activityTypeDurations = {};
 
   activities.forEach((activity) => {
