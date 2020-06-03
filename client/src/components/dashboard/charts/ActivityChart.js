@@ -17,6 +17,18 @@ const ActivityChart = ({ profile }) => {
     }
   });
 
+  //create variable to store category names for background styling
+  const activityTypes = Object.keys(activityTypeDurations);
+
+  //Create background colors to cycle through
+  const colors = [
+    'rgba(129, 73, 131, 1)',
+    'rgba(233, 176, 0, 1)',
+    'rgba(235, 110, 128, 1)',
+    'rgba(0, 143, 149, 1)',
+    'rgba(138,199,58, 1)',
+  ];
+
   //To display the duration for each category, get the values of each key with Object.values
   const chartData = {
     labels: [...Object.keys(activityTypeDurations)],
@@ -25,12 +37,14 @@ const ActivityChart = ({ profile }) => {
         label: ['Minutes'],
         data: Object.values(activityTypeDurations),
         borderWidth: '3',
-        backgroundColor: [
-          'rgba(129, 73, 131, 1)',
-          'rgba(233, 176, 0, 1)',
-          'rgba(235, 110, 128, 1)',
-          'rgba(0, 143, 149, 1)',
-        ],
+        //Create function to cycle through colors so if more activities than colors it will loop around and reuse the same colors instead of gray
+        backgroundColor: () => {
+          let backgroundColors = [];
+          for (let i = 0; i < activityTypes.length; i++) {
+            backgroundColors.push(colors[i % colors.length]);
+          }
+          return backgroundColors;
+        },
       },
     ],
   };

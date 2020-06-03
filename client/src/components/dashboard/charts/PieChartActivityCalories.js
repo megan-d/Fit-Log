@@ -16,6 +16,19 @@ const PieChartWeight = ({ profile }) => {
     }
   });
 
+  //create variable to store category names for background styling
+  const categories = Object.keys(activityTypeCalories);
+
+  //Create background colors to cycle through
+  const colors = [
+    'rgba(129, 73, 131, 0.9)',
+    'rgba(233, 176, 0, 0.9)',
+    'rgba(235, 110, 128, 0.9)',
+    'rgba(0, 143, 149, 0.9)',
+    'rgba(138,199,58, 0.9)',
+    'rgba(42, 27, 61, 0.9)',
+  ];
+
   //To display the duration for each category, get the values of each key with Object.values
   const chartData = {
     labels: [...Object.keys(activityTypeCalories)],
@@ -23,12 +36,14 @@ const PieChartWeight = ({ profile }) => {
       {
         label: ['Calories'],
         data: Object.values(activityTypeCalories),
-        backgroundColor: [
-          'rgba(129, 73, 131, 1)',
-          'rgba(233, 176, 0, 1)',
-          'rgba(235, 110, 128, 1)',
-          'rgba(0, 143, 149, 1)',
-        ],
+        //Create function to cycle through colors so if more activities than colors it will loop around and reuse the same colors instead of gray
+        backgroundColor: () => {
+          let backgroundColors = [];
+          for (let i = 0; i < categories.length; i++) {
+            backgroundColors.push(colors[i % colors.length]);
+          }
+          return backgroundColors;
+        },
       },
     ],
   };
