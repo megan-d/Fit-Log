@@ -46,6 +46,7 @@ const Activities = ({ activities, addActivity }) => {
     clearInputHandler();
   };
 
+  
   const activitiesTable = activities.map((activity) => {
     return <Activity key={activity._id} activity={activity} />;
   });

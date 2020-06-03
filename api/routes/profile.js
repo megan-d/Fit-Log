@@ -353,8 +353,8 @@ router.put(
           newActivity.duration,
       );
 
-      //Add into activities array for profile. 
-      profile.activities.push(newActivity);
+      //Add into activities array for profile.
+      profile.activities.unshift(newActivity);
 
       //Save to database and send profile to front end
       await profile.save();
@@ -470,35 +470,11 @@ router.post('/demo', verify, async (req, res) => {
   (profileItems.activities = [
     {
       duration: 60,
-      category: 'Basketball',
+      category: 'Yoga',
       calories: Math.round(
-        ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+        ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
       ),
-      date: 'May 1, 2020',
-    },
-    {
-      duration: 42,
-      category: 'Hiking',
-      calories: Math.round(
-        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
-      ),
-      date: 'May 9, 2020',
-    },
-    {
-      duration: 76,
-      category: 'Hiking',
-      calories: Math.round(
-        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
-      ),
-      date: 'May 12, 2020',
-    },
-    {
-      duration: 35,
-      category: 'Running - Slow',
-      calories: Math.round(
-        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
-      ),
-      date: 'May 20, 2020',
+      date: 'June 3, 2020',
     },
     {
       duration: 80,
@@ -509,12 +485,36 @@ router.post('/demo', verify, async (req, res) => {
       date: 'May 27, 2020',
     },
     {
-      duration: 60,
-      category: 'Yoga',
+      duration: 35,
+      category: 'Running - Slow',
       calories: Math.round(
-        ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
       ),
-      date: 'June 3, 2020',
+      date: 'May 20, 2020',
+    },
+    {
+      duration: 76,
+      category: 'Hiking',
+      calories: Math.round(
+        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
+      ),
+      date: 'May 12, 2020',
+    },
+    {
+      duration: 42,
+      category: 'Hiking',
+      calories: Math.round(
+        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
+      ),
+      date: 'May 9, 2020',
+    },
+    {
+      duration: 60,
+      category: 'Basketball',
+      calories: Math.round(
+        ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+      ),
+      date: 'May 1, 2020',
     },
   ]),
     (profileItems.bmi = (
