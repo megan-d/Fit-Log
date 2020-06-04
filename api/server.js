@@ -45,9 +45,9 @@ app.use(express.json());
     //Create, update, and delete profile. Add activity to profile.
     app.use('/api/profile', profile);
 
-// Serve static assets in production
+// Serve static assets in production. Heroku will automatically default the NODE_ENV to production.
 if (process.env.NODE_ENV === 'production') {
-    // Set static folder
+    // Set static folder (to be public folder). We want index.html to be our static file.
     app.use(express.static('client/build'));
     //Return all requests to react app
     app.get('*', (req, res) => {
