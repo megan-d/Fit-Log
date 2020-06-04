@@ -431,7 +431,7 @@ router.post('/demo', verify, async (req, res) => {
   const user = req.user.id;
 
   const profileItems = {
-    weight: 220,
+    weight: 225,
     height: 70,
     goalWeight: 200,
     goalDailyCalories: 2000,
