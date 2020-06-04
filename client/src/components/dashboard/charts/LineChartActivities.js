@@ -7,14 +7,28 @@ import moment from 'moment';
 const LineChartActivities = ({ profile }) => {
 
   const reversedActivities = [...profile.activities].reverse();
-    
+  const activityDateDurations = {};
+
+  reversedActivities.forEach((activity) => {
+    let date = moment(activity.date).format('MM-DD-YYYY');
+    if (activityDateDurations[date]) {
+      activityDateDurations[date] =
+        activity.duration + activityDateDurations[date];
+    } else {
+      activityDateDurations[date] = activity.duration;
+    }
+    console.log(date);
+  });
+
+  
+  console.log(activityDateDurations);
 
   const chartData = {
-    labels: [...reversedActivities.map(el => moment(el.date).format('MM-DD-YYYY'))],
+    labels: [...Object.keys(activityDateDurations)],
     datasets: [
       {
         label: ['Duration'],
-        data: reversedActivities.map(el => el.duration),
+        data: Object.values(activityDateDurations),
         borderColor: 'rgba(129, 73, 131, 1)',
       },
     ],
