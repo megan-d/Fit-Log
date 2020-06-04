@@ -26,7 +26,7 @@ const ActivityChart = ({ profile }) => {
     'rgba(233, 176, 0, 1)',
     'rgba(235, 110, 128, 1)',
     'rgba(0, 143, 149, 1)',
-    'rgba(138,199,58, 1)',
+    'rgba(103, 181, 65, 1)',
   ];
 
   //To display the duration for each category, get the values of each key with Object.values
