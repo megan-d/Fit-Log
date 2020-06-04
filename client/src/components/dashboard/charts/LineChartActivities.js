@@ -43,7 +43,7 @@ const LineChartActivities = ({ profile }) => {
           responsive: true,
           title: {
             display: true,
-            text: 'Activity Durations',
+            text: 'Activity Durations by Date',
           },
           legend: {
             display: false,
