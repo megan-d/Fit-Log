@@ -17,11 +17,7 @@ const LineChartActivities = ({ profile }) => {
     } else {
       activityDateDurations[date] = activity.duration;
     }
-    console.log(date);
   });
-
-  
-  console.log(activityDateDurations);
 
   const chartData = {
     labels: [...Object.keys(activityDateDurations)],
