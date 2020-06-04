@@ -25,8 +25,8 @@ const PieChartWeight = ({ profile }) => {
     'rgba(233, 176, 0, 0.9)',
     'rgba(235, 110, 128, 0.9)',
     'rgba(0, 143, 149, 0.9)',
-    'rgba(103, 181, 65, 0.9)',
     'rgba(42, 27, 61, 0.9)',
+    'rgba(103, 181, 65, 0.9)',
   ];
 
   //To display the duration for each category, get the values of each key with Object.values

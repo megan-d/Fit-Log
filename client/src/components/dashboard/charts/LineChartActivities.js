@@ -6,11 +6,11 @@ import moment from 'moment';
 //Minutes of activity over the last 7 days
 const LineChartActivities = ({ profile }) => {
 
-    const reversedActivities = [...profile.activities].reverse();
-    const activityDates = [...reversedActivities.map(el => moment(el.date).format('MM-DD-YYYY'))];
+  const reversedActivities = [...profile.activities].reverse();
+    
 
   const chartData = {
-    labels: [...activityDates],
+    labels: [...reversedActivities.map(el => moment(el.date).format('MM-DD-YYYY'))],
     datasets: [
       {
         label: ['Duration'],
