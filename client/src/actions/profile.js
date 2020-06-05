@@ -185,11 +185,12 @@ export const deleteUser = () => async(dispatch) => {
       },
     });
     dispatch({
-      type: PROFILE_CLEARED
-    });
-    dispatch({
       type: USER_DELETED
     });
+    dispatch({
+      type: PROFILE_CLEARED
+    });
+   
     dispatch(displayAlert('Your profile and account have been permanently deleted.', 'success'));
   } catch (err) {
     dispatch({
