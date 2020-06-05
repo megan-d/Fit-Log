@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 //Import routes
-const auth = require('./routes/auth');
-const users = require('./routes/users');
-const profile = require('./routes/profile');
+const auth = require('./api/routes/auth');
+const users = require('./api/routes/users');
+const profile = require('.api/routes/profile');
 
 dotenv.config();
 const app = express();
