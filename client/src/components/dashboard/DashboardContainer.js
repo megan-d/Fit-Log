@@ -30,7 +30,7 @@ const DashboardContainer = ({
   //Modal close handler
   const modalCloseHandler = () => setModal(false);
 
-  return (profile.isLoading && profile.profile === null) || (!profile.isLoading && profile.profile === null ) ? (
+  return (profile.isLoading && profile.profile === null) ? (
     <div className='main-content'>
       <div className='dashboard-container'>
         <Spinner />

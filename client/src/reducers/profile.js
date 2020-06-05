@@ -38,7 +38,7 @@ export default function(state = initialState, action) {
     case PROFILE_CLEARED:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
         profile: null,
       };
     default:
