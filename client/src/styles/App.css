@@ -360,6 +360,7 @@ body {
           flex: 1 0 auto;
   width: 80%;
   margin: 0 auto;
+  min-height: 80vh;
 }
 
 .main-section {
@@ -1181,7 +1182,8 @@ body {
     position: absolute;
     right: 0px;
     top: 10vh;
-    background-color: #203a43;
+    background-color: #008f95;
+    color: #2a1b3d;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

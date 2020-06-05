@@ -296,7 +296,7 @@ body {
   flex: 1 0 auto;
   width: 80%;
   margin: 0 auto;
-  // height: 80vh;
+  min-height: 80vh;
 }
 
 .main-section {
@@ -978,7 +978,8 @@ body {
     position: absolute;
     right: 0px;
     top: 10vh;
-    background-color: rgb(32, 58, 67);
+    background-color: $accentColor;
+    color: $darkBackground;
     display: flex;
     flex-direction: column;
     width: 100%;
