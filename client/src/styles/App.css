@@ -1136,6 +1136,9 @@ body {
   header {
     width: 90%;
   }
+  .alert {
+    line-height: 20px;
+  }
   .footer-link {
     padding: 0 11px;
   }
