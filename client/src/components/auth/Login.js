@@ -36,7 +36,7 @@ const Login = (props) => {
   return (
     <div className='main-content'>
       <div className='form-page-container'>
-        <h1 className='title-white-bold subheading'>
+        <h1 className='title-white-bold subheading login-heading'>
           Achieve Your <span className='title-accent'>GOALS.</span>
         </h1>
         <form className='form' action='' onSubmit={(e) => onSubmit(e)}>

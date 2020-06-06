@@ -43,7 +43,7 @@ const Register = (props) => {
   return (
     <div className='main-content'>
       <div className='main-section-signup'>
-        <h1 className='title-white-bold subheading'>
+        <h1 className='title-white-bold subheading register-heading'>
           Get <span className='title-accent'>FIT</span> with us.
         </h1>
 

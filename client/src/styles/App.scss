@@ -18,6 +18,15 @@ header {
   font-family: $font;
 }
 
+.login-heading {
+  margin-top: 50px;
+  margin-bottom: 5px;
+}
+
+.register-heading {
+  margin-top: 0px;
+}
+
 .logo-container {
   @include flex-alignItems-center;
 }
@@ -285,7 +294,7 @@ body {
 }
 
 .subheading {
-  font-size: 2.4rem;
+  font-size: 34px;
 }
 
 .title-accent {
@@ -813,6 +822,10 @@ body {
   }
   .image-container img {
     max-width: 40vw;
+  }
+  .register-heading {
+    margin-top: 50px;
+    margin-bottom: 40px;
   }
 }
 
