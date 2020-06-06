@@ -14,6 +14,7 @@ header {
   width: 80%;
   margin: auto;
   min-height: 10vh;
+  height: 10vh;
 }
 
 .site-title {
