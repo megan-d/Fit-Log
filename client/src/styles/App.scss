@@ -155,7 +155,7 @@ header {
 
 .form-right {
   margin: 0;
-  min-width: 400px;
+  min-width: 450px;
   @include flex-column;
   align-items: center;
 }
@@ -779,7 +779,7 @@ body {
 
 .card-update-heading {
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 24px;
   margin-bottom: 0;
   color: $darkBackground;
 }
@@ -823,9 +823,9 @@ body {
   .image-container img {
     max-width: 40vw;
   }
+
   .register-heading {
     margin-top: 50px;
-    margin-bottom: 40px;
   }
 }
 
@@ -953,14 +953,16 @@ body {
     margin: 5px;
   }
   .form-container {
-    margin-top: 5px;
+    margin-bottom: 40px;
   }
   .form-container-signup {
-    width: 80%;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
   .form-right {
-    min-width: 0px;
+    min-width: 90%;
   }
 
   .card-update-heading {
