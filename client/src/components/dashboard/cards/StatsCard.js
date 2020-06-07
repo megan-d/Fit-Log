@@ -75,7 +75,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
         <Modal show={modalView} modalClosed={modalCloseHandler}>
           <div className='update-modal'>
             <h1 className='card-update-heading'>Update Your Stats</h1>
-            <form className='form contact-form' action='' onSubmit={onSubmit}>
+            <form className='form contact-form modal-form' action='' onSubmit={onSubmit}>
               <div className='form-container'>
                 <div className='form-group'>
                   <label>

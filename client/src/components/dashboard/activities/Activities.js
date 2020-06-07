@@ -70,7 +70,7 @@ const Activities = ({ activities, addActivity }) => {
       </table>
       {modalView && (
         <Modal show={modalView} modalClosed={modalCloseHandler}>
-          <form className='form contact-form' action='' onSubmit={onSubmit}>
+          <form className='form contact-form modal-form' action='' onSubmit={onSubmit}>
             <div className='form-container'>
               <div className='form-group'>
                 <label>

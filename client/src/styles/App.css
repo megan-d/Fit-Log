@@ -46,7 +46,7 @@ header {
 
 .logo-container h1 a {
   text-decoration: none;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .nav-links {
@@ -59,7 +59,7 @@ header {
 
 .nav-link {
   text-decoration: none;
-  color: #2a1b3d;
+  color: #2a1b3c;
   padding-left: 3rem;
 }
 
@@ -77,7 +77,7 @@ header {
 
 .footer {
   width: 100%;
-  background-color: #220d3d;
+  background-color: #2a1b3c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -120,7 +120,7 @@ header {
 }
 
 .left-wrapper .title-landing {
-  color: #2a1b3d;
+  color: #2a1b3c;
   font-weight: 400;
   font-size: 32px;
   padding-bottom: 2rem;
@@ -133,7 +133,7 @@ header {
 .left-wrapper .subtitle-landing {
   font-weight: 400;
   font-size: 1.2rem;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .fitness {
@@ -161,7 +161,7 @@ header {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 50px;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .no-account p {
@@ -171,7 +171,7 @@ header {
 .no-account a,
 .have-account a {
   text-decoration: underline;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .form-right {
@@ -204,7 +204,7 @@ header {
 }
 
 .form-container-signup {
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -265,7 +265,7 @@ body {
 }
 
 .button {
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -315,7 +315,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .page-description p {
@@ -325,7 +325,7 @@ body {
 }
 
 .create-profile-desc {
-  color: #2a1b3d;
+  color: #2a1b3c;
   margin-top: 3rem;
   text-align: center;
 }
@@ -334,7 +334,7 @@ body {
   font-weight: normal;
   font-size: 1.7rem;
   text-align: center;
-  color: #2a1b3d;
+  color: #2a1b3c;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -344,7 +344,7 @@ body {
   font-weight: bold;
   font-size: 1.7rem;
   text-align: center;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .subheading {
@@ -434,7 +434,7 @@ body {
 }
 
 .dashboard-desc {
-  color: #2a1b3d;
+  color: #2a1b3c;
   font-size: 14px;
   margin-bottom: 20px;
   font-style: italic;
@@ -458,7 +458,7 @@ body {
 }
 
 .form-container {
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   width: 100%;
   min-height: 150px;
   border: 1px solid #fffafa;
@@ -509,7 +509,7 @@ body {
   border-radius: 5px;
   margin: 0 auto;
   width: 90%;
-  color: #2a1b3d;
+  color: #2a1b3c;
   font-size: 14px;
   width: 100%;
   padding-left: 3px;
@@ -530,7 +530,7 @@ body {
   border-radius: 5px;
   margin: 0 auto;
   width: 100%;
-  color: #2a1b3d;
+  color: #2a1b3c;
   font-size: 14px;
 }
 
@@ -568,7 +568,7 @@ body {
   background-color: snow;
   -ms-flex-preferred-size: calc(33% - 3rem);
       flex-basis: calc(33% - 3rem);
-  color: #2a1b3d;
+  color: #2a1b3c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -636,7 +636,7 @@ body {
 }
 
 .card-button {
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -655,7 +655,7 @@ body {
 
 .card-input {
   font-family: "Roboto", sans-serif;
-  border: 2px solid #2a1b3d;
+  border: 2px solid #2a1b3c;
   border-radius: 5px;
   padding: 0.3rem;
   width: 55px;
@@ -676,7 +676,7 @@ body {
 
 .spinner {
   border: 10px solid #fffafa;
-  border-top: 10px solid #2a1b3d;
+  border-top: 10px solid #2a1b3c;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -732,7 +732,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #2a1b3d;
+  color: #2a1b3c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -822,7 +822,7 @@ body {
   position: absolute;
   top: 15px;
   left: 30px;
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   color: #fffafa;
   text-decoration: none;
   font-weight: bold;
@@ -894,14 +894,14 @@ body {
 }
 
 .modal {
-  width: 50%;
+  width: 60%;
   position: fixed;
   z-index: 400;
   background-color: #fffafa;
   margin: 0 auto;
-  color: #2a1b3d;
+  color: #2a1b3c;
   top: 25%;
-  left: 25%;
+  left: 20%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   text-align: center;
@@ -939,7 +939,7 @@ body {
 
 .cancel-user-button {
   background-color: #fffafa;
-  color: #2a1b3d;
+  color: #2a1b3c;
   text-decoration: none;
   border: none;
   border-radius: 5px;
@@ -956,7 +956,7 @@ body {
 }
 
 .card-submit-button {
-  background-color: #2a1b3d;
+  background-color: #2a1b3c;
   color: #f5f5f5;
   text-decoration: none;
   border: none;
@@ -977,7 +977,7 @@ body {
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 0;
-  color: #2a1b3d;
+  color: #2a1b3c;
 }
 
 .backdrop {
@@ -1034,6 +1034,13 @@ body {
 }
 
 @media only screen and (max-width: 790px) {
+  .modal {
+    width: 70%;
+    padding: 5px;
+    margin: 0 auto;
+    top: 15%;
+    left: 15%;
+  }
   .nav-link {
     padding-left: 2rem;
   }
@@ -1173,10 +1180,11 @@ body {
     margin-top: 5px;
   }
   .modal {
-    width: 50%;
-    padding: 5px;
+    width: 80%;
+    left: 10%;
+  }
+  .modal-form {
     margin: 0 auto;
-    top: 10%;
   }
   .modal-delete-buttons {
     margin: 5px;
@@ -1197,8 +1205,7 @@ body {
     position: absolute;
     right: 0px;
     top: 10vh;
-    background-color: #008f95;
-    color: #2a1b3d;
+    background-color: #2a1b3c;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1218,6 +1225,12 @@ body {
     font-size: 0.85rem;
     z-index: 1;
   }
+  .nav-link {
+    color: #fffafa;
+  }
+  .nav-link:hover {
+    color: #008f95;
+  }
   .open {
     -webkit-transform: translateX(0);
             transform: translateX(0);
@@ -1236,7 +1249,7 @@ body {
   .line {
     width: 25px;
     height: 3px;
-    background-color: #2a1b3d;
+    background-color: #2a1b3c;
     margin: 5px;
     z-index: 4;
   }

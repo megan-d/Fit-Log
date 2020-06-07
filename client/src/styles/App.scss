@@ -702,14 +702,14 @@ body {
 }
 
 .modal {
-  width: 50%;
+  width: 60%;
   position: fixed;
   z-index: 400;
   background-color: $primaryText;
   margin: 0 auto;
   color: $darkText;
   top: 25%;
-  left: 25%;
+  left: 20%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   text-align: center;
   border-radius: 5px;
@@ -830,6 +830,14 @@ body {
 }
 
 @media only screen and (max-width: 790px) {
+  .modal {
+    width: 70%;
+    padding: 5px;
+    margin: 0 auto;
+    top: 15%;
+    left: 15%;
+  }
+
   .nav-link {
     padding-left: 2rem;
   }
@@ -966,12 +974,16 @@ body {
   .card-update-heading {
     margin-top: 5px;
   }
+
   .modal {
-    width: 50%;
-    padding: 5px;
-    margin: 0 auto;
-    top: 10%;
+    width: 80%;
+    left: 10%;
   }
+
+  .modal-form {
+    margin: 0 auto;
+  }
+
   .modal-delete-buttons {
     margin: 5px;
   }
@@ -994,8 +1006,7 @@ body {
     position: absolute;
     right: 0px;
     top: 10vh;
-    background-color: $accentColor;
-    color: $darkBackground;
+    background-color: $navyBackground;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -1006,6 +1017,14 @@ body {
     font-size: 0.85rem;
     // transition: transform 0.3s ease-in;
     z-index: 1;
+  }
+
+  .nav-link {
+    color: $primaryText;
+  }
+
+  .nav-link:hover {
+    color: $accentColor;
   }
 
   .open {

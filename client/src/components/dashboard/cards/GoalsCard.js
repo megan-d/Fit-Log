@@ -81,7 +81,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
           <div className='update-modal'>
               <h1 className='card-update-heading'>Update Your Goals</h1>
               <form
-                className='form contact-form'
+                className='form contact-form modal-form'
                 action=''
                 onSubmit={onSubmit}
               >
