@@ -894,14 +894,14 @@ body {
 }
 
 .modal {
-  width: 60%;
+  width: 50%;
   position: fixed;
   z-index: 400;
   background-color: #fffafa;
   margin: 0 auto;
   color: #2a1b3c;
-  top: 25%;
-  left: 20%;
+  top: 20vh;
+  left: 25%;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   text-align: center;
@@ -1038,7 +1038,6 @@ body {
     width: 70%;
     padding: 5px;
     margin: 0 auto;
-    top: 15%;
     left: 15%;
   }
   .nav-link {
