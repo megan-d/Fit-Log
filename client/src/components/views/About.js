@@ -2,8 +2,8 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className='main-content page-description about-page'>
-        <div className='form-page-container'>
+    <div className='main-content page-description'>
+        <div className='form-page-container about-page'>
           <h1 className='title-white about-title'>About Us</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi eum
