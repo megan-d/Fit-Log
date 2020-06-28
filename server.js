@@ -32,11 +32,6 @@ connectDatabase();
 //To get access to req.body (no longer need body parser npm package)
 app.use(express.json());
 
-// //Root route
-// app.get('/', async (req, res) => {
-//   res.send('API is running');
-// });
-
 //Route middlewares
     //Authenticate user and get token
     app.use('/api/auth', auth);
