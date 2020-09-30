@@ -12,7 +12,7 @@ const profile = require('./api/routes/profile');
 dotenv.config();
 const app = express();
 
-
+//Connect to new postgres database
 
 
 //Connect to Database. Dotenv npm package gives access to .env
