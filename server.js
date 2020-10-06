@@ -4,6 +4,16 @@ const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+const knex = require('knex')({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : process.env.PG_USER,
+      password : process.env.PG_PS,
+      database : 'fit_ally'
+    }
+  });
+
 //Import routes
 const auth = require('./api/routes/auth');
 const users = require('./api/routes/users');
@@ -12,21 +22,19 @@ const profile = require('./api/routes/profile');
 dotenv.config();
 const app = express();
 
-//Connect to new postgres database
-
 
 //Connect to Database. Dotenv npm package gives access to .env
-const connectDatabase = async () => {
-    try {await mongoose.connect(
-        process.env.MONGO_URI,
-        { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false },
-        () => console.log('Connected to DB'))
-    } catch(err) {
-        console.error(err);
-        process.exit(1);
-    };
-}
-connectDatabase();
+// const connectDatabase = async () => {
+//     try {await mongoose.connect(
+//         process.env.MONGO_URI,
+//         { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false },
+//         () => console.log('Connected to DB'))
+//     } catch(err) {
+//         console.error(err);
+//         process.exit(1);
+//     };
+// }
+// connectDatabase();
 
 //MIDDLEWARES
 //To get access to req.body (no longer need body parser npm package)
