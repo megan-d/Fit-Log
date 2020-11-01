@@ -95,7 +95,7 @@ export const updateProfile = (updates, history) => async (dispatch) => {
       type: UPDATE_PROFILE_SUCCESS,
       payload: res.data,
     });
-
+    // history.push('/dashboard');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {

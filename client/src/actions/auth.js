@@ -108,7 +108,7 @@ export const loadUser = () => async (dispatch) => {
 
     dispatch({
       type: LOAD_USER_SUCCESS,
-      payload: res.data,
+      payload: res.data.rows[0],
     });
   } catch (err) {
     dispatch({

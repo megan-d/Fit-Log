@@ -1,32 +1,50 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-
 const User = require('../models/User');
 const Profile = require('../models/Profile');
+const pool = require('../../db');
 
 //ROUTE: GET api/profile/me
-//DESCRIPTION: Get current user's profile
+//DESCRIPTION: Get current user's profile and activities
 //ACCESS LEVEL: Private
 router.get('/me', verify, async (req, res) => {
+  const client = await pool.connect();
   try {
-    //Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
-      'User',
-      'name',
+    // Find the current user based on the id that comes in with the request's token. Populate with the name from the user model.
+    // const profile = await Profile.findOne({ user: req.user.id }).populate(
+    //   'User',
+    //   'name',
+    // );
+    let profile = await client.query(
+      'SELECT * FROM profiles INNER JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = $1',
+      [req.user.id],
     );
-
+    let activities = await client.query(
+      'SELECT * FROM activities WHERE activities.user_id = $1',
+      [req.user.id],
+    );
+    let weights = await client.query(
+      'SELECT * FROM weights WHERE weights.user_id = $1',
+      [req.user.id],
+    );
     //If there is no profile, return an error
-    if (!profile) {
+    if (profile.rows.length === 0) {
       return res
         .status(400)
         .json({ msg: 'There is no profile available for this user.' });
     }
-    //If there is a profile, send that profile
-    res.json(profile);
+    if (activities.rows.length > 0) {
+      profile.rows[0].activities = activities.rows;
+    } else {
+      profile.rows[0].activities = [];
+    }
+    if (weights.rows.length > 0) {
+      profile.rows[0].weights = weights.rows;
+    }
+    //If there is a profile, send that profile with the activities attached
+    res.json(profile.rows[0]);
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error');
@@ -80,15 +98,11 @@ router.post(
     } = req.body;
 
     //Build the profileItems object. If the value is there, add it to the profileItems object.
-    const profileItems = {
-      weightHistory: {
-        weight: weight,
-      },
-    };
+    const profileItems = {};
     profileItems.user = req.user.id;
     if (weight) {
       profileItems.weight = weight;
-      profileItems.weightHistory.weight = weight;
+      // profileItems.weightHistory.weight = weight;
     }
     if (height) {
       profileItems.height = height;
@@ -99,6 +113,8 @@ router.post(
     }
     if (goalWeight) {
       profileItems.goalWeight = goalWeight;
+    } else {
+      profileItems.goalWeight = null;
     }
     if (goalDailyCalories) {
       profileItems.goalDailyCalories = goalDailyCalories;
@@ -107,14 +123,20 @@ router.post(
     }
     if (goalDays || goalDays === 0) {
       profileItems.goalDays = goalDays;
+    } else {
+      profileItems.goalDays = 4;
     }
     profileItems.caloriesConsumedToday = 0;
     profileItems.caloriesRemainingToday = profileItems.goalDailyCalories;
 
+    const client = await pool.connect();
     //Once all fields are prepared, update and populate the data
     try {
       //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
-      let user = await User.findOne({ _id: req.user.id });
+      // let user = await User.findOne({ _id: req.user.id });
+      let user = await client.query('SELECT * FROM users WHERE id = $1', [
+        req.user.id,
+      ]);
       if (!user) {
         return res.json({
           msg: 'You must be a currently registered user to create a profile.',
@@ -122,24 +144,55 @@ router.post(
       }
 
       //Use findOne to find profile
-      let profile = await Profile.findOne({ user: req.user.id });
-
+      // let profile = await Profile.findOne({ user: req.user.id });
+      //Make sure profile doesn't already exist for this user
+      let profile = await client.query(
+        'SELECT * FROM profiles WHERE user_id = $1',
+        [req.user.id],
+      );
       //If profile is found, give error and suggest user updates profile
-      if (profile) {
+      if (profile.rows.length > 0) {
         return res.json({
           msg:
             'A profile already exists for this user. Please select update stats from your dashboard to update your profile.',
         });
       }
       //If profile isn't found, create a new one
-      if (!profile) {
-        profile = await new Profile(profileItems);
-        await profile.save();
-        res.json(profile);
+      if (profile.rows.length === 0) {
+        await client.query('BEGIN');
+
+        profile = await client.query(
+          'INSERT INTO profiles (current_weight, height, bmi, goal_weight, goal_calories, goal_days, calories_consumed_today, calories_remaining_today, user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+          [
+            weight,
+            height,
+            profileItems.bmi,
+            profileItems.goalWeight,
+            profileItems.goalDailyCalories,
+            profileItems.goalDays,
+            profileItems.caloriesConsumedToday,
+            profileItems.caloriesRemainingToday,
+            req.user.id,
+          ],
+        );
+        //add empty activities and weights array to profile
+        profile.rows[0].activities = [];
+        let firstWeight = await client.query(
+          'INSERT INTO weights (weight, date, user_id) VALUES($1,$2,$3) RETURNING *',
+          [weight, new Date(), req.user.id],
+        );
+        profile.rows[0].weights = firstWeight.rows;
+
+        await client.query('COMMIT');
+        // profile = await new Profile(profileItems);
+        // await profile.save();
+        res.json(profile.rows[0]);
       }
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
     }
   },
 );
@@ -187,16 +240,24 @@ router.put(
       return res.status(422).json({ errors: errors.array() });
     }
 
+    const client = await pool.connect();
     try {
+      await client.query('BEGIN');
       //Use findOne to find profile
-      let profile = await Profile.findOne({ user: req.user.id });
-
+      // let profile = await Profile.findOne({ user: req.user.id });
+      let profile = await client.query(
+        'SELECT * FROM profiles WHERE user_id = $1',
+        [req.user.id],
+      );
       //If profile isn't found, give error (this shouldn't happen though because they should be required to create one when they sign up.)
-      if (!profile) {
-        res.json({ msg: 'There is no profile available for this user.' });
+      if (profile.rows.length === 0) {
+        return res.json({
+          msg: 'There is no profile available for this user.',
+        });
       }
 
       //If there is a profile, update it based on data provided.
+      await client.query('BEGIN');
       //Pull all of the fields out into variables from req.body. Don't include activities.
       const {
         weight,
@@ -211,38 +272,44 @@ router.put(
       const profileItems = {};
       profileItems.user = req.user.id;
 
+      let newWeight;
       if (weight) {
         profileItems.weight = weight;
-        weightHistoryInput = {
-          weight: weight,
-        };
-        profileItems.weightHistory = [...profile.weightHistory];
-        profileItems.weightHistory.push(weightHistoryInput);
+        newWeight = await client.query(
+          'INSERT INTO weights (weight, date, user_id) VALUES($1,$2,$3) RETURNING *',
+          [weight, new Date(), req.user.id],
+        );
       } else {
-        profileItems.weight = profile.weight;
+        profileItems.weight = profile.rows[0].current_weight;
       }
+
       if (height) {
         profileItems.height = height;
       } else {
-        profileItems.height = profile.height;
+        profileItems.height = profile.rows[0].height;
       }
       if (goalWeight) {
         profileItems.goalWeight = goalWeight;
+      } else {
+        profileItems.goalWeight = profile.rows[0].goal_weight;
       }
       if (goalDays || goalDays === 0) {
         profileItems.goalDays = goalDays;
+      } else {
+        profileItems.goalDays = profile.rows[0].goal_days;
       }
       if (goalDailyCalories) {
         profileItems.goalDailyCalories = goalDailyCalories;
       } else {
-        profileItems.goalDailyCalories = profile.goalDailyCalories;
+        profileItems.goalDailyCalories = profile.rows[0].goal_calories;
       }
       if (caloriesConsumedToday || caloriesConsumedToday === 0) {
         profileItems.caloriesConsumedToday = caloriesConsumedToday;
       } else {
-        profileItems.caloriesConsumedToday = profile.caloriesConsumedToday;
+        profileItems.caloriesConsumedToday =
+          profile.rows[0].calories_consumed_today;
       }
-
+      console.log(caloriesConsumedToday);
       //Calculate calories remaining once have data from either profileItems or profile (or both)
       profileItems.caloriesRemainingToday =
         profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
@@ -258,17 +325,43 @@ router.put(
 
       //Update the new fields with data from profileItems
       if (profile) {
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileItems },
-          { new: true },
+        // profile = await Profile.findOneAndUpdate(
+        //   { user: req.user.id },
+        //   { $set: profileItems },
+        //   { new: true },
+        // );
+        profile = await client.query(
+          `UPDATE profiles SET current_weight = ${profileItems.weight}, height = ${profileItems.height}, bmi = ${profileItems.bmi}, goal_weight = ${profileItems.goalWeight}, goal_calories = ${profileItems.goalDailyCalories}, goal_days = ${profileItems.goalDays}, calories_consumed_today = ${profileItems.caloriesConsumedToday}, calories_remaining_today = ${profileItems.caloriesRemainingToday} WHERE user_id = ${req.user.id} RETURNING *`,
         );
+
+        let weights = await client.query(
+          'SELECT * FROM weights WHERE user_id = $1',
+          [req.user.id],
+        );
+
+        let activities = await client.query(
+          'SELECT * FROM activities WHERE user_id = $1',
+          [req.user.id],
+        );
+        // if (weight) {
+        //   profile.rows[0].weights = [...profile.rows[0].weights, newWeight.rows[0]];
+        // }
+
+        if (activities) {
+          profile.rows[0].activities = [...activities.rows];
+        } else {
+          profile.rows[0].activities = [];
+        }
+        profile.rows[0].weights = weights.rows;
         //send back profile
-        return res.json(profile);
+        await client.query('COMMIT');
+        return res.json(profile.rows[0]);
       }
     } catch (err) {
-      console.error(err);
-      res.status(500).send('Server Error');
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
     }
   },
 );
@@ -277,17 +370,33 @@ router.put(
 //DESCRIPTION: Delete profile and user
 //ACCESS LEVEL: Private
 router.delete('/', verify, async (req, res) => {
+  const client = await pool.connect();
   try {
+    await client.query('BEGIN');
     //Find profile that corresponds to user id found in token and delete
-    await Profile.findOneAndRemove({ user: req.user.id });
+    // await Profile.findOneAndRemove({ user: req.user.id });
+    await client.query('DELETE FROM profiles WHERE user_id = $1', [
+      req.user.id,
+    ]);
 
+    await client.query('DELETE FROM login WHERE user_id = $1', [req.user.id]);
+    await client.query('DELETE FROM weights WHERE user_id = $1', [req.user.id]);
+    await client.query('DELETE FROM activities WHERE user_id = $1', [
+      req.user.id,
+    ]);
     //Find user that corresponds to user id found in token and delete
-    await User.findOneAndRemove({ _id: req.user.id });
+    // await User.findOneAndRemove({ _id: req.user.id });
+    await client.query('DELETE FROM users WHERE id = $1', [req.user.id]);
 
-    res.json({ msg: 'This user and corresponding profile has been deleted.' });
+    await client.query('COMMIT');
+    return res.json({
+      msg: 'This user and corresponding profile has been deleted.',
+    });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
   }
 });
 
@@ -327,7 +436,11 @@ router.put(
 
     try {
       //Find profile of user that comes in with token
-      const profile = await Profile.findOne({ user: req.user.id });
+      // const profile = await Profile.findOne({ user: req.user.id });
+      let profile = await pool.query(
+        'SELECT * FROM profiles WHERE user_id = $1',
+        [req.user.id],
+      );
 
       //Need to perform calculation to calculate calories based on weight, category, and duration. Mets derived from acsm.org and ace.
       //To calculate calories burned: METS * 3.5 * weight in kg / 200 * duration;
@@ -349,16 +462,39 @@ router.put(
       };
       const category = newActivity.category;
       newActivity.calories = Math.round(
-        ((mets[category] * 3.5 * (profile.weight / 2.2046)) / 200) *
+        ((mets[category] * 3.5 * (profile.rows[0].current_weight / 2.2046)) /
+          200) *
           newActivity.duration,
       );
 
       //Add into activities array for profile.
-      profile.activities.unshift(newActivity);
+      // profile.activities.unshift(newActivity);
+      let activity = await pool.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES($1,$2,$3,$4,$5) RETURNING *',
+        [
+          new Date(),
+          newActivity.duration,
+          newActivity.category,
+          newActivity.calories,
+          req.user.id,
+        ],
+      );
+
+      let weights = await pool.query(
+        'SELECT * FROM weights WHERE user_id = $1',
+        [req.user.id],
+      );
+      let activities = await pool.query(
+        'SELECT * FROM activities WHERE user_id = $1',
+        [req.user.id],
+      );
+      profile.rows[0].activities =[...activities.rows];
+      profile.rows[0].weights = weights.rows;
 
       //Save to database and send profile to front end
-      await profile.save();
-      res.json(profile);
+      // await profile.save();
+
+      res.json(profile.rows[0]);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
