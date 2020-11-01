@@ -48,7 +48,7 @@ const Activities = ({ activities, addActivity }) => {
 
   
   const activitiesTable = activities.map((activity) => {
-    return <Activity key={activity._id} activity={activity} />;
+    return <Activity key={activity.id} activity={activity} />;
   });
 
   return (
