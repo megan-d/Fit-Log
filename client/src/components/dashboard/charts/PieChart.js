@@ -8,7 +8,7 @@ const PieChart = ({ profile }) => {
     datasets: [
       {
         label: 'Calories',
-        data: [profile.caloriesConsumedToday, profile.caloriesRemainingToday],
+        data: [profile.calories_consumed_today, profile.calories_remaining_today],
         backgroundColor: ['#eb6e80', '#008f95'],
       },
     ],

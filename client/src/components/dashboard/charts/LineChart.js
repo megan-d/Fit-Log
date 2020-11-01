@@ -7,11 +7,11 @@ import moment from 'moment';
 const LineChart = ({ profile }) => {
 
   const chartData = {
-    labels: [...profile.weightHistory.map(el => moment(el.date).format('MM-DD-YYYY'))],
+    labels: [...profile.weights.map(el => moment(el.date).format('MM-DD-YYYY'))],
     datasets: [
       {
         label: ['Weight'],
-        data: profile.weightHistory.map(el => el.weight),
+        data: profile.weights.map(el => el.weight),
         borderColor: '#e9b000',
       },
     ],
