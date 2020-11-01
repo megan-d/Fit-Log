@@ -61,16 +61,16 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
         <div className='card-item'>
           <p className='card-label'>Weight:</p>
           <p className='card-value'>
-            {profile.goalWeight ? profile.goalWeight : '-'} lbs
+            {profile.goal_weight ? profile.goal_weight : '-'} lbs
           </p>
         </div>
         <div className='card-item'>
           <p className='card-label'>Daily Calories:</p>
-          <p className='card-value'>{profile.goalDailyCalories}</p>
+          <p className='card-value'>{profile.goal_calories}</p>
         </div>
         <div className='card-item'>
           <p className='card-label'>Days/Week Exercise:</p>
-          <p className='card-value'>{profile.goalDays}</p>
+          <p className='card-value'>{profile.goal_days}</p>
         </div>
       </div>
       <button className='card-button' onClick={modalOpenHandler}>
@@ -93,7 +93,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         type='number'
                         name='goalWeight'
                         value={goalWeight}
-                        placeholder={profile.goalWeight}
+                        placeholder={profile.goal_weight}
                         onChange={onChangeHandler}
                       />
                     </label>
@@ -106,7 +106,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         type='number'
                         name='goalDailyCalories'
                         value={goalDailyCalories}
-                        placeholder={profile.goalDailyCalories}
+                        placeholder={profile.goal_calories}
                         onChange={onChangeHandler}
                       />
                     </label>
@@ -118,7 +118,7 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                         type='number'
                         name='goalDays'
                         value={goalDays}
-                        placeholder={profile.goalDays}
+                        placeholder={profile.goal_days}
                         onChange={onChangeHandler}
                       />
                     </label>

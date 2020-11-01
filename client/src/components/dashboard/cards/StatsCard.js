@@ -57,7 +57,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
       <div className='card-stats'>
         <div className='card-item'>
           <p className='card-label'>Weight:</p>
-          <p className='card-value'>{profile.weight} lbs</p>
+          <p className='card-value'>{profile.current_weight} lbs</p>
         </div>
         <div className='card-item'>
           <p className='card-label'>Height:</p>
@@ -84,7 +84,7 @@ const StatsCard = ({ profile, updateProfile, history }) => {
                       type='number'
                       name='weight'
                       value={weight}
-                      placeholder={profile.weight}
+                      placeholder={profile.current_weight}
                       onChange={onChangeHandler}
                     />
                   </label>

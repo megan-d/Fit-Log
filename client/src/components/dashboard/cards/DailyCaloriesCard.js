@@ -28,7 +28,7 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
 
   //If add calories button is clicked, add those calories to the daily calories
   const addCalories = {
-    caloriesConsumedToday: profile.caloriesConsumedToday + addedCalories,
+    caloriesConsumedToday: profile.calories_consumed_today + addedCalories,
   };
 
   
@@ -39,11 +39,11 @@ const DailyCaloriesCard = ({ updateProfile, history, profile }) => {
       <div className='card-stats'>
         <div className='card-item'>
           <p className='card-label'>Calories Consumed:</p>
-          <p className='card-value'>{profile.caloriesConsumedToday}</p>
+          <p className='card-value'>{profile.calories_consumed_today}</p>
         </div>
         <div className='card-item'>
           <p className='card-label'>Calories Remaining:</p>
-          <p className='card-value'>{profile.caloriesRemainingToday}</p>
+          <p className='card-value'>{profile.calories_remaining_today}</p>
         </div>
       </div>
       <div className='card-item calories-input'>
