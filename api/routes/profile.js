@@ -309,7 +309,7 @@ router.put(
         profileItems.caloriesConsumedToday =
           profile.rows[0].calories_consumed_today;
       }
-      console.log(caloriesConsumedToday);
+
       //Calculate calories remaining once have data from either profileItems or profile (or both)
       profileItems.caloriesRemainingToday =
         profileItems.goalDailyCalories - profileItems.caloriesConsumedToday;
@@ -488,7 +488,7 @@ router.put(
         'SELECT * FROM activities WHERE user_id = $1',
         [req.user.id],
       );
-      profile.rows[0].activities =[...activities.rows];
+      profile.rows[0].activities = [...activities.rows];
       profile.rows[0].weights = weights.rows;
 
       //Save to database and send profile to front end
@@ -506,33 +506,48 @@ router.put(
 //DESCRIPTION: Delete activity from profile by activity's id
 //ACCESS LEVEL: Private
 router.delete('/activity/:activity_id', verify, async (req, res) => {
+  const client = await pool.connect();
   try {
-    //Find profile based on the user id that comes in through the token
-    const profile = await Profile.findOne({ user: req.user.id });
+    await client.query('BEGIN');
+    //delete activity based on activity id
+    await client.query('DELETE FROM activities WHERE id = $1', [
+      req.params.activity_id,
+    ]);
 
-    //If profile is found, find the activity that matches the activity id from req.params and delete it
-    if (profile) {
-      //Remove the activity from the activities array where the index is equal to req.params.activity_id
-      const activities = profile.activities;
-      const activity = req.params.activity_id;
-      const activityIds = activities.map((el) => el._id);
-      const index = activityIds.indexOf(activity);
-      if (index > -1) {
-        activities.splice(index, 1);
-
-        //Update the profile record and save to database
-        profile.activities = activities;
-        await profile.save();
-        res.json(profile);
-      } else {
-        return res
-          .status(500)
-          .send('There was an error processing this request.');
-      }
+    //return profile
+    let profile = await client.query(
+      'SELECT * FROM profiles INNER JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = $1',
+      [req.user.id],
+    );
+    let activities = await client.query(
+      'SELECT * FROM activities WHERE activities.user_id = $1',
+      [req.user.id],
+    );
+    let weights = await client.query(
+      'SELECT * FROM weights WHERE weights.user_id = $1',
+      [req.user.id],
+    );
+    //If there is no profile, return an error
+    if (profile.rows.length === 0) {
+      return res
+        .status(400)
+        .json({ msg: 'There is no profile available for this user.' });
     }
+    if (activities.rows.length > 0) {
+      profile.rows[0].activities = activities.rows;
+    } else {
+      profile.rows[0].activities = [];
+    }
+    if (weights.rows.length > 0) {
+      profile.rows[0].weights = weights.rows;
+    }
+    //If there is a profile, send that profile with the activities attached
+    res.json(profile.rows[0]);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('There was an error processing your request.');
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
   }
 });
 
@@ -575,32 +590,6 @@ router.post('/demo', verify, async (req, res) => {
     user: user,
     caloriesConsumedToday: 600,
     caloriesRemainingToday: 1400,
-    weightHistory: [
-      {
-        weight: 235,
-        date: 'March 12, 2020',
-      },
-      {
-        weight: 227,
-        date: 'April 16, 2020',
-      },
-      {
-        weight: 230,
-        date: 'May 1, 2020',
-      },
-      {
-        weight: 221,
-        date: 'May 25, 2020',
-      },
-      {
-        weight: 220,
-        date: 'May 27, 2020',
-      },
-      {
-        weight: 225,
-        date: 'June 3, 2020',
-      },
-    ],
   };
 
   (profileItems.activities = [
@@ -658,10 +647,13 @@ router.post('/demo', verify, async (req, res) => {
       703
     ).toFixed(1));
 
+  const client = await pool.connect();
   //Once all fields are prepared, update and populate the data
   try {
     //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
-    let user = await User.findOne({ _id: req.user.id });
+    let user = await client.query('SELECT * FROM users WHERE id = $1', [
+      req.user.id,
+    ]);
     if (!user) {
       return res.json({
         msg: 'You must be a currently registered user to create a profile.',
@@ -669,23 +661,163 @@ router.post('/demo', verify, async (req, res) => {
     }
 
     //Use findOne to find profile
-    let profile = await Profile.findOne({ user: req.user.id });
-
+    let profile = await client.query(
+      'SELECT * FROM profiles WHERE user_id = $1',
+      [req.user.id],
+    );
     //If profile is found, give error and suggest user updates profile
-    if (profile) {
+    if (profile.rows.length > 0) {
       return res.json({
         msg:
           'A profile already exists for this user. Please select update stats from your dashboard to update your profile.',
       });
     }
     //If profile isn't found, create a new one
-    if (!profile) {
-      profile = await new Profile(profileItems);
-      await profile.save();
-      res.json(profile);
+    if (profile.rows.length === 0) {
+      await client.query('BEGIN');
+
+      profile = await client.query(
+        'INSERT INTO profiles (current_weight, height, bmi, goal_weight, goal_calories, goal_days, calories_consumed_today, calories_remaining_today, user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
+        [
+          weight,
+          height,
+          profileItems.bmi,
+          profileItems.goalWeight,
+          profileItems.goalDailyCalories,
+          profileItems.goalDays,
+          profileItems.caloriesConsumedToday,
+          profileItems.caloriesRemainingToday,
+          req.user.id,
+        ],
+      );
+      //add activities array to profile (seed demo activities)
+      const activityOne = {
+        duration: 60,
+        category: 'Yoga',
+        calories: Math.round(
+          ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+        ),
+        date: 'June 3, 2020',
+        user_id: req.user.id,
+      };
+      const activityTwo = {
+        duration: 80,
+        category: 'Swimming',
+        calories: Math.round(
+          ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 80,
+        ),
+        date: 'May 27, 2020',
+        user_id: req.user.id,
+      };
+      const activityThree = {
+        duration: 35,
+        category: 'Running - Slow',
+        calories: Math.round(
+          ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
+        ),
+        date: 'May 20, 2020',
+        user_id: req.user.id,
+      };
+      const activityFour = {
+        duration: 76,
+        category: 'Hiking',
+        calories: Math.round(
+          ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
+        ),
+        date: 'May 12, 2020',
+        user_id: req.user.id,
+      };
+      const activityFive = {
+        duration: 42,
+        category: 'Hiking',
+        calories: Math.round(
+          ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
+        ),
+        date: 'May 9, 2020',
+        user_id: req.user.id,
+      };
+      const activitySix = {
+        duration: 60,
+        category: 'Basketball',
+        calories: Math.round(
+          ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+        ),
+        date: 'May 1, 2020',
+        user_id: req.user.id,
+      };
+      let newActivities = await pool.query(
+        `INSERT INTO activities (date, duration, category, calories, user_id) VALUES 
+        (${activityOne}),
+        (${activityTwo}),
+        (${activityThree}),
+        (${activityFour}),
+        (${activityFive}),
+        (${activitySix}),
+        RETURNING *`,
+      );
+
+      const weightOne = {
+        weight: 235,
+        date: 'March 12, 2020',
+        user_id: req.user.id,
+      };
+      const weightTwo = {
+        weight: 227,
+        date: 'April 16, 2020',
+        user_id: req.user.id,
+      };
+      const weightThree = {
+        weight: 230,
+        date: 'May 1, 2020',
+        user_id: req.user.id,
+      };
+      const weightFour = {
+        weight: 221,
+        date: 'May 25, 2020',
+        user_id: req.user.id,
+      };
+      const weightFive = {
+        weight: 220,
+        date: 'May 27, 2020',
+        user_id: req.user.id,
+      };
+      const weightSix = {
+        weight: 225,
+        date: 'June 3, 2020',
+        user_id: req.user.id,
+      };
+
+      //insert weights into demo user profile
+      let newWeights = await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES (${(weightOne.weight,
+        weightOne.date,
+        weightOne.user_id)}),
+        (),(),(),(),(),() RETURNING *`,
+      );
+
+      //query to get all weights (just needed for current load)
+      let weights = await pool.query(
+        'SELECT * FROM weights WHERE user_id = $1',
+        [req.user.id],
+      );
+      //query to get all activities (just needed for current load)
+      let activities = await pool.query(
+        'SELECT * FROM activities WHERE user_id = $1',
+        [req.user.id],
+      );
+
+      //add to profile object so available within state for load
+      profile.rows[0].activities = [...activities.rows];
+      profile.rows[0].weights = weights.rows;
+
+      await client.query('COMMIT');
+      //send back profile with activities and weights included
+      res.json(profile.rows[0]);
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server Error');
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
   }
 });
