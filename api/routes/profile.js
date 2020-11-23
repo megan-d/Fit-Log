@@ -562,22 +562,6 @@ module.exports = router;
 
 router.post('/demo', verify, async (req, res) => {
   //Populate all profile values that we want the demo user to have and put them in a profileItems object. Then, send this object to the database. Don't need all of the if statement verificaiton since I'm populating it myself.
-  const mets = {
-    'Bicycling - Leisure': 6,
-    'Bicycling - Vigorous': 10,
-    'Running - Slow': 8,
-    'Running - Fast': 11.5,
-    Swimming: 8,
-    'Walking - Leisure': 3,
-    'Walking - Brisk': 5,
-    Hiking: 7,
-    'Nordic Skiing': 8,
-    Tennis: 8,
-    'Weight Training': 4,
-    Yoga: 2.5,
-    Basketball: 6.5,
-    Aerobics: 5,
-  };
 
   const user = req.user.id;
 
@@ -592,60 +576,10 @@ router.post('/demo', verify, async (req, res) => {
     caloriesRemainingToday: 1400,
   };
 
-  (profileItems.activities = [
-    {
-      duration: 60,
-      category: 'Yoga',
-      calories: Math.round(
-        ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
-      ),
-      date: 'June 3, 2020',
-    },
-    {
-      duration: 80,
-      category: 'Swimming',
-      calories: Math.round(
-        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 80,
-      ),
-      date: 'May 27, 2020',
-    },
-    {
-      duration: 35,
-      category: 'Running - Slow',
-      calories: Math.round(
-        ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
-      ),
-      date: 'May 20, 2020',
-    },
-    {
-      duration: 76,
-      category: 'Hiking',
-      calories: Math.round(
-        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
-      ),
-      date: 'May 12, 2020',
-    },
-    {
-      duration: 42,
-      category: 'Hiking',
-      calories: Math.round(
-        ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
-      ),
-      date: 'May 9, 2020',
-    },
-    {
-      duration: 60,
-      category: 'Basketball',
-      calories: Math.round(
-        ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
-      ),
-      date: 'May 1, 2020',
-    },
-  ]),
-    (profileItems.bmi = (
+  profileItems.bmi = (
       (profileItems.weight / (profileItems.height * profileItems.height)) *
       703
-    ).toFixed(1));
+    ).toFixed(1);
 
   const client = await pool.connect();
   //Once all fields are prepared, update and populate the data
@@ -679,8 +613,8 @@ router.post('/demo', verify, async (req, res) => {
       profile = await client.query(
         'INSERT INTO profiles (current_weight, height, bmi, goal_weight, goal_calories, goal_days, calories_consumed_today, calories_remaining_today, user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
         [
-          weight,
-          height,
+          profileItems.weight,
+          profileItems.height,
           profileItems.bmi,
           profileItems.goalWeight,
           profileItems.goalDailyCalories,
@@ -691,109 +625,129 @@ router.post('/demo', verify, async (req, res) => {
         ],
       );
       //add activities array to profile (seed demo activities)
-      const activityOne = {
-        duration: 60,
-        category: 'Yoga',
-        calories: Math.round(
-          ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
-        ),
-        date: 'June 3, 2020',
-        user_id: req.user.id,
-      };
-      const activityTwo = {
-        duration: 80,
-        category: 'Swimming',
-        calories: Math.round(
-          ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 80,
-        ),
-        date: 'May 27, 2020',
-        user_id: req.user.id,
-      };
-      const activityThree = {
-        duration: 35,
-        category: 'Running - Slow',
-        calories: Math.round(
-          ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
-        ),
-        date: 'May 20, 2020',
-        user_id: req.user.id,
-      };
-      const activityFour = {
-        duration: 76,
-        category: 'Hiking',
-        calories: Math.round(
-          ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
-        ),
-        date: 'May 12, 2020',
-        user_id: req.user.id,
-      };
-      const activityFive = {
-        duration: 42,
-        category: 'Hiking',
-        calories: Math.round(
-          ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
-        ),
-        date: 'May 9, 2020',
-        user_id: req.user.id,
-      };
-      const activitySix = {
-        duration: 60,
-        category: 'Basketball',
-        calories: Math.round(
-          ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
-        ),
-        date: 'May 1, 2020',
-        user_id: req.user.id,
-      };
-      let newActivities = await pool.query(
-        `INSERT INTO activities (date, duration, category, calories, user_id) VALUES 
-        (${activityOne}),
-        (${activityTwo}),
-        (${activityThree}),
-        (${activityFour}),
-        (${activityFive}),
-        (${activitySix}),
-        RETURNING *`,
-      );
+      const newActivities = [
+        activityOne = {
+          duration: 60,
+          category: 'Yoga',
+          calories: Math.round(
+            ((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+          ),
+          date: '03 June 2020',
+          user_id: req.user.id,
+        },
+        activityTwo = {
+          duration: 80,
+          category: 'Swimming',
+          calories: Math.round(
+            ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 80,
+          ),
+          date: '27 May 2020',
+          user_id: req.user.id,
+        },
+        activityThree = {
+          duration: 35,
+          category: 'Running - Slow',
+          calories: Math.round(
+            ((8 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 35,
+          ),
+          date: '20 May 2020',
+          user_id: req.user.id,
+        },
+        activityFour = {
+          duration: 76,
+          category: 'Hiking',
+          calories: Math.round(
+            ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 76,
+          ),
+          date: '12 May 2020',
+          user_id: req.user.id,
+        },
+        activityFive = {
+          duration: 42,
+          category: 'Hiking',
+          calories: Math.round(
+            ((7 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 42,
+          ),
+          date: '09 May 2020',
+          user_id: req.user.id,
+        },
+        activitySix = {
+          duration: 60,
+          category: 'Basketball',
+          calories: Math.round(
+            ((6.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60,
+          ),
+          date: '01 May 2020',
+          user_id: req.user.id,
+        },
+      ]
+      
+      // let newActivities = await pool.query(
+      //   `INSERT INTO activities (date, duration, category, calories, user_id) VALUES 
+      //   (${activityOne}),
+      //   (${activityTwo}),
+      //   (${activityThree}),
+      //   (${activityFour}),
+      //   (${activityFive}),
+      //   (${activitySix}),
+      //   RETURNING *`,
+      // );
+
+      //Iterate through each activity. 
+      let calories = Math.round(((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60);
+      await client.query(`INSERT INTO activities (date, duration, category, calories, user_id) VALUES (to_timestamp('03 Jun 2020', 'DD Mon YYYY'), 60, 'Yoga', ${calories}, ${req.user.id}) RETURNING *`);
 
       const weightOne = {
         weight: 235,
-        date: 'March 12, 2020',
+        date: '12 March 2020',
         user_id: req.user.id,
       };
       const weightTwo = {
         weight: 227,
-        date: 'April 16, 2020',
+        date: '12 April 2020',
         user_id: req.user.id,
       };
       const weightThree = {
         weight: 230,
-        date: 'May 1, 2020',
+        date: '1 May 2020',
         user_id: req.user.id,
       };
       const weightFour = {
         weight: 221,
-        date: 'May 25, 2020',
+        date: '25 May 2020',
         user_id: req.user.id,
       };
       const weightFive = {
         weight: 220,
-        date: 'May 27, 2020',
+        date: '27 May 2020',
         user_id: req.user.id,
       };
       const weightSix = {
         weight: 225,
-        date: 'June 3, 2020',
+        date: '3 June 2020',
         user_id: req.user.id,
       };
 
       //insert weights into demo user profile
-      let newWeights = await client.query(
-        `INSERT INTO weights (weight, date, user_id) VALUES (${(weightOne.weight,
-        weightOne.date,
-        weightOne.user_id)}),
-        (),(),(),(),(),() RETURNING *`,
-      );
+      // let newWeights = await client.query(
+      //   `INSERT INTO weights (weight, date, user_id) VALUES (${(weightOne.weight,
+      //   weightOne.date,
+      //   weightOne.user_id)}),
+      //   (${(weightTwo.weight,
+      //   weightTwo.date,
+      //   weightTwo.user_id)}),(${(weightThree.weight,
+      //   weightThree.date,
+      //   weightThree.user_id)}),(${(weightFour.weight,
+      //   weightFour.date,
+      //   weightFour.user_id)}),(${(weightFive.weight,
+      //   weightFive.date,
+      //   weightFive.user_id)}),(${(weightSix.weight,
+      //   weightSix.date,
+      //   weightSix.user_id)}) RETURNING *`,
+      // );
+
+      //
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES (235, to_timestamp('12 Mar 2020', 'DD Mon YYYY'), ${req.user.id}) RETURNING *`);
 
       //query to get all weights (just needed for current load)
       let weights = await pool.query(
