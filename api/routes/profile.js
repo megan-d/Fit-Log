@@ -693,6 +693,7 @@ router.post('/demo', verify, async (req, res) => {
       //   RETURNING *`,
       // );
 
+      //***WHERE I LEFT OFF - ITERATING IS NOT WORKING. MAY NEED TO DO EACH ACTIVITY AND WEIGHT SEPARATELY */
       //Iterate through each activity. 
       let calories = Math.round(((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60);
       await client.query(`INSERT INTO activities (date, duration, category, calories, user_id) VALUES (to_timestamp('03 Jun 2020', 'DD Mon YYYY'), 60, 'Yoga', ${calories}, ${req.user.id}) RETURNING *`);
