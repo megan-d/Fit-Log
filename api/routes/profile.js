@@ -510,9 +510,8 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
   try {
     await client.query('BEGIN');
     //delete activity based on activity id
-    await client.query('DELETE FROM activities WHERE id = $1', [
-      req.params.activity_id,
-    ]);
+    await client.query('DELETE FROM activities WHERE id = $1 RETURNING *', [
+      req.params.activity_id]);
 
     //return profile
     let profile = await client.query(
@@ -626,7 +625,7 @@ router.post('/demo', verify, async (req, res) => {
       );
       //add activities array to profile (seed demo activities)
       const newActivities = [
-        activityOne = {
+        {
           duration: 60,
           category: 'Yoga',
           calories: Math.round(
@@ -635,7 +634,7 @@ router.post('/demo', verify, async (req, res) => {
           date: '03 June 2020',
           user_id: req.user.id,
         },
-        activityTwo = {
+        {
           duration: 80,
           category: 'Swimming',
           calories: Math.round(
@@ -644,7 +643,7 @@ router.post('/demo', verify, async (req, res) => {
           date: '27 May 2020',
           user_id: req.user.id,
         },
-        activityThree = {
+        {
           duration: 35,
           category: 'Running - Slow',
           calories: Math.round(
@@ -653,7 +652,7 @@ router.post('/demo', verify, async (req, res) => {
           date: '20 May 2020',
           user_id: req.user.id,
         },
-        activityFour = {
+        {
           duration: 76,
           category: 'Hiking',
           calories: Math.round(
@@ -662,7 +661,7 @@ router.post('/demo', verify, async (req, res) => {
           date: '12 May 2020',
           user_id: req.user.id,
         },
-        activityFive = {
+        {
           duration: 42,
           category: 'Hiking',
           calories: Math.round(
@@ -671,7 +670,7 @@ router.post('/demo', verify, async (req, res) => {
           date: '09 May 2020',
           user_id: req.user.id,
         },
-        activitySix = {
+        {
           duration: 60,
           category: 'Basketball',
           calories: Math.round(
@@ -681,22 +680,58 @@ router.post('/demo', verify, async (req, res) => {
           user_id: req.user.id,
         },
       ]
-      
-      // let newActivities = await pool.query(
-      //   `INSERT INTO activities (date, duration, category, calories, user_id) VALUES 
-      //   (${activityOne}),
-      //   (${activityTwo}),
-      //   (${activityThree}),
-      //   (${activityFour}),
-      //   (${activityFive}),
-      //   (${activitySix}),
-      //   RETURNING *`,
-      // );
 
-      //***WHERE I LEFT OFF - ITERATING IS NOT WORKING. MAY NEED TO DO EACH ACTIVITY AND WEIGHT SEPARATELY */
-      //Iterate through each activity. 
-      let calories = Math.round(((2.5 * 3.5 * (profileItems.weight / 2.2046)) / 200) * 60);
-      await client.query(`INSERT INTO activities (date, duration, category, calories, user_id) VALUES (to_timestamp('03 Jun 2020', 'DD Mon YYYY'), 60, 'Yoga', ${calories}, ${req.user.id}) RETURNING *`);
+      //Insert above activities into activities table
+      await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[0].date,
+          newActivities[0].duration,
+          newActivities[0].category,
+          newActivities[0].calories,
+          req.user.id,
+        ],);
+        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[1].date,
+          newActivities[1].duration,
+          newActivities[1].category,
+          newActivities[1].calories,
+          req.user.id,
+        ],);
+        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[2].date,
+          newActivities[2].duration,
+          newActivities[2].category,
+          newActivities[2].calories,
+          req.user.id,
+        ],);
+        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[3].date,
+          newActivities[3].duration,
+          newActivities[3].category,
+          newActivities[3].calories,
+          req.user.id,
+        ],);
+        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[4].date,
+          newActivities[4].duration,
+          newActivities[4].category,
+          newActivities[4].calories,
+          req.user.id,
+        ],);
+        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        [
+          newActivities[5].date,
+          newActivities[5].duration,
+          newActivities[5].category,
+          newActivities[5].calories,
+          req.user.id,
+        ],);
+
+      // await client.query(`INSERT INTO activities (date, duration, category, calories, user_id) VALUES (to_timestamp(${newActivities[0].date}, 'DD Mon YYYY'), ${newActivities[0].duration}, ${newActivities[0].category}, ${newActivities[0].calories}, ${req.user.id}) RETURNING *`);
 
       const weightOne = {
         weight: 235,
@@ -730,24 +765,6 @@ router.post('/demo', verify, async (req, res) => {
       };
 
       //insert weights into demo user profile
-      // let newWeights = await client.query(
-      //   `INSERT INTO weights (weight, date, user_id) VALUES (${(weightOne.weight,
-      //   weightOne.date,
-      //   weightOne.user_id)}),
-      //   (${(weightTwo.weight,
-      //   weightTwo.date,
-      //   weightTwo.user_id)}),(${(weightThree.weight,
-      //   weightThree.date,
-      //   weightThree.user_id)}),(${(weightFour.weight,
-      //   weightFour.date,
-      //   weightFour.user_id)}),(${(weightFive.weight,
-      //   weightFive.date,
-      //   weightFive.user_id)}),(${(weightSix.weight,
-      //   weightSix.date,
-      //   weightSix.user_id)}) RETURNING *`,
-      // );
-
-      //
       await client.query(`INSERT INTO weights (weight, date, user_id) VALUES (235, to_timestamp('12 Mar 2020', 'DD Mon YYYY'), ${req.user.id}) RETURNING *`);
 
       //query to get all weights (just needed for current load)

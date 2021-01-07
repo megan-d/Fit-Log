@@ -20,7 +20,7 @@ const pool = require('./db');
 app.use(express.json());
 
 //Route middlewares
-    //Authenticate user and get token
+    //Authenticate user and get token-
     app.use('/api/auth', auth);
     //Register new user 
     app.use('/api/users', users);
