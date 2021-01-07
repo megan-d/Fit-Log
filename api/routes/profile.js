@@ -510,8 +510,7 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
   try {
     await client.query('BEGIN');
     //delete activity based on activity id
-    await client.query('DELETE FROM activities WHERE id = $1 RETURNING *', [
-      req.params.activity_id]);
+    await client.query(`DELETE FROM activities WHERE id = ${req.params.activity_id}`);
 
     //return profile
     let profile = await client.query(
@@ -765,7 +764,36 @@ router.post('/demo', verify, async (req, res) => {
       };
 
       //insert weights into demo user profile
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES (235, to_timestamp('12 Mar 2020', 'DD Mon YYYY'), ${req.user.id}) RETURNING *`);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightOne.weight,
+        weightOne.date,
+        req.user.id,
+      ],);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightTwo.weight,
+        weightTwo.date,
+        req.user.id,
+      ],);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightThree.weight,
+        weightThree.date,
+        req.user.id,
+      ],);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightFour.weight,
+        weightFour.date,
+        req.user.id,
+      ],);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightFive.weight,
+        weightFive.date,
+        req.user.id,
+      ],);
+      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
+        weightSix.weight,
+        weightSix.date,
+        req.user.id,
+      ],);
 
       //query to get all weights (just needed for current load)
       let weights = await pool.query(

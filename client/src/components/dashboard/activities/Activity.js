@@ -6,9 +6,8 @@ import { connect } from 'react-redux';
 import { deleteActivity } from '../../../actions/profile';
 
 const Activity = ({ activity, deleteActivity, history }) => {
-  
   return (
-      <tr key={activity._id}>
+      <tr key={activity.id}>
         <td><Moment format='MM/DD/YYYY'>{moment(activity.date)}</Moment></td>
         <td>{activity.duration}</td>
         <td>{activity.category}</td>
