@@ -1,4 +1,4 @@
-CREATE DATABASE fit_ally;
+-- CREATE DATABASE fit_ally;
 
 CREATE TABLE users (
     id serial PRIMARY KEY, 
