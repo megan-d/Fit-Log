@@ -106,6 +106,8 @@ const Activities = ({ activities, addActivity }) => {
                   <input
                     type='number'
                     name='duration'
+                    min='0'
+                    max='2880'
                     value={duration}
                     onChange={onChange}
                     required

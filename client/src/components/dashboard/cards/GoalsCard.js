@@ -116,6 +116,8 @@ const GoalsCard = ({ updateProfile, history, profile }) => {
                       How many days per week is your exercise goal (0-7)?
                       <input
                         type='number'
+                        min='0'
+                        max='7'
                         name='goalDays'
                         value={goalDays}
                         placeholder={profile.goal_days}
