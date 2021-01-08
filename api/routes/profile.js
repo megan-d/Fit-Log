@@ -352,7 +352,7 @@ router.put(
         } else {
           profile.rows[0].activities = [];
         }
-        profile.rows[0].weights = weights.rows;
+        profile.rows[0].weights = [...weights.rows];
         //send back profile
         await client.query('COMMIT');
         return res.json(profile.rows[0]);
@@ -491,8 +491,7 @@ router.put(
       profile.rows[0].activities = [...activities.rows];
       profile.rows[0].weights = weights.rows;
 
-      //Save to database and send profile to front end
-      // await profile.save();
+      //send profile to front end
 
       res.json(profile.rows[0]);
     } catch (err) {
@@ -508,9 +507,8 @@ router.put(
 router.delete('/activity/:activity_id', verify, async (req, res) => {
   const client = await pool.connect();
   try {
-    // await client.query('BEGIN');
+    await client.query('BEGIN');
     // //delete activity based on activity id
-    
     await client.query('DELETE FROM activities WHERE id = $1', [req.params.activity_id]);
 
     //return profile, activities, and weights for user
@@ -541,6 +539,7 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
     if (weights.rows.length > 0) {
       profile.rows[0].weights = [...weights.rows];
     }
+    await client.query('COMMIT');
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
   } catch (err) {
