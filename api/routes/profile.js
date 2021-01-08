@@ -36,12 +36,12 @@ router.get('/me', verify, async (req, res) => {
         .json({ msg: 'There is no profile available for this user.' });
     }
     if (activities.rows.length > 0) {
-      profile.rows[0].activities = activities.rows;
+      profile.rows[0].activities = [...activities.rows];
     } else {
       profile.rows[0].activities = [];
     }
     if (weights.rows.length > 0) {
-      profile.rows[0].weights = weights.rows;
+      profile.rows[0].weights = [...weights.rows];
     }
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
@@ -508,15 +508,17 @@ router.put(
 router.delete('/activity/:activity_id', verify, async (req, res) => {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
-    //delete activity based on activity id
-    await client.query(`DELETE FROM activities WHERE id = ${req.params.activity_id}`);
+    // await client.query('BEGIN');
+    // //delete activity based on activity id
+    
+    await client.query('DELETE FROM activities WHERE id = $1', [req.params.activity_id]);
 
-    //return profile
+    //return profile, activities, and weights for user
     let profile = await client.query(
       'SELECT * FROM profiles INNER JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = $1',
       [req.user.id],
     );
+    
     let activities = await client.query(
       'SELECT * FROM activities WHERE activities.user_id = $1',
       [req.user.id],
@@ -532,12 +534,12 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
         .json({ msg: 'There is no profile available for this user.' });
     }
     if (activities.rows.length > 0) {
-      profile.rows[0].activities = activities.rows;
+      profile.rows[0].activities = [...activities.rows];
     } else {
       profile.rows[0].activities = [];
     }
     if (weights.rows.length > 0) {
-      profile.rows[0].weights = weights.rows;
+      profile.rows[0].weights = [...weights.rows];
     }
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
