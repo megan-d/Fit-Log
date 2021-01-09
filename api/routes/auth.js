@@ -24,7 +24,7 @@ router.get('/', verify, async (req, res) => {
       req.user.id,
     ]);
     res.json(user);
-    client.end(() => console.log('client ended'));
+    client.release(() => console.log('client ended'));
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -97,7 +97,7 @@ router.post(
           res.json({ token });
         },
       );
-      client.end(() => console.log('client ended'));
+      client.release(() => console.log('client ended'));
     } catch (err) {
       res.status(500).send(err);
     }
