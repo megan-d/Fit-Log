@@ -3,7 +3,7 @@ const port = process.env.PORT || 5000;
 const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const { Client } = require('pg');
+// const { Client } = require('pg');
 
 //Import routes
 const auth = require('./api/routes/auth');
@@ -14,20 +14,20 @@ dotenv.config();
 const app = express();
 
 //connect to postgresql heroku database
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-client.connect();
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
+// pool.connect();
+// client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+//   if (err) throw err;
+//   for (let row of res.rows) {
+//     // console.log(JSON.stringify(row));
+//   }
+//   client.end();
+// });
 
 //MIDDLEWARES
 //To get access to req.body (no longer need body parser npm package)
@@ -53,3 +53,4 @@ if (process.env.NODE_ENV === 'production') {
 
 //Listen on port
 app.listen(port, () => console.log(`App is listening on port ${port}`));
+

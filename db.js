@@ -8,3 +8,22 @@
 //   });
 
 //   module.exports = pool;
+
+const { Client } = require('pg');
+
+//connect to postgresql heroku database
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
+  client.connect();
+  client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+    if (err) throw err;
+    console.log('Connected to DB');
+    for (let row of res.rows) {
+    //   console.log('Connected to DB');
+    }
+    client.end();
+  });
