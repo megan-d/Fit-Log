@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-const { client, pool } = require('../../db');
+const { pool } = require('../../db');
 
 const User = require('../models/User');
 
@@ -33,7 +33,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    await client.connect();
+    const client = await pool.connect();
     try {
       //Check if user already exists. If user already exists, give an error
       // let user = await User.findOne({ email: req.body.email });
@@ -79,14 +79,13 @@ router.post(
           res.json({ token });
         },
       );
+      client.release(() => console.log('client ended'));
       // // Set in header
       // res.header('x-access-token', token).send(token);
     } catch (err) {
       await client.query('ROLLBACK');
       throw err;
-    } finally {
-      client.end();
-    }
+    } 
   },
 );
 
