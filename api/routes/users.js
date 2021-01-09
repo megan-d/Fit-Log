@@ -39,7 +39,7 @@ router.post(
       //Check if user already exists. If user already exists, give an error
       // let user = await User.findOne({ email: req.body.email });
 
-      let user = await pool.query('SELECT * FROM users WHERE email = $1', [
+      let user = await client.query('SELECT * FROM users WHERE email = $1', [
         req.body.email,
       ]);
       if (user.rows.length > 0) {

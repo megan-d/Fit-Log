@@ -14,6 +14,7 @@ dotenv.config();
 const app = express();
 
 //connect to postgresql heroku database
+const pool = require('./db');
 // const client = new Client({
 //   connectionString: process.env.DATABASE_URL,
 //   ssl: {
