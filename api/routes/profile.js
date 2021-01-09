@@ -4,7 +4,9 @@ const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
-const pool = require('../../db');
+const { pool } = require('../../db');
+
+
 
 //ROUTE: GET api/profile/me
 //DESCRIPTION: Get current user's profile and activities
@@ -45,6 +47,7 @@ router.get('/me', verify, async (req, res) => {
     }
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
+    client.release(() => console.log('api/profile/me client ended'));
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error');
@@ -192,7 +195,7 @@ router.post(
       await client.query('ROLLBACK');
       throw err;
     } finally {
-      client.release();
+      client.release(() => console.log('client ended'));
     }
   },
 );
@@ -361,7 +364,7 @@ router.put(
       await client.query('ROLLBACK');
       throw err;
     } finally {
-      client.release();
+      client.release(() => console.log('client ended'));
     }
   },
 );
@@ -396,7 +399,7 @@ router.delete('/', verify, async (req, res) => {
     await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release();
+    client.release(() => console.log('client ended'));
   }
 });
 
@@ -437,7 +440,8 @@ router.put(
     try {
       //Find profile of user that comes in with token
       // const profile = await Profile.findOne({ user: req.user.id });
-      let profile = await pool.query(
+      const client = await pool.connect();
+      let profile = await client.query(
         'SELECT * FROM profiles WHERE user_id = $1',
         [req.user.id],
       );
@@ -469,7 +473,7 @@ router.put(
 
       //Add into activities array for profile.
       // profile.activities.unshift(newActivity);
-      let activity = await pool.query(
+      let activity = await client.query(
         'INSERT INTO activities (date, duration, category, calories, user_id) VALUES($1,$2,$3,$4,$5) RETURNING *',
         [
           new Date(),
@@ -480,11 +484,11 @@ router.put(
         ],
       );
 
-      let weights = await pool.query(
+      let weights = await client.query(
         'SELECT * FROM weights WHERE user_id = $1',
         [req.user.id],
       );
-      let activities = await pool.query(
+      let activities = await client.query(
         'SELECT * FROM activities WHERE user_id = $1',
         [req.user.id],
       );
@@ -494,6 +498,7 @@ router.put(
       //send profile to front end
 
       res.json(profile.rows[0]);
+      client.release(() => console.log('client ended'));
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -509,14 +514,16 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
   try {
     await client.query('BEGIN');
     // //delete activity based on activity id
-    await client.query('DELETE FROM activities WHERE id = $1', [req.params.activity_id]);
+    await client.query('DELETE FROM activities WHERE id = $1', [
+      req.params.activity_id,
+    ]);
 
     //return profile, activities, and weights for user
     let profile = await client.query(
       'SELECT * FROM profiles INNER JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = $1',
       [req.user.id],
     );
-    
+
     let activities = await client.query(
       'SELECT * FROM activities WHERE activities.user_id = $1',
       [req.user.id],
@@ -546,7 +553,7 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
     await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release();
+    client.release(() => console.log('client ended'));
   }
 });
 
@@ -576,9 +583,9 @@ router.post('/demo', verify, async (req, res) => {
   };
 
   profileItems.bmi = (
-      (profileItems.weight / (profileItems.height * profileItems.height)) *
-      703
-    ).toFixed(1);
+    (profileItems.weight / (profileItems.height * profileItems.height)) *
+    703
+  ).toFixed(1);
 
   const client = await pool.connect();
   //Once all fields are prepared, update and populate the data
@@ -679,57 +686,69 @@ router.post('/demo', verify, async (req, res) => {
           date: '01 May 2020',
           user_id: req.user.id,
         },
-      ]
+      ];
 
       //Insert above activities into activities table
-      await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[0].date,
           newActivities[0].duration,
           newActivities[0].category,
           newActivities[0].calories,
           req.user.id,
-        ],);
-        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        ],
+      );
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[1].date,
           newActivities[1].duration,
           newActivities[1].category,
           newActivities[1].calories,
           req.user.id,
-        ],);
-        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        ],
+      );
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[2].date,
           newActivities[2].duration,
           newActivities[2].category,
           newActivities[2].calories,
           req.user.id,
-        ],);
-        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        ],
+      );
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[3].date,
           newActivities[3].duration,
           newActivities[3].category,
           newActivities[3].calories,
           req.user.id,
-        ],);
-        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        ],
+      );
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[4].date,
           newActivities[4].duration,
           newActivities[4].category,
           newActivities[4].calories,
           req.user.id,
-        ],);
-        await client.query('INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
+        ],
+      );
+      await client.query(
+        'INSERT INTO activities (date, duration, category, calories, user_id) VALUES ($1,$2,$3,$4,$5)',
         [
           newActivities[5].date,
           newActivities[5].duration,
           newActivities[5].category,
           newActivities[5].calories,
           req.user.id,
-        ],);
+        ],
+      );
 
       // await client.query(`INSERT INTO activities (date, duration, category, calories, user_id) VALUES (to_timestamp(${newActivities[0].date}, 'DD Mon YYYY'), ${newActivities[0].duration}, ${newActivities[0].category}, ${newActivities[0].calories}, ${req.user.id}) RETURNING *`);
 
@@ -765,36 +784,30 @@ router.post('/demo', verify, async (req, res) => {
       };
 
       //insert weights into demo user profile
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightOne.weight,
-        weightOne.date,
-        req.user.id,
-      ],);
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightTwo.weight,
-        weightTwo.date,
-        req.user.id,
-      ],);
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightThree.weight,
-        weightThree.date,
-        req.user.id,
-      ],);
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightFour.weight,
-        weightFour.date,
-        req.user.id,
-      ],);
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightFive.weight,
-        weightFive.date,
-        req.user.id,
-      ],);
-      await client.query(`INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,[
-        weightSix.weight,
-        weightSix.date,
-        req.user.id,
-      ],);
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightOne.weight, weightOne.date, req.user.id],
+      );
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightTwo.weight, weightTwo.date, req.user.id],
+      );
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightThree.weight, weightThree.date, req.user.id],
+      );
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightFour.weight, weightFour.date, req.user.id],
+      );
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightFive.weight, weightFive.date, req.user.id],
+      );
+      await client.query(
+        `INSERT INTO weights (weight, date, user_id) VALUES ($1,$2,$3)`,
+        [weightSix.weight, weightSix.date, req.user.id],
+      );
 
       //query to get all weights (just needed for current load)
       let weights = await pool.query(
@@ -819,6 +832,6 @@ router.post('/demo', verify, async (req, res) => {
     await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release();
+    client.release(() => console.log('client ended'));
   }
 });

@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-const pool = require('../../db');
+const { pool } = require('../../db');
 const User = require('../models/User');
 
 //ROUTE: GET api/auth
@@ -19,8 +19,12 @@ router.get('/', verify, async (req, res) => {
     //   .where({
     //     id: req.user.id,
     //   });
-    let user = await pool.query("SELECT * FROM users WHERE id = $1", [req.user.id]);
+    const client = await pool.connect();
+    let user = await client.query('SELECT * FROM users WHERE id = $1', [
+      req.user.id,
+    ]);
     res.json(user);
+    client.end(() => console.log('client ended'));
   } catch (err) {
     res.status(500).send('Server Error');
   }
@@ -51,16 +55,24 @@ router.post(
     try {
       //If user doesn't exist in database, give error
       // let user = await User.findOne({ email: req.body.email });
-      let user = await pool.query("SELECT * FROM users WHERE email = $1", [req.body.email]);
+      const client = await pool.connect();
+      let user = await client.query('SELECT * FROM users WHERE email = $1', [
+        req.body.email,
+      ]);
       if (user.rows.length === 0) {
         return res
           .status(400)
           .json({ errors: [{ msg: 'Invalid credentials' }] });
       }
-      
+
       //If user exists in pool but email and password don't match, return error
-      let login = await pool.query("SELECT * FROM login WHERE user_id = $1", [user.rows[0].id]);
-      const matches = await bcrypt.compare(req.body.password, login.rows[0].hash);
+      let login = await client.query('SELECT * FROM login WHERE user_id = $1', [
+        user.rows[0].id,
+      ]);
+      const matches = await bcrypt.compare(
+        req.body.password,
+        login.rows[0].hash,
+      );
       if (!matches) {
         return res
           .status(400)
@@ -85,6 +97,7 @@ router.post(
           res.json({ token });
         },
       );
+      client.end(() => console.log('client ended'));
     } catch (err) {
       res.status(500).send(err);
     }

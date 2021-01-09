@@ -1,11 +1,10 @@
-
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-const pool = require('../../db');
+const { client, pool } = require('../../db');
 
 const User = require('../models/User');
 
@@ -34,7 +33,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const client = await pool.connect();
+    await client.connect();
     try {
       //Check if user already exists. If user already exists, give an error
       // let user = await User.findOne({ email: req.body.email });
@@ -86,7 +85,7 @@ router.post(
       await client.query('ROLLBACK');
       throw err;
     } finally {
-      client.release();
+      client.end();
     }
   },
 );
