@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-const { pool } = require('../../db');
+const pool = require('../../db');
 
 const User = require('../models/User');
 
@@ -51,7 +51,7 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-      await client.query('BEGIN');
+      // await client.query('BEGIN');
 
       const newUser = await client.query(
         'INSERT INTO users (name, email, date) VALUES($1,$2,$3) RETURNING *',
@@ -61,7 +61,7 @@ router.post(
         'INSERT INTO login (hash, user_id) VALUES($1,$2)',
         [hashedPassword, newUser.rows[0].id],
       );
-      await client.query('COMMIT');
+      // await client.query('COMMIT');
 
       //Add user ID to payload so it comes in with token
       const payload = {
@@ -79,13 +79,14 @@ router.post(
           res.json({ token });
         },
       );
-      client.release(() => console.log('client ended'));
       // // Set in header
       // res.header('x-access-token', token).send(token);
     } catch (err) {
-      await client.query('ROLLBACK');
+      // await client.query('ROLLBACK');
       throw err;
-    } 
+    } finally {
+      client.release();
+    }
   },
 );
 

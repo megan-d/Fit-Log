@@ -4,9 +4,7 @@ const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
-const { pool } = require('../../db');
-
-
+const pool = require('../../db');
 
 //ROUTE: GET api/profile/me
 //DESCRIPTION: Get current user's profile and activities
@@ -19,6 +17,7 @@ router.get('/me', verify, async (req, res) => {
     //   'User',
     //   'name',
     // );
+
     let profile = await client.query(
       'SELECT * FROM profiles INNER JOIN users ON profiles.user_id = users.id WHERE profiles.user_id = $1',
       [req.user.id],
@@ -47,10 +46,12 @@ router.get('/me', verify, async (req, res) => {
     }
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
-    client.release(() => console.log('api/profile/me client ended'));
   } catch (err) {
     console.log(err.message);
     res.status(500).send('Server Error');
+  } finally {
+    //release client from pool
+    client.release();
   }
 });
 
@@ -137,6 +138,7 @@ router.post(
     try {
       //Check if a user exists before creating a profile. If there's no user in database, don't allow profile to be created.
       // let user = await User.findOne({ _id: req.user.id });
+
       let user = await client.query('SELECT * FROM users WHERE id = $1', [
         req.user.id,
       ]);
@@ -162,7 +164,7 @@ router.post(
       }
       //If profile isn't found, create a new one
       if (profile.rows.length === 0) {
-        await client.query('BEGIN');
+        // await client.query('BEGIN');
 
         profile = await client.query(
           'INSERT INTO profiles (current_weight, height, bmi, goal_weight, goal_calories, goal_days, calories_consumed_today, calories_remaining_today, user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
@@ -186,16 +188,16 @@ router.post(
         );
         profile.rows[0].weights = firstWeight.rows;
 
-        await client.query('COMMIT');
+        // await client.query('COMMIT');
         // profile = await new Profile(profileItems);
         // await profile.save();
         res.json(profile.rows[0]);
       }
     } catch (err) {
-      await client.query('ROLLBACK');
+      // await client.query('ROLLBACK');
       throw err;
     } finally {
-      client.release(() => console.log('client ended'));
+      client.release();
     }
   },
 );
@@ -242,12 +244,12 @@ router.put(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     const client = await pool.connect();
     try {
-      await client.query('BEGIN');
+      // await client.query('BEGIN');
       //Use findOne to find profile
       // let profile = await Profile.findOne({ user: req.user.id });
+
       let profile = await client.query(
         'SELECT * FROM profiles WHERE user_id = $1',
         [req.user.id],
@@ -260,7 +262,7 @@ router.put(
       }
 
       //If there is a profile, update it based on data provided.
-      await client.query('BEGIN');
+      // await client.query('BEGIN');
       //Pull all of the fields out into variables from req.body. Don't include activities.
       const {
         weight,
@@ -357,14 +359,14 @@ router.put(
         }
         profile.rows[0].weights = [...weights.rows];
         //send back profile
-        await client.query('COMMIT');
+        // await client.query('COMMIT');
         return res.json(profile.rows[0]);
       }
     } catch (err) {
-      await client.query('ROLLBACK');
+      // await client.query('ROLLBACK');
       throw err;
     } finally {
-      client.release(() => console.log('client ended'));
+      client.release();
     }
   },
 );
@@ -375,9 +377,10 @@ router.put(
 router.delete('/', verify, async (req, res) => {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
+    // await client.query('BEGIN');
     //Find profile that corresponds to user id found in token and delete
     // await Profile.findOneAndRemove({ user: req.user.id });
+
     await client.query('DELETE FROM profiles WHERE user_id = $1', [
       req.user.id,
     ]);
@@ -391,15 +394,15 @@ router.delete('/', verify, async (req, res) => {
     // await User.findOneAndRemove({ _id: req.user.id });
     await client.query('DELETE FROM users WHERE id = $1', [req.user.id]);
 
-    await client.query('COMMIT');
+    // await client.query('COMMIT');
     return res.json({
       msg: 'This user and corresponding profile has been deleted.',
     });
   } catch (err) {
-    await client.query('ROLLBACK');
+    // await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release(() => console.log('client ended'));
+    client.release();
   }
 });
 
@@ -436,11 +439,11 @@ router.put(
       category,
       calories,
     };
-
+    const client = await pool.connect();
     try {
       //Find profile of user that comes in with token
       // const profile = await Profile.findOne({ user: req.user.id });
-      const client = await pool.connect();
+
       let profile = await client.query(
         'SELECT * FROM profiles WHERE user_id = $1',
         [req.user.id],
@@ -496,12 +499,12 @@ router.put(
       profile.rows[0].weights = weights.rows;
 
       //send profile to front end
-
       res.json(profile.rows[0]);
-      client.release(() => console.log('client ended'));
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
+    } finally {
+      client.release();
     }
   },
 );
@@ -512,8 +515,9 @@ router.put(
 router.delete('/activity/:activity_id', verify, async (req, res) => {
   const client = await pool.connect();
   try {
-    await client.query('BEGIN');
+    // await client.query('BEGIN');
     // //delete activity based on activity id
+
     await client.query('DELETE FROM activities WHERE id = $1', [
       req.params.activity_id,
     ]);
@@ -546,14 +550,14 @@ router.delete('/activity/:activity_id', verify, async (req, res) => {
     if (weights.rows.length > 0) {
       profile.rows[0].weights = [...weights.rows];
     }
-    await client.query('COMMIT');
+    // await client.query('COMMIT');
     //If there is a profile, send that profile with the activities attached
     res.json(profile.rows[0]);
   } catch (err) {
-    await client.query('ROLLBACK');
+    // await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release(() => console.log('client ended'));
+    client.release();
   }
 });
 
@@ -614,7 +618,7 @@ router.post('/demo', verify, async (req, res) => {
     }
     //If profile isn't found, create a new one
     if (profile.rows.length === 0) {
-      await client.query('BEGIN');
+      // await client.query('BEGIN');
 
       profile = await client.query(
         'INSERT INTO profiles (current_weight, height, bmi, goal_weight, goal_calories, goal_days, calories_consumed_today, calories_remaining_today, user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *',
@@ -810,12 +814,12 @@ router.post('/demo', verify, async (req, res) => {
       );
 
       //query to get all weights (just needed for current load)
-      let weights = await pool.query(
+      let weights = await client.query(
         'SELECT * FROM weights WHERE user_id = $1',
         [req.user.id],
       );
       //query to get all activities (just needed for current load)
-      let activities = await pool.query(
+      let activities = await client.query(
         'SELECT * FROM activities WHERE user_id = $1',
         [req.user.id],
       );
@@ -824,14 +828,14 @@ router.post('/demo', verify, async (req, res) => {
       profile.rows[0].activities = [...activities.rows];
       profile.rows[0].weights = weights.rows;
 
-      await client.query('COMMIT');
+      // await client.query('COMMIT');
       //send back profile with activities and weights included
       res.json(profile.rows[0]);
     }
   } catch (err) {
-    await client.query('ROLLBACK');
+    // await client.query('ROLLBACK');
     throw err;
   } finally {
-    client.release(() => console.log('client ended'));
+    client.release();
   }
 });

@@ -4,13 +4,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
-const { pool } = require('../../db');
+const pool = require('../../db');
 const User = require('../models/User');
 
 //ROUTE: GET api/auth
 //DESCRIPTION: Get user from database
 //ACCESS LEVEL: Private
 router.get('/', verify, async (req, res) => {
+  const client = await pool.connect();
   try {
     // const user = await User.findById(req.user.id).select('-password');
     // const user = await pool
@@ -19,14 +20,15 @@ router.get('/', verify, async (req, res) => {
     //   .where({
     //     id: req.user.id,
     //   });
-    const client = await pool.connect();
+    
     let user = await client.query('SELECT * FROM users WHERE id = $1', [
       req.user.id,
     ]);
     res.json(user);
-    client.release(() => console.log('client ended'));
   } catch (err) {
     res.status(500).send('Server Error');
+  } finally {
+    client.release();
   }
 });
 
@@ -52,10 +54,11 @@ router.post(
     }
 
     //If passes validation
+    const client = await pool.connect();
     try {
       //If user doesn't exist in database, give error
       // let user = await User.findOne({ email: req.body.email });
-      const client = await pool.connect();
+      
       let user = await client.query('SELECT * FROM users WHERE email = $1', [
         req.body.email,
       ]);
@@ -97,9 +100,10 @@ router.post(
           res.json({ token });
         },
       );
-      client.release(() => console.log('client ended'));
     } catch (err) {
       res.status(500).send(err);
+    } finally {
+      client.release();
     }
   },
 );
