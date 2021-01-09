@@ -1,13 +1,38 @@
-const Pool = require('pg').Pool;
-  const pool = new Pool({
-      host : '127.0.0.1',
-      user : process.env.PG_USER,
-      password : process.env.PG_PS,
-      port: 5432,
-      database : 'fit_ally'
-  });
+// const Pool = require('pg').Pool;
+//   const pool = new Pool({
+//       host : '127.0.0.1',
+//       user : process.env.PG_USER,
+//       password : process.env.PG_PS,
+//       port: 5432,
+//       database : 'fit_ally'
+//   });
 
-  module.exports = pool;
+//   module.exports = pool;
+
+// const Pool = require('pg').Pool;
+
+// const pool = new Pool({
+//   connectionString: "postgres://gjbnsjqkpebvfb:ed80cb007c6645d7fee8dbd046afc6258c49344945d76eeed17a5e0570cc7cb5@ec2-3-231-241-17.compute-1.amazonaws.com:5432/d9uae9l4hf5gms",
+//   host: process.env.HOST,
+//   user: process.env.PG_USER,
+//   password: process.env.PG_PS,
+//   port: 5432,
+//   database: process.env.PG_DATABASE,
+//   ssl: {
+//           rejectUnauthorized: false
+//         }
+// });
+// console.log('connected to DB!');
+const Pool = require('pg').Pool;
+
+const pool = new Pool({
+connectionString: process.env.DATABASE_URL,
+  ssl: {
+          rejectUnauthorized: false
+        }
+});
+
+module.exports = pool;
 
 // const Pool = require('pg').Pool;
 
