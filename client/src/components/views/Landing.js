@@ -9,7 +9,6 @@ const Landing = ({ isAuthenticated }) => {
     <div className='main-content'>
       <section className='main-section'>
         <div className='left-wrapper'>
-          <h1 stlye={{color: 'red'}}>SITE UNDER MAINTENANCE</h1>
           <h1 className='title-landing'>
             Visualize Your <span className='fitness'>Fitness</span>
           </h1>

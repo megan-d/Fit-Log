@@ -83,7 +83,7 @@ router.post(
       // res.header('x-access-token', token).send(token);
     } catch (err) {
       // await client.query('ROLLBACK');
-      throw err;
+      res.status(500).send(err);
     } finally {
       client.release();
     }
