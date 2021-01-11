@@ -44,14 +44,14 @@ const Client = require('pg').Client;
 
 // THIS IS THE CODE TO USE FOR HEROKU DEPLOY
 const pool = new Pool({
-connectionString: process.env.DATABASE_URL,
+connectionString: process.env.HEROKU_POSTGRESQL_IVORY_URL,
 //   ssl: {
 //           rejectUnauthorized: true
 //         }
 });
 
 // const client = new Client({
-// connectionString: process.env.DATABASE_URL,
+// connectionString: process.env.HEROKU_POSTGRESQL_IVORY_URL,
 // //   ssl: {
 // //           rejectUnauthorized: true
 // //         }
@@ -64,7 +64,7 @@ module.exports = pool;
 // const Pool = require('pg').Pool;
 
 // const pool = new Pool({
-// connectionString: process.env.DATABASE_URL,
+// connectionString: process.env.HEROKU_POSTGRESQL_IVORY_URL,
 // //   ssl: {
 // //           rejectUnauthorized: true
 // //         }
