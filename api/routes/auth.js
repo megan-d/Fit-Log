@@ -6,6 +6,7 @@ const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
 const pool = require('../../db');
 const User = require('../models/User');
+require('dotenv').config();
 
 //ROUTE: GET api/auth
 //DESCRIPTION: Get user from database
@@ -20,7 +21,7 @@ router.get('/', verify, async (req, res) => {
     //   .where({
     //     id: req.user.id,
     //   });
-    
+
     let user = await client.query('SELECT * FROM users WHERE id = $1', [
       req.user.id,
     ]);
@@ -58,7 +59,7 @@ router.post(
     try {
       //If user doesn't exist in database, give error
       // let user = await User.findOne({ email: req.body.email });
-      
+
       let user = await client.query('SELECT * FROM users WHERE email = $1', [
         req.body.email,
       ]);

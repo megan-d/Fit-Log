@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 const verify = require('../middleware/verifyToken');
 const pool = require('../../db');
+require('dotenv').config();
 
 const User = require('../models/User');
 

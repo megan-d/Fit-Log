@@ -5,6 +5,7 @@ const verify = require('../middleware/verifyToken');
 const User = require('../models/User');
 const Profile = require('../models/Profile');
 const pool = require('../../db');
+require('dotenv').config();
 
 //ROUTE: GET api/profile/me
 //DESCRIPTION: Get current user's profile and activities
